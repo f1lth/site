@@ -8,76 +8,70 @@ import { mediaQueries } from "styles/media-queries";
 export function HeroSection(): JSX.Element {
   return (
     <>
-    <Container>
-      <MainHero>
-        <MainHeroContent>
-          <DesktopOnly>
-            <HeroHeader>Quality Cannabis</HeroHeader>
-            <Subheader>Shop Premium Product</Subheader>
-          </DesktopOnly>
-          <MobileOnly>
-            <HeroHeader> Quality Cannabis </HeroHeader>
-            <Subheader>Shop Premium Product</Subheader>
-          </MobileOnly>
-          <Link href="/menu" passHref>
-            <HeroShopCTA>Shop</HeroShopCTA>
-          </Link>
-        </MainHeroContent>
-      </MainHero>
-      <Shatter>
-        <Holder>
-          <MiniHeader>Shop / Categories / Edibles</MiniHeader>
-          <Subheader color="#aa1230"> Shatter Chocolate </Subheader>
-          <Link href="/menu" passHref>
-            <ShopCTA>Shop</ShopCTA>
-          </Link>
-        </Holder>
-      </Shatter>
-      <Column>
-        <TopRectangle>
+      <Container>
+        <MainHero>
+          <MainHeroContent>
+            <DesktopOnly>
+              <HeroHeader>Quality Cannabis</HeroHeader>
+              <Subheader>Shop Premium Product</Subheader>
+            </DesktopOnly>
+            <MobileOnly>
+              <HeroHeader> Quality Cannabis </HeroHeader>
+              <Subheader>Shop Premium Product</Subheader>
+            </MobileOnly>
+            <Link href="/menu" passHref>
+              <HeroShopCTA>Shop</HeroShopCTA>
+            </Link>
+          </MainHeroContent>
+        </MainHero>
+        <Shatter>
           <Holder>
-            <MiniHeader>Shop / Categories / Vaporizers</MiniHeader>
-            <Subheader>Pax Era Pro</Subheader>
+            <MiniHeader>Shop / Categories / Edibles</MiniHeader>
+            <Subheader color="#aa1230"> Shatter Chocolate </Subheader>
             <Link href="/menu" passHref>
               <ShopCTA>Shop</ShopCTA>
             </Link>
           </Holder>
-        </TopRectangle>
-        <BotRectangle>
-          <Holder>
-            <MiniHeader>Shop / Categories / Oils</MiniHeader>
-            <Subheader>High THC Cannabis Oil</Subheader>
-            <Link href="/menu" passHref>
-              <ShopCTA>Shop</ShopCTA>
-            </Link>
-          </Holder>
-        </BotRectangle>
-      </Column>
+        </Shatter>
+        <Column>
+          <TopRectangle>
+            <Holder>
+              <MiniHeader>Shop / Categories / Vaporizers</MiniHeader>
+              <Subheader>Pax Era Pro</Subheader>
+              <Link href="/menu" passHref>
+                <ShopCTA>Shop</ShopCTA>
+              </Link>
+            </Holder>
+          </TopRectangle>
+          <BotRectangle>
+            <Holder>
+              <MiniHeader>Shop / Categories / Oils</MiniHeader>
+              <Subheader>High THC Cannabis Oil</Subheader>
+              <Link href="/menu" passHref>
+                <ShopCTA>Shop</ShopCTA>
+              </Link>
+            </Holder>
+          </BotRectangle>
+        </Column>
+      </Container>
+      <Header>About the Company</Header>
 
-    </Container>
-    <Header>
-      About the Company
-    </Header>
-    
       <BodyText>
-        Lorem ipsum dolor sit amet, consectetur adipiscing 
-        elit, sed do eiusmod tempor incididunt ut labore 
-        et dolore magna aliqua. Ut enim ad minim veniam, 
-        quis nostrud exercitation ullamco laboris nisi ut.
-        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut.
       </BodyText>
-      <CTA> Learn more </CTA>
     </>
   );
 }
 
 const Container = styled.div`
   display: grid;
-  gap: 11px;
+  gap: 30px;
+  margin-top: 35px;
   grid-template-rows: 560px 1024px;
   grid-template-columns: minmax(auto, 50%) minmax(auto, 50%);
   padding: 0 29px;
-
 
   @media ${mediaQueries.tablet} {
     grid-template-rows: 505px 314px;
@@ -91,7 +85,6 @@ const Column = styled.div`
   grid-template-rows: minmax(auto, 50%) minmax(auto, 50%);
   grid-template-columns: 1fr;
   padding: 0 0 0 10px;
-
 `;
 
 const Holder = styled.div`
@@ -105,8 +98,6 @@ const Holder = styled.div`
     left: 20px;
     margin-top: 25px;
   }
-
-
 `;
 
 const Shatter = styled.div`
@@ -122,11 +113,9 @@ const Shatter = styled.div`
   width: auto;
 
   @media ${mediaQueries.tablet} {
-
     gap: 5px;
     padding: 0 0px 25px 0px;
   }
-
 `;
 
 const EdiblesSubheader = styled.div`
@@ -139,7 +128,7 @@ const EdiblesSubheader = styled.div`
 `;
 
 const EdiblesHeader = styled.div`
-  font-family: "Playfair Display";
+  font-family: "inter";
   font-weight: 700;
   font-size: 35px;
   color: #ffffff;
@@ -163,7 +152,6 @@ const TopRectangle = styled.div`
   @media ${mediaQueries.tablet} {
     margin-bottom: 10px;
   }
-
 `;
 
 const BotRectangle = styled.div`
@@ -179,7 +167,6 @@ const BotRectangle = styled.div`
   max-height: auto;
   min-height: auto;
   min-width: auto;
-
 `;
 
 const OnlineOrdersImage = styled.img`
@@ -196,7 +183,7 @@ const OnlineOrdersSubheader = styled.div`
 `;
 
 const OnlineOrdersHeader = styled.div`
-  font-family: "Playfair Display";
+  font-family: "inter";
   font-weight: 700;
   font-size: 35px;
   text-align: center;
@@ -290,7 +277,7 @@ const MiniHeader = styled.div`
 `;
 
 const HeroHeader = styled.div`
-  font-family: "Playfair Display";
+  font-family: "inter";
   font-weight: 700;
   font-size: 69px;
   color: #ffffff;
@@ -305,7 +292,7 @@ const HeroHeader = styled.div`
 `;
 
 const Header = styled.div`
-  font-family: "Playfair Display";
+  font-family: "inter";
   font-weight: 500;
   font-size: 69px;
   text-align: center;

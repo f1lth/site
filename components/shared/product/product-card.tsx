@@ -13,8 +13,10 @@ interface ProductCardProps {
 
 export function ProductCard(props: ProductCardProps): JSX.Element {
   const { product } = props;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const current = product.name;
+  console.log(current);
 
   return (
     <>
@@ -30,6 +32,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
       </Container>
       <ProductModal
         product={product}
+        // ROUTE TO PRODUCT PAGE
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

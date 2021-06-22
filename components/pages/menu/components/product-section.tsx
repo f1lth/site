@@ -50,5 +50,5 @@ const Grid = styled.div`
 `;
 
 const SectionHeader = styled.h2`
-  font-family: "Playfair Display";
+  font-family: "inter";
 `;

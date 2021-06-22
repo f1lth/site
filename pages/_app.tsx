@@ -14,6 +14,7 @@ import {
   createMuiTheme,
 } from "@material-ui/core/styles";
 import { mediaSizes, mediaQueries } from "styles/media-queries";
+import "../public/fonts/style.css";
 
 // exports for use in storybook TODO: move/reorganize this stuff
 export {
@@ -58,7 +59,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
-        <title>North Cannabis</title>
+        <title>B2C retailer [M-L] 2</title>
         <meta name="robots" content="noindex" />
       </Head>
       <QueryParamProvider>

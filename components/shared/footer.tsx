@@ -5,72 +5,129 @@ import { mediaQueries } from "styles/media-queries";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
+import { DesktopOnly } from "components/shared/responsive/desktop-only";
+import { MobileOnly } from "components/shared/responsive/mobile-only";
+
 export function Footer(): JSX.Element {
   const [email, setEmail] = useState("");
 
   return (
-    <Container>
-      <WideDiv>
-        <Header>About</Header>
-          <Subheader>
-            Lorem ipsum dolor sit amet, consectetur 
-            adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud 
-            exercitation ullamco laboris nisi ut.
-          </Subheader>
-      </WideDiv>
-      <NarrowDiv>
-        <SubmenuSection>
-          <SubmenuItemBold>Links</SubmenuItemBold>
-          <SubmenuItem>Shop</SubmenuItem>
-          <SubmenuItem>Search</SubmenuItem>
-          <SubmenuItem>About</SubmenuItem>
-          <SubmenuItem>Contact</SubmenuItem>
-          <SubmenuItem>FAQ</SubmenuItem>
-        </SubmenuSection>
-      </NarrowDiv>
-      <NarrowDiv>
-        <SubmenuSection>
-        <SubmenuItemBold> ㅤ  ‎</SubmenuItemBold>
-          <SubmenuItem>Terms of Service</SubmenuItem>
-          <SubmenuItem>Privacy Policy</SubmenuItem>
-          <SubmenuItem>Refund Policy</SubmenuItem>
-        </SubmenuSection>
-      </NarrowDiv>
-      <WideDiv>
-      <SubmenuSection>
-        <SubmenuItemBold>Newsletter</SubmenuItemBold>
-          <SubmenuItem> Be the first to know about 
-            exclusive offers and product 
-            launches.
+    <>
+      <DesktopOnly>
+        <Container>
+          <WideDiv>
+            <Header>About</Header>
+            <Subheader>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut.
+            </Subheader>
+          </WideDiv>
+          <NarrowDiv>
+            <SubmenuSection>
+              <SubmenuItemBold>Links</SubmenuItemBold>
+              <SubmenuItem>Shop</SubmenuItem>
+              <SubmenuItem>Search</SubmenuItem>
+              <SubmenuItem>About</SubmenuItem>
+              <SubmenuItem>Contact</SubmenuItem>
+              <SubmenuItem>FAQ</SubmenuItem>
+            </SubmenuSection>
+          </NarrowDiv>
+          <NarrowDiv>
+            <SubmenuSection>
+              <SubmenuItemBold> ㅤ ‎</SubmenuItemBold>
+              <SubmenuItem>Terms of Service</SubmenuItem>
+              <SubmenuItem>Privacy Policy</SubmenuItem>
+              <SubmenuItem>Refund Policy</SubmenuItem>
+            </SubmenuSection>
+          </NarrowDiv>
+          <WideDiv>
+            <SubmenuSection>
+              <SubmenuItemBold>Newsletter</SubmenuItemBold>
+              <SubmenuItem>
+                {" "}
+                Be the first to know about exclusive offers and product
+                launches.
+              </SubmenuItem>
+            </SubmenuSection>
+            <EmailContainer>
+              <EmailInput
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <img src="icons/right-arrow-circle.svg" />
+                  </InputAdornment>
+                }
+              />
+            </EmailContainer>
+          </WideDiv>
+        </Container>
+      </DesktopOnly>
+      <MobileOnly>
+        <MobileContainer>
+          <SubmenuItemBold>Newsletter</SubmenuItemBold>
+          <SubmenuItem>
+            Be the first to know about exclusive offers and product launches.
           </SubmenuItem>
-        </SubmenuSection>
-        <EmailContainer>
-          <EmailInput
-            placeholder="Enter your email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <img src="icons/right-arrow-circle.svg" />
-              </InputAdornment>
-            }
-          />
-      </EmailContainer>
-      </WideDiv>
-      
-      
-    </Container>
+          <EmailContainer>
+            <EmailInput
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <img src="icons/right-arrow-circle.svg" />
+                </InputAdornment>
+              }
+            />
+          </EmailContainer>
+          <Header>About</Header>
+          <Subheader>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
+          </Subheader>
+          <Container>
+            <NarrowDiv>
+              <SubmenuItemBold>Links</SubmenuItemBold>
+              <SubmenuItem>Shop</SubmenuItem>
+              <SubmenuItem>Search</SubmenuItem>
+              <SubmenuItem>About</SubmenuItem>
+              <SubmenuItem>Contact</SubmenuItem>
+              <SubmenuItem>FAQ</SubmenuItem>
+            </NarrowDiv>
+            <NarrowDiv>
+              <SubmenuItem>Terms of Service</SubmenuItem>
+              <SubmenuItem>Privacy Policy</SubmenuItem>
+              <SubmenuItem>Refund Policy</SubmenuItem>
+            </NarrowDiv>
+          </Container>
+        </MobileContainer>
+      </MobileOnly>
+    </>
   );
 }
 
 const Container = styled.footer`
-  background-color: rgba(242,242,242, 0.56);
+  background-color: rgba(242, 242, 242, 0.56);
   padding: 120px 0 150px;
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  @media ${mediaQueries.phone} {
+    padding: 62px 27px 45px;
+  }
+`;
+const MobileContainer = styled.footer`
+  background-color: rgba(242, 242, 242, 0.56);
+  padding: 120px 0 150px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   @media ${mediaQueries.phone} {
     padding: 62px 27px 45px;

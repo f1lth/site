@@ -294,7 +294,7 @@ const Brand = styled.div`
 `;
 
 const Name = styled.div`
-  font-family: "Playfair Display";
+  font-family: "inter";
   font-weight: 700;
   font-size: 30px;
   margin-bottom: 20px;

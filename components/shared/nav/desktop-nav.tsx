@@ -1,52 +1,37 @@
-import { useState, useRef, useContext } from "react";
-import Link from "next/link";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-import Drawer from "@material-ui/core/Drawer";
+import { Divider, Drawer } from "@material-ui/core";
 
 import { useApollo } from "api/apollo";
-import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
-import { Category } from "api/queries/checkout.graphql";
+import { Category, Effects } from "api/queries/checkout.graphql";
 import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
 import { Logo } from "components/shared/svg/logo";
+
 import { CartIcon } from "components/shared/svg/cart-icon";
 import { UserIcon } from "components/shared/svg/user-icon";
 import { HeartIcon } from "components/shared/svg/heart-icon";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import { CloseButton } from "components/shared/svg/close-button";
+import { mediaQueries } from "styles/media-queries";
+import { ellipse } from "ellipse.tsx";
 
 import { NavProps } from "./index";
 import { Cart } from "./cart/index";
-
-const NAV_HEIGHT = "71px";
-
-const SUBMENU_CATEGORIES = [
-  Category.Flower,
-  Category.Vaporizers,
-  Category.Concentrates,
-  Category.Edibles,
-  Category.Tinctures,
-  Category.Topicals,
-  Category.Accessories,
-  Category.PreRolls,
-];
+import { displayNameForEffect } from "utils/enum-to-display-name/effect";
 
 export function DesktopNav(props: NavProps): JSX.Element {
   const {
-    darkBackground,
     page,
     selectSingleCategory = () => undefined,
+    selectSingleEffect = () => undefined,
   } = props;
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubmenuVisible, setIsSubmenuVisible] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const baseNavBarRef = useRef<HTMLDivElement>(null);
+  const [isCartVisible, setIsCartVisible] = useState(false);
   const router = useRouter();
   const apolloClient = useApollo();
   const { checkout, loading } = useContext(CheckoutContext);
@@ -55,23 +40,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
 
   function handleLogoClick() {
     router.push("/");
-  }
-
-  function handleShopClick() {
-    if (page === "menu") {
-      setIsMenuOpen(false);
-    } else {
-      router.push("/menu");
-    }
-  }
-
-  function openMenu() {
-    setIsMenuOpen(true);
-    console.log('open menu')
-  }
-
-  function closeMenu() {
-    setIsMenuOpen(false);
   }
 
   function handleCategoryClick(category?: Category) {
@@ -83,8 +51,17 @@ export function DesktopNav(props: NavProps): JSX.Element {
     }
   }
 
-  function toggleShopMenu() {
-    setIsSubmenuVisible(!isSubmenuVisible);
+  function handleEffectClick(effect?: Effects) {
+    if (page === "menu") {
+      selectSingleEffect(effect);
+      closeShopMenu();
+    } else {
+      router.push(`/menu?effects=${effect}`);
+    }
+  }
+
+  function openStore() {
+    router.push("/menu");
   }
 
   function closeShopMenu() {
@@ -92,94 +69,50 @@ export function DesktopNav(props: NavProps): JSX.Element {
   }
 
   function openCart() {
-    setIsCartOpen(true);
-    closeShopMenu();
+    setIsCartVisible(true);
   }
 
   function closeCart() {
-    setIsCartOpen(false);
+    setIsCartVisible(false);
   }
 
   return (
     <>
-      <Container darkBackground={darkBackground} ref={baseNavBarRef}>
-        {isMenuOpen ? (
-          <></>
-        ) : (
-          <MobileMenuIcon isDark={!darkBackground} onClick={openMenu} />
-        )}
-        <Link href="/"><LogoHeader>Flower</LogoHeader></Link>
-        <CartIconContainer>
+      {isSubmenuVisible && <Backdrop onClick={closeShopMenu} />}
+      <Container>
+        <NavLink color="#000000">Shop</NavLink>
+        <NavLink>
+          <Link href="/">
+            <Header>CannaFlower</Header>
+          </Link>
+        </NavLink>
+        <NavLink>
+          <CartIconContainer>
             <CartCount>
-              {loading ? (
-                <LoadingSpinner size={8} color="#ffffff" />
-              ) : (
-                checkoutItemsCount
-              )}
+              {loading ? <LoadingSpinner size={8} /> : checkoutItemsCount}
             </CartCount>
             <CartIcon onClick={openCart} />
           </CartIconContainer>
-        
+        </NavLink>
+
+        {/* CART */}
+        <Drawer anchor="right" open={isCartVisible} onBackdropClick={closeCart}>
+          <Cart onClose={closeCart} apolloClient={apolloClient} />
+        </Drawer>
       </Container>
-      {/* SHOP MENU */}
-      
-      <StyledMenu
-        open={isMenuOpen && !isCartOpen}
-        anchorEl={baseNavBarRef.current}
-        hideBackdrop
-        elevation={0}
-        transitionDuration={0}
-        style={{ marginTop: NAV_HEIGHT }}
-      >
-        <StyledMenuItem>
-          <CloseButton isDark={!darkBackground} onClick={closeMenu} />
-        </StyledMenuItem>
-        <StyledMenuItem>HOME</StyledMenuItem>
-        <StyledMenuItem onClick={handleShopClick}>
-          SHOP
-          <Chevron
-            direction={ChevronDirection.Down}
-            color="#ffffff"
-            height={16}
-            width={16}
-          />
-        </StyledMenuItem>
-        <StyledMenuItem>ABOUT</StyledMenuItem>
-        <StyledMenuItem>CONTACT</StyledMenuItem>
-      </StyledMenu>
-      {/* CART  */}
-      <StyledMenu
-        open={isCartOpen}
-        anchorEl={baseNavBarRef.current}
-        hideBackdrop
-        elevation={0}
-        transitionDuration={0}
-      >
-        <Cart onClose={closeCart} apolloClient={apolloClient} />
-      </StyledMenu>
+
+      <Divider></Divider>
     </>
   );
 }
 
-const Container = styled.div<{ darkBackground?: boolean }>`
-  z-index: 3;
-  height: ${NAV_HEIGHT};
+const Container = styled.div`
+  flex-direction: row;
   width: 100%;
-  padding: 0 25px;
-  position: relative;
-
   display: flex;
-  align-items: center;
+  margin-bottom: 10px;
+  padding: 30px 0 20px;
   justify-content: space-between;
-
-  color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
-  background-color: ${(props) =>
-    props.darkBackground ? "#322F46" : "#ffffff"};
-`;
-const Divider = styled.div`
-  width: 1px;
-  height: 100%;
-  background-color: #d9d6d2;
 `;
 
 const Backdrop = styled.div`
@@ -190,6 +123,20 @@ const Backdrop = styled.div`
   right: 0;
   z-index: 3;
   background-color: rgba(0, 0, 0, 0.6);
+`;
+
+const Header = styled.div`
+  font-family: inter;
+  font-size: 31px;
+  margin-top: -20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-align: center;
+
+  color: #000000;
+  z-index: 30;
 `;
 
 const SubmenuSection = styled.div`
@@ -209,20 +156,6 @@ const StyledMenu = styled.div`
   justify-content: space-between;
   padding: 25px 200px;
 `;
-const StyledMenuItem = styled(MenuItem)`
-  height: 88px;
-  font-size: 18px;
-  padding: 0 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #ffffff;
-
-  &:last-of-type {
-    border-bottom: none;
-  }
-`;
-
 
 const SubmenuItemBold = styled.div`
   font-weight: 500;
@@ -259,20 +192,22 @@ const NavContainer = styled.nav<{ darkBackground?: boolean }>`
   z-index: 3;
   position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
+  justify-content: center;
   width: 100%;
-  padding: 0px 29px;
-  height: 122px;
+
+  padding: 0px 30px;
+  height: 35px;
 
   color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
-  background-color: ${(props) =>
-    props.darkBackground ? "#322F46" : "#ffffff"};
+  background-color: "rgba(52, 52, 52, 0.0)";
 `;
 
 const NavLinksContainer = styled.div`
   display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: -20px;
+
   align-items: center;
   height: 100%;
 `;
@@ -284,7 +219,9 @@ const NavLinkList = styled.div`
 `;
 
 const NavLinkListItem = styled.div`
-  margin-right: 40px;
+  margin-right: 60px;
+  margin-left: 60px;
+  margin-top: -120px;
   height: 100%;
 
   &:last-of-type {
@@ -292,24 +229,12 @@ const NavLinkListItem = styled.div`
   }
 `;
 
-const NavLink = styled.div<{
-  darkBackground?: boolean;
-  isUnderlined?: boolean;
-}>`
-  color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+const NavLink = styled.div`
+  margin-right: 40px;
+  margin-left: 40px;
   height: 100%;
-  user-select: none;
-  border-bottom: ${(props) =>
-    props.isUnderlined ? "3px solid #F4BD33" : "none"};
-
-  // hacky. will revisit this
-  & > svg {
-    margin-left: 4px;
-  }
+  cursor: pointer;
+  display: inline-block;
 `;
 
 const NavIcons = styled.div`
@@ -317,13 +242,6 @@ const NavIcons = styled.div`
   align-items: center;
   margin-right: 10px;
   height: 100%;
-`;
-
-const LogoHeader = styled.div`
-  font-weight: 400;
-  font-size 24px;
-  cursor: pointer;
-}
 `;
 
 const NavIconContainer = styled.div`
@@ -339,9 +257,9 @@ const NavIconContainer = styled.div`
 
 const CartIconContainer = styled.div`
   position: relative;
-  margin-right: 8px;
-  display: flex;
+  display: inline;
   align-items: center;
+  z-index: 3;
 `;
 
 const CartCount = styled.div`
@@ -353,7 +271,7 @@ const CartCount = styled.div`
   justify-content: center;
   text-align: center;
   border-radius: 100%;
-  background-color: #f4bd33;
+  background-color: #aa97f6;
   font-size: 11px;
   font-weight: 700;
   top: -11px;

@@ -1,0 +1,10 @@
+# import MenuProduct from '../fragments/menu-product.graphql'
+
+query Menu($category: Category) {
+  menu(pagination: { limit: 100000000, offset: 0 }) {
+    products {
+      id
+      ...MenuProduct
+    }
+  }
+}

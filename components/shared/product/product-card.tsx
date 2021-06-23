@@ -15,9 +15,6 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
   const { product } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const current = product.name;
-  console.log(current);
-
   return (
     <>
       <Container onClick={() => setIsModalOpen(true)}>

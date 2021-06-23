@@ -9,11 +9,7 @@ import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
 import { mediaQueries } from "styles/media-queries";
 
-import {
-  ShopSection,
-  SHOP_SECTION_CATEGORIES,
-} from "./components/shop-section";
-import { HeroSection } from "./components/hero-section";
+import { Post } from "./components/[id]";
 
 const Container = styled.div`
   max-width: 1440px;
@@ -25,15 +21,14 @@ const Container = styled.div`
   }
 `;
 
-function Home(): React.ReactNode {
+function Product(): React.ReactNode {
   const checkoutContext = useCheckout();
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
         <Nav />
-        <HeroSection />
-        <ShopSection />
+        <Post />
         <Footer />
       </Container>
     </CheckoutContext.Provider>
@@ -43,7 +38,7 @@ function Home(): React.ReactNode {
 export const getStaticProps: GetStaticProps = async function () {
   const apolloClient = initializeApollo();
 
-  const queries = [undefined, ...SHOP_SECTION_CATEGORIES].map((category) =>
+  const queries = [undefined].map((category) =>
     apolloClient.query({
       query: HomePageMenuDocument,
       variables: {
@@ -62,4 +57,4 @@ export const getStaticProps: GetStaticProps = async function () {
   };
 };
 
-export default Home;
+export default Product;

@@ -1,12 +1,7 @@
-import { useState } from "react";
 import styled from "styled-components";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { MenuProductFragment } from "api/queries/menu.graphql";
 import { deriveDisplayPrices } from "utils/product";
-
-import { StrainTypeLabel } from "./strain-type-label";
-import id from "components/pages/product/[id]";
 
 interface ProductCardProps {
   product: MenuProductFragment;
@@ -71,13 +66,6 @@ const ProductImage = styled.img`
 const DisplayPrice = styled.div`
   font-size: 16px;
   margin-bottom: 8px;
-`;
-
-const BrandName = styled.div`
-  font-size: 13px;
-  color: #1f2b49;
-  opacity: 0.8;
-  margin-bottom: 4px;
 `;
 
 const ProductName = styled.div`

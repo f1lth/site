@@ -19,8 +19,6 @@ interface DesktopCartItemProps {
   costOfCheckoutItem: (item: CheckoutItemFragment) => number;
 }
 
-const QUANTITIES = [1, 2, 3, 4, 5, 6, 7, 8];
-
 export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
   const {
     item,
@@ -28,6 +26,23 @@ export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
     handleRemoveItemFromCheckout,
     costOfCheckoutItem,
   } = props;
+
+  function incrementProduct() {
+    console.log("icr");
+    if (item.quantity >= 9) {
+      console.log("nothing");
+    } else {
+      handleCheckoutQuantityUpdate(item, (item.quantity as number) + 1);
+    }
+  }
+
+  function decrementProduct() {
+    if (item.quantity <= 1) {
+      console.log("nothing");
+    } else {
+      handleCheckoutQuantityUpdate(item, (item.quantity as number) - 1);
+    }
+  }
 
   const useStyles = makeStyles((theme) => ({
     menu: {
@@ -50,19 +65,9 @@ export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
           </div>
         </LeftSide>
         <Center>
-          <QuantitySelect
-            value={item.quantity}
-            onChange={(e) => {
-              handleCheckoutQuantityUpdate(item, e.target.value as number);
-            }}
-            variant="outlined"
-          >
-            {QUANTITIES.map((quantity) => (
-              <MenuItem key={quantity} value={quantity}>
-                {quantity}
-              </MenuItem>
-            ))}
-          </QuantitySelect>
+          <Circle onClick={() => incrementProduct()}>+</Circle>
+          {item.quantity}
+          <Circle onClick={() => decrementProduct()}>-</Circle>
         </Center>
         <RightSide>
           <Price>{formatPrice(costOfCheckoutItem(item))}</Price>
@@ -92,19 +97,13 @@ const LeftSide = styled.div`
 
 const Center = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 const RightSide = styled.div`
   display: flex;
   color: white;
   align-items: center;
-`;
-
-const Brand = styled.div`
-  color: white;
-  font-size: 12px;
-  margin-bottom: 5px;
 `;
 
 const ItemName = styled.div`
@@ -117,6 +116,7 @@ const ItemName = styled.div`
 const Price = styled.div`
   font-size: 14px;
   width: 77px;
+  color: white;
   text-align: center;
 `;
 
@@ -147,6 +147,22 @@ const QuantitySelect = styled(Select)`
     font-size: 13px;
     padding: 14px 15px;
   }
+`;
+
+const Circle = styled.div`
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: "flex";
+  height: 43.94px;
+  width: 43.94px;
+  font-size: 21px;
+  color: #fff;
+  fill: "none";
+  cursor: pointer;
+  border: 1px solid #fff;
+  padding-top: 10px;
 `;
 
 const theme = createMuiTheme({

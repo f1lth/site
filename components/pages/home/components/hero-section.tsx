@@ -118,27 +118,6 @@ const Shatter = styled.div`
   }
 `;
 
-const EdiblesSubheader = styled.div`
-  // this is the only instance of Lato font i see in the specs. maybe we can just keep it poppins
-  font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: #f0c7bb;
-  margin-bottom: 12px;
-`;
-
-const EdiblesHeader = styled.div`
-  font-family: "inter";
-  font-weight: 700;
-  font-size: 35px;
-  color: #ffffff;
-  width: 450px;
-
-  @media ${mediaQueries.tablet} {
-    font-size: 32px;
-  }
-`;
-
 const TopRectangle = styled.div`
   background: url("images/cart.png") no-repeat center top;
   background-size: cover;
@@ -167,52 +146,6 @@ const BotRectangle = styled.div`
   max-height: auto;
   min-height: auto;
   min-width: auto;
-`;
-
-const OnlineOrdersImage = styled.img`
-  height: 30px;
-  display: inline-block;
-  margin-bottom: 33px;
-`;
-
-const OnlineOrdersSubheader = styled.div`
-  font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: #f0c7bb;
-`;
-
-const OnlineOrdersHeader = styled.div`
-  font-family: "inter";
-  font-weight: 700;
-  font-size: 35px;
-  text-align: center;
-  color: #ffffff;
-  margin-bottom: 37px;
-
-  @media ${mediaQueries.tablet} {
-    font-size: 32px;
-  }
-
-  @media ${mediaQueries.largePhone} {
-    font-size: 30px;
-    width: 300px;
-  }
-`;
-
-const OnlineOrdersCTA = styled.a`
-  border: 1px solid #e7b9ab;
-  color: #e7b9ab;
-  padding: 15px 32px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 600;
-
-  &:hover {
-    color: #ffffff;
-  }
 `;
 
 const MainHero = styled.div`
@@ -307,23 +240,6 @@ const Header = styled.div`
   }
 `;
 
-const BudImg = styled.img`
-  width: 640px;
-  position: absolute;
-  bottom: 0;
-  right: 40px;
-
-  @media ${mediaQueries.tablet} {
-    right: 20px;
-    width: 400px;
-  }
-
-  @media ${mediaQueries.largePhone} {
-    right: -80px;
-    width: 300px;
-  }
-`;
-
 const HeroShopCTA = styled.a`
   background-color: #000000;
   color: white;
@@ -360,17 +276,5 @@ const ShopCTA = styled.a`
 
   &:hover {
     background-color: #b55555 !important;
-  }
-`;
-
-const CTA = styled.a`
-  background-color: #5ea4ba;
-  color: white;
-  padding: 18px 35px;
-  cursor: pointer;
-  text-decoration: none;
-
-  &:hover {
-    background-color: #246e84;
   }
 `;

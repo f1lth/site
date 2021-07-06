@@ -156,9 +156,9 @@ export function Cart(props: CartProps): JSX.Element {
       </CheckoutItems>
 
       <ButtonContainer>
-        <StyledButton href={checkout?.redirectUrl}>
-          Proceed to checkout - {totalCostDisplayValue(checkoutItems)}
-        </StyledButton>
+        <Label> Subtotal ‎‎‎‎ {totalCostDisplayValue(checkoutItems)} </Label>
+        Excluding taxes & shipping
+        <StyledButton href={checkout?.redirectUrl}>Checkout</StyledButton>
       </ButtonContainer>
     </Container>
   );
@@ -259,23 +259,20 @@ const EmptyCart = styled.div`
 
 const ButtonContainer = styled.div`
   margin: 0 25px;
-  position: absolute;
+  position: relative;
+  justify-content: start;
   float: right;
-`;
-
-const Center = styled.div`
-  display: flex;
-  flex-direction: column;
+  color: white;
 `;
 
 const StyledButton = styled(Button)`
-  border-radius: 0px !important;
+  border-radius: 2px !important;
   text-transform: none !important;
-  background-color: #5ea4ba !important;
-  width: 100%;
+  background-color: #fff !important;
+  width: 20vw;
   height: 58px;
   box-sizing: border-box;
-
+  display: flex;
   & .MuiButton-label {
     color: #ffffff !important;
   }

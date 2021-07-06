@@ -26,7 +26,7 @@ export function Footer(): JSX.Element {
           </WideDiv>
           <NarrowDiv>
             <SubmenuSection>
-              <SubmenuItemBold>Links</SubmenuItemBold>
+              <Header>Links</Header>
               <SubmenuItem>Shop</SubmenuItem>
               <SubmenuItem>Search</SubmenuItem>
               <SubmenuItem>About</SubmenuItem>
@@ -44,7 +44,7 @@ export function Footer(): JSX.Element {
           </NarrowDiv>
           <WideDiv>
             <SubmenuSection>
-              <SubmenuItemBold>Newsletter</SubmenuItemBold>
+              <Header>Newsletter</Header>
               <SubmenuItem>
                 {" "}
                 Be the first to know about exclusive offers and product
@@ -56,19 +56,21 @@ export function Footer(): JSX.Element {
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <img src="icons/right-arrow-circle.svg" />
-                  </InputAdornment>
-                }
               />
             </EmailContainer>
+            <CTA
+              // ADD REAL LAUNCHES AND STUFFS
+              onClick={() => console.log(email)}
+            >
+              {" "}
+              Subscribe{" "}
+            </CTA>
           </WideDiv>
         </Container>
       </DesktopOnly>
       <MobileOnly>
         <MobileContainer>
-          <SubmenuItemBold>Newsletter</SubmenuItemBold>
+          <Header>Newsletter</Header>
           <SubmenuItem>
             Be the first to know about exclusive offers and product launches.
           </SubmenuItem>
@@ -77,13 +79,10 @@ export function Footer(): JSX.Element {
               placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              endAdornment={
-                <InputAdornment position="end">
-                  <img src="icons/right-arrow-circle.svg" />
-                </InputAdornment>
-              }
             />
+            <CTA onClick={() => console.log(email)}>Subscribe </CTA>
           </EmailContainer>
+
           <Header>About</Header>
           <Subheader>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -92,7 +91,7 @@ export function Footer(): JSX.Element {
           </Subheader>
           <Container>
             <NarrowDiv>
-              <SubmenuItemBold>Links</SubmenuItemBold>
+              <Header>Links</Header>
               <SubmenuItem>Shop</SubmenuItem>
               <SubmenuItem>Search</SubmenuItem>
               <SubmenuItem>About</SubmenuItem>
@@ -100,6 +99,7 @@ export function Footer(): JSX.Element {
               <SubmenuItem>FAQ</SubmenuItem>
             </NarrowDiv>
             <NarrowDiv>
+              <SubmenuItem> </SubmenuItem>
               <SubmenuItem>Terms of Service</SubmenuItem>
               <SubmenuItem>Privacy Policy</SubmenuItem>
               <SubmenuItem>Refund Policy</SubmenuItem>
@@ -112,31 +112,30 @@ export function Footer(): JSX.Element {
 }
 
 const Container = styled.footer`
-  background-color: rgba(242, 242, 242, 0.56);
-  padding: 120px 0 150px;
   width: 100%;
+  padding: 60px 47px 45px;
   display: flex;
+  background-color: rgba(1, 1, 1, 0.011);
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   @media ${mediaQueries.phone} {
-    padding: 62px 27px 45px;
+    justify-content: start;
+    padding: 10px 0px 0px;
+    gap: 80px;
   }
 `;
 const MobileContainer = styled.footer`
   background-color: rgba(242, 242, 242, 0.56);
-  padding: 120px 0 150px;
+  padding: 62px 27px 45px;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media ${mediaQueries.phone} {
-    padding: 62px 27px 45px;
-  }
+  text-align: center;
 `;
 
 const WideDiv = styled.div`
-  margin-left: 60px;
-  margin-right: 60px;
+  width: 37%;
   display: inline-block;
 
   @media ${mediaQueries.tablet} {
@@ -145,37 +144,41 @@ const WideDiv = styled.div`
 `;
 const NarrowDiv = styled.div`
   display: inline-block;
-  padding: 22px 27px 45px;
+  padding: 0 17px 45px;
   @media ${mediaQueries.tablet} {
-    padding: 22px 27px 25px;
+    padding: 22px 0px 25px;
+    margin-top: 20px;
   }
 `;
 
 const Header = styled.h2`
-  font-size: 20px;
-  display: inline-block;
-  font-weight: 700px;
-  text-align: center;
-  margin-botton: 20px;
+  font-size: 16px;
+  font-weight: 300px;
+  font-family: "inter";
+  text-align: left;
+  margin-top: -15px;
 
   @media ${mediaQueries.phone} {
-    font-size: 30px;
+    font-size: 12px;
     margin-bottom: 17px;
   }
 `;
 
 const Subheader = styled.p`
+  width: 100%;
   text-align: left;
   display: inline-block;
-  font-size: 14px;
-  width: 430px;
-  margin: 0 auto 43px;
-  line-height: 25px;
+  font-size: 12px;
+  margin: 0 auto;
+
+  line-height: 30px;
   font-weight: 300;
 
-  @media ${mediaQueries.phone} {
-    width: 100%;
-    margin-bottom: 35px;
+  @media ${mediaQueries.tablet} {
+    &.MuiInputBase-root {
+      width: 48%;
+      font-size: 113px;
+    }
   }
 `;
 
@@ -191,13 +194,10 @@ const SubmenuItemBold = styled.div`
 `;
 
 const EmailContainer = styled.div`
+  width: 100%;
   display: inline-block;
+  position: relative;
   text-align: center;
-  margin-bottom: 70px;
-
-  @media ${mediaQueries.phone} {
-    margin-bottom: 50px;
-  }
 `;
 
 const SubmenuSection = styled.div`
@@ -207,9 +207,10 @@ const SubmenuSection = styled.div`
 
 const SubmenuItem = styled.div`
   margin-bottom: 18px;
+  text-align: left;
 
   // for items that aren't actually links yet
-  font-size: 13px;
+  font-size: 12px;
   color: rgba(31, 43, 73, 0.7);
   text-decoration: none;
 
@@ -241,25 +242,52 @@ const SocialLinksListItem = styled.li`
   }
 `;
 
-const Copyright = styled.p`
+const CTA = styled.div`
+  position: relative;
+  background-color: #000000;
+  color: white;
   text-align: center;
-  font-size: 11px;
+  padding: 13px 40px;
+  float: right;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 350;
+  width: 158px;
+  height: 42px;
+  margin-top: 20px;
+
+  @media ${mediaQueries.tablet} {
+    width: 120px;
+    padding: 13px 25px;
+    font-size: 15px;
+    margin-top: 16px;
+    margin-bottom: 25px;
+  }
+
+  &:hover {
+    background-color: #b55555 !important;
+  }
 `;
 
 const EmailInput = styled(OutlinedInput)`
   &.MuiInputBase-root {
-    width: 500px;
-    padding: 6px 10px;
+    width: 100%;
+    height: 44px;
+    padding: 4px 10px;
     border-radius: 0;
-    background-color: #ffffff;
+    background-color: #000000;
     box-shadow: 0px 3px 4px #e1ddd7;
   }
 
   & .MuiOutlinedInput-notchedOutline {
     border: none;
   }
+  & .MuiOutlinedInput-input {
+    color: white;
+  }
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueries.tablet} {
     &.MuiInputBase-root {
       width: 100%;
       font-size: 13px;

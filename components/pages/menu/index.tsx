@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useQueryParam } from "use-query-params";
 
 import { initializeApollo } from "api/apollo";
-import { MenuDocument, Category } from "api/queries/menu.graphql";
+import { MenuDocument, Category, Effects } from "api/queries/menu.graphql";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
@@ -12,8 +12,10 @@ import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
 import { mediaQueries } from "styles/media-queries";
 import { CategoriesParam } from "utils/query-param";
+import { EffectsParam } from "utils/query-param";
 
 import { CategoryFilter } from "./components/filters/category-filter";
+import { EffectFilter } from "./components/filters/effect-filter";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
 
@@ -28,11 +30,30 @@ const ProductSectionCategories = [
   Category.PreRolls,
 ];
 
+const ProductSectionEffectsNames = [
+  Effects.Calm,
+  Effects.ClearMind,
+  Effects.Creative,
+  Effects.Energetic,
+  Effects.Focused,
+  Effects.Happy,
+  Effects.Inspired,
+  Effects.Relaxed,
+  Effects.Sleepy,
+  Effects.Uplifted,
+];
+
 function Menu(): JSX.Element {
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
     CategoriesParam
   );
+
+  const [selectedEffects, setSelectedEffects] = useQueryParam(
+    "effects",
+    EffectsParam
+  );
+
   const checkoutContext = useCheckout();
 
   function onCategorySelect(category: Category) {
@@ -42,6 +63,15 @@ function Menu(): JSX.Element {
       selectedCategories.add(category);
     }
     setSelectedCategories(selectedCategories);
+  }
+
+  function onEffectsSelect(effects: Effects) {
+    if (selectedEffects.has(effects)) {
+      selectedEffects.delete(effects);
+    } else {
+      selectedEffects.add(effects);
+    }
+    setSelectedEffects(selectedEffects);
   }
 
   function selectSingleCategory(category?: Category) {
@@ -59,6 +89,13 @@ function Menu(): JSX.Element {
           selectedCategories.has(category)
         );
 
+  const effectsToShow =
+    selectedEffects.size === 0
+      ? ProductSectionEffectsNames
+      : ProductSectionEffectsNames.filter((effects) =>
+          selectedEffects.has(effects)
+        );
+
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
@@ -73,6 +110,10 @@ function Menu(): JSX.Element {
               <CategoryFilter
                 selectedCategories={selectedCategories}
                 onCategorySelect={onCategorySelect}
+              />
+              <EffectFilter
+                selectedEffects={selectedEffects}
+                onEffectSelect={onEffectsSelect}
               />
             </Sidebar>
           </DesktopOnly>

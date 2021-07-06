@@ -100,26 +100,13 @@ export function Cart(props: CartProps): JSX.Element {
     <>
       <Header>
         <HeaderLabel>
-          Shopping Cart
+          YOUR CART
           {isCheckoutOperationLoading && (
             <CheckoutLoadingSpinner isInline size={18} />
           )}
         </HeaderLabel>
         <HeaderCloseButton onClick={onClose}>Close</HeaderCloseButton>
       </Header>
-      <DeliveryPickupSection>
-        <DeliveryPickupInfo>
-          <Logo height={49} width={98} isDark />
-          <OrderTypeSection>
-            <CompanyName>North Cannabis Co</CompanyName>
-            <OrderTypeName>
-              {displayNameForCheckoutOrderType(checkoutOrderType)}
-              <MobileOnly>{deliveryPickupToggle}</MobileOnly>
-            </OrderTypeName>
-          </OrderTypeSection>
-        </DeliveryPickupInfo>
-        <DesktopOnly>{deliveryPickupToggle}</DesktopOnly>
-      </DeliveryPickupSection>
     </>
   );
 
@@ -150,26 +137,20 @@ export function Cart(props: CartProps): JSX.Element {
   return (
     <Container>
       {headerAndDeliveryInfo}
-
+      <Tags>
+        <Label>PRODUCT</Label>
+        <Label>QUANTITY</Label>
+        <Label>TOTAL</Label>
+      </Tags>
       <CheckoutItems>
         {checkoutItems.map((item) => (
           <Fragment key={item.id}>
-            <DesktopCartItemContainer>
-              <DesktopCartItem
-                item={item}
-                handleCheckoutQuantityUpdate={handleCheckoutQuantityUpdate}
-                handleRemoveItemFromCheckout={handleRemoveItemFromCheckout}
-                costOfCheckoutItem={costOfCheckoutItem}
-              />
-            </DesktopCartItemContainer>
-            <MobileCartItemContainer>
-              <MobileCartItem
-                item={item}
-                handleCheckoutQuantityUpdate={handleCheckoutQuantityUpdate}
-                handleRemoveItemFromCheckout={handleRemoveItemFromCheckout}
-                costOfCheckoutItem={costOfCheckoutItem}
-              />
-            </MobileCartItemContainer>
+            <DesktopCartItem
+              item={item}
+              handleCheckoutQuantityUpdate={handleCheckoutQuantityUpdate}
+              handleRemoveItemFromCheckout={handleRemoveItemFromCheckout}
+              costOfCheckoutItem={costOfCheckoutItem}
+            />
           </Fragment>
         ))}
       </CheckoutItems>
@@ -188,11 +169,16 @@ const CheckoutItems = styled.div`
 `;
 
 const Container = styled.div`
-  width: 550px;
+  width: 100vw;
+  background-color: black;
+`;
 
-  @media ${mediaQueries.phone} {
-    width: 100%;
-  }
+const Tags = styled.div`
+  margin-right: 40px;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Header = styled.div`
@@ -201,14 +187,23 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 24px 25px 25px 29px;
-  border-bottom: 1px solid rgba(160, 153, 142, 0.4);
 `;
 
 const HeaderLabel = styled.div`
   font-family: "inter";
-  font-size: 20px;
+  font-size: 40px;
   font-weight: 700;
   display: flex;
+  color: white;
+  align-items: center;
+`;
+
+const Label = styled.div`
+  font-family: "inter";
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  color: white;
   align-items: center;
 `;
 
@@ -225,14 +220,7 @@ const HeaderCloseButton = styled.button`
   }
 `;
 
-const DeliveryPickupSection = styled.div`
-  height: 80px;
-  padding: 13px 25px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(217, 214, 210, 0.5);
-`;
+const DeliveryPickupSection = styled.div``;
 
 const OrderTypeSection = styled.div`
   margin-left: 23px;
@@ -271,6 +259,13 @@ const EmptyCart = styled.div`
 
 const ButtonContainer = styled.div`
   margin: 0 25px;
+  position: absolute;
+  float: right;
+`;
+
+const Center = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledButton = styled(Button)`

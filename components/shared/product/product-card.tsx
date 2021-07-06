@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { MenuProductFragment } from "api/queries/menu.graphql";
 import { deriveDisplayPrices } from "utils/product";
 
 import { StrainTypeLabel } from "./strain-type-label";
-import { ProductModal } from "./product-modal";
+import id from "components/pages/product/[id]";
 
 interface ProductCardProps {
   product: MenuProductFragment;
@@ -13,38 +14,50 @@ interface ProductCardProps {
 
 export function ProductCard(props: ProductCardProps): JSX.Element {
   const { product } = props;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
+
+  function formatProductName(name: string) {
+    return name
+      .replace(/([~!@#$%^&*()_+=`{}\[\]\|\-\:;'<>,.\/? ])+/g, "-")
+      .replace(/^(-)+|(-)+$/g, "");
+  }
+
+  function handleProductRoute(name: string, category: string) {
+    router.push(
+      `/product?&name=${formatProductName(name)}&category=${category}`
+    );
+  }
 
   return (
     <>
-      <Container onClick={() => setIsModalOpen(true)}>
-        <ProductImage src={product.image} />
+      <Container
+        onClick={() => handleProductRoute(product.name, product.category)}
+      >
+        <ProductContainer>
+          <ProductImage src={product.image} />
+        </ProductContainer>
+        <ProductName>{product.name}</ProductName>
         <DisplayPrice>
           {/* TODO: determine when to show med vs rec */}
           {deriveDisplayPrices(product).rec}
         </DisplayPrice>
-        {product.brand?.name && <BrandName>{product.brand.name}</BrandName>}
-        <ProductName>{product.name}</ProductName>
-        <StrainTypeLabel strainType={product.strainType} />
       </Container>
-      <ProductModal
-        product={product}
-        // ROUTE TO PRODUCT PAGE
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </>
   );
 }
 
 const Container = styled.div`
-  background-color: rgba(248, 245, 240, 0.4);
-  border: 1px solid rgba(160, 153, 142, 0.4);
   cursor: pointer;
   width: 100%;
   margin: 0 auto;
+`;
 
-  padding: 25px;
+const ProductContainer = styled.div`
+  background-color: rgba(248, 245, 240, 0.4);
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+  margin: 0 auto;
 `;
 
 const ProductImage = styled.img`
@@ -71,6 +84,7 @@ const ProductName = styled.div`
   font-size: 17px;
   font-weight: 600;
   color: #1f2b49;
+  margin-top: 17px;
   margin-bottom: 13px;
   max-width: 225px;
 `;

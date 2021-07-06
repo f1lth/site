@@ -3,6 +3,7 @@ fragment MenuProduct on Product {
     name
   }
   category
+  effects
   description
   id
   image

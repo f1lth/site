@@ -56,8 +56,6 @@ export function CategoryFilter(props: CategoryFilterProps): JSX.Element {
 }
 
 const Container = styled.div`
-  border-bottom: 1px solid #ddd9d2;
-
   &:last-of-type {
     border: none;
   }

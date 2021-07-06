@@ -44,29 +44,31 @@ export function ShopSection(): JSX.Element {
     <Section>
       <FeaturedContainer>
         <FeaturedImage />
-        <Description>// TODO description of featured product</Description>
+        <Description>
+          Shop / Categories / Flower
+          <Header> Green Crack </Header>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <InfoContainer>
+            <Circle>THC 21-27%</Circle>
+            <Circle>CBD 0.7%</Circle>
+            <Circle>1G</Circle>
+          </InfoContainer>
+          <CTAContainer>
+            <CTA>Shop now</CTA>
+          </CTAContainer>
+        </Description>
       </FeaturedContainer>
-      <DesktopOnly>
-        <CategoryList>
-          <CategoryListItem
-            isSelected={selectedCategory === ALL_TOP_PRODUCTS}
-            onClick={() => setSelectedCategory(ALL_TOP_PRODUCTS)}
-          >
-            All top products
-          </CategoryListItem>
-          {SHOP_SECTION_CATEGORIES.map((category) => (
-            <CategoryListItem
-              key={category}
-              isSelected={selectedCategory === category}
-              onClick={() => setSelectedCategory(category)}
-            >
-              {displayNameForCategory(category)}
-            </CategoryListItem>
-          ))}
-        </CategoryList>
-      </DesktopOnly>
 
-      <MobileCategorySelectContainer>
+      <DesktopOnly>
+        <CategoryListItem
+          key={SHOP_SECTION_CATEGORIES[0]}
+          isSelected={selectedCategory === SHOP_SECTION_CATEGORIES[0]}
+          onClick={() => setSelectedCategory(SHOP_SECTION_CATEGORIES[0])}
+        >
+          <Subheader>Shop Premium Flower</Subheader>
+        </CategoryListItem>
+      </DesktopOnly>
+      <MobileOnly>
         <MobileCategorySelect
           value={selectedCategory}
           onChange={(e) => {
@@ -83,49 +85,46 @@ export function ShopSection(): JSX.Element {
             </MenuItem>
           ))}
         </MobileCategorySelect>
-      </MobileCategorySelectContainer>
+      </MobileOnly>
 
       <Grid>
         {data?.menu?.products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </Grid>
-      <CTAContainer>
-        {selectedCategory && selectedCategory !== ALL_TOP_PRODUCTS ? (
-          <Link href={`/menu?category=${selectedCategory}`} passHref>
-            <CTA>Shop {displayNameForCategory(selectedCategory)}</CTA>
-          </Link>
-        ) : (
-          <Link href="/menu" passHref>
-            <CTA>Shop all products</CTA>
-          </Link>
-        )}
-      </CTAContainer>
     </Section>
   );
 }
 
 const Section = styled.section`
-  padding: 80px 0 100px;
-
-  @media ${mediaQueries.phone} {
-    padding: 70px 27px 80px;
-  }
+  padding: 70px 27px 80px 27px;
 `;
 
 const Header = styled.h2`
-  font-size: 35px;
-  font-weight: 700;
+  font-size: 50px;
+  font-weight: 500;
   text-align: center;
-  color: #322f46;
+  color: #000;
+  font-family: "inter";
+  margin-top: 18px;
+  margin-bottom: 28px;
+
+  @media ${mediaQueries.tablet} {
+    font-size: 34px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+`;
+
+const Subheader = styled.h2`
+  font-size: 34px;
+  font-weight: 500;
+  text-align: left;
+  color: #000;
   font-family: "inter";
 
-  width: 340px;
-  margin: 0 auto 70px;
-
-  @media ${mediaQueries.phone} {
-    font-size: 30px;
-    margin-bottom: 36px;
+  @media ${mediaQueries.tablet} {
+    font-size: 34px;
   }
 `;
 
@@ -137,32 +136,58 @@ const CategoryList = styled.ul`
 
 const FeaturedContainer = styled.div`
   display: grid;
-  height: 600px;
+  width: 100%;
+
+  height: 700px;
   grid-template-rows: 600px;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 40px;
-  padding: 0 30px;
+
+  margin-bottom: 20px;
 
   @media ${mediaQueries.tablet} {
-    height: 680px;
-    padding: 0 0;
+    height: 780px;
+    margin-bottom: 80px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
   }
 `;
 
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  height: auto;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-left: 70px;
+  padding-right: 70px;
+
+  @media ${mediaQueries.tablet} {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 20px;
+  }
+`;
+
 const FeaturedImage = styled.img`
-  background: url("images/ft.png") no-repeat center top;
+  background: url("images/ft.png") no-repeat center center;
   background-size: cover;
   height: 100%;
   width: 100%;
+  @media ${mediaQueries.tablet} {
+    height: 400px;
+  }
 `;
 
 const Description = styled.div`
   background-color: rgba(242, 242, 242, 100);
-
+  text-align: center;
   height: auto;
+  padding-top: 80px;
   width: auto;
+  @media ${mediaQueries.tablet} {
+    height: 400px;
+  }
 `;
 
 const CategoryListItem = styled.li<{ isSelected: boolean }>`
@@ -181,10 +206,9 @@ const CategoryListItem = styled.li<{ isSelected: boolean }>`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 340px 340px 340px;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
   gap: 22px;
   justify-content: center;
-  margin-bottom: 100px;
 
   @media ${mediaQueries.largeTablet} {
     grid-template-columns: 340px 340px;
@@ -198,13 +222,16 @@ const Grid = styled.div`
 
 const CTAContainer = styled.div`
   display: flex;
+  margin-top: 30px;
   justify-content: center;
 `;
 
 const CTA = styled.a`
-  background-color: #5ea4ba;
+  background-color: #000;
   color: white;
-  padding: 18px 35px;
+  width: 230px;
+  height: 44px;
+  padding: 11px 35px;
   cursor: pointer;
   text-decoration: none;
 
@@ -218,11 +245,33 @@ const MobileCategorySelect = styled(Select)`
   height: 58px;
   border-radius: 0px !important;
   margin-bottom: 24px;
+  font-size:
   max-width: 323px;
 
   & .MuiSelect-select {
     font-size: 13px;
     padding: 14px 15px;
+  }
+`;
+
+const Circle = styled.div`
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: "flex";
+  height: 90px;
+  width: 90px;
+  font-size: 21px;
+  color: #000;
+  fill: "none";
+  border: 1px solid #000000;
+  padding-top: 19px;
+  margin-bottom: 36px;
+
+  @media ${mediaQueries.tablet} {
+    padding-top: 18px;
+    font-size: 17px;
   }
 `;
 

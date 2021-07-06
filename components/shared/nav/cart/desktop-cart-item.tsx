@@ -34,7 +34,6 @@ export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
           <CheckoutItemImage src={item.product.image} />
         </CheckoutItemImageContainer>
         <div>
-          {item.product.brand?.name && <Brand>{item.product.brand.name}</Brand>}
           <ItemName>{item.product.name}</ItemName>
         </div>
       </LeftSide>
@@ -73,15 +72,23 @@ const CheckoutItem = styled.div`
 
 const LeftSide = styled.div`
   display: flex;
+  color: white;
   align-items: center;
+`;
+
+const Center = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const RightSide = styled.div`
   display: flex;
+  color: white;
   align-items: center;
 `;
 
 const Brand = styled.div`
+  color: white;
   font-size: 12px;
   margin-bottom: 5px;
 `;
@@ -89,6 +96,7 @@ const Brand = styled.div`
 const ItemName = styled.div`
   font-size: 14px;
   font-weight: 500;
+  color: white;
   max-width: 190px;
 `;
 
@@ -113,7 +121,6 @@ const CheckoutItemImage = styled.img`
   height: 55px;
   width: 55px;
   object-fit: contain;
-  mix-blend-mode: darken;
 `;
 
 // TODO: make a proper shared select component. currently the dropdown does not match specs.

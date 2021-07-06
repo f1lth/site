@@ -10,12 +10,15 @@ import { Logo } from "components/shared/svg/logo";
 import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
 import { CloseButton } from "components/shared/svg/close-button";
 import { CartIcon } from "components/shared/svg/cart-icon";
+import { Divider, Drawer } from "@material-ui/core";
 import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { NavProps } from "./index";
-import { Cart } from "./cart/index";
+import { Cart } from "./cart";
 
 const NAV_HEIGHT = "71px";
 
@@ -29,6 +32,12 @@ export function MobileNav(props: NavProps): JSX.Element {
   const apolloClient = useApollo();
   const { checkout, loading } = useContext(CheckoutContext);
 
+  const useStyles = makeStyles((theme) => ({
+    menuPaper: {
+      backgroundColor: "black",
+    },
+  }));
+  const classes = useStyles();
   const checkoutItemsCount = checkout?.items.length || 0;
 
   function openMenu() {
@@ -60,28 +69,29 @@ export function MobileNav(props: NavProps): JSX.Element {
   }
 
   return (
-    <>
+    <MuiThemeProvider theme={theme}>
       <Container darkBackground={darkBackground} ref={baseNavBarRef}>
         {isMenuOpen ? (
-          <></>
+          <MobileMenuIcon isDark={false} onClick={closeMenu} />
         ) : (
-          <MobileMenuIcon isDark={!darkBackground} onClick={openMenu} />
+          <MobileMenuIcon isDark={false} onClick={openMenu} />
         )}
-        <Link href="/"><LogoHeader>Flower</LogoHeader></Link>
+        <Link href="/">
+          <LogoHeader>Flower</LogoHeader>
+        </Link>
         <CartIconContainer>
-            <CartCount>
-              {loading ? (
-                <LoadingSpinner size={8} color="#ffffff" />
-              ) : (
-                checkoutItemsCount
-              )}
-            </CartCount>
-            <CartIcon onClick={openCart} />
-          </CartIconContainer>
-        
+          <CartCount>
+            {loading ? (
+              <LoadingSpinner size={8} color="#ffffff" />
+            ) : (
+              checkoutItemsCount
+            )}
+          </CartCount>
+          <CartIcon onClick={openCart} />
+        </CartIconContainer>
       </Container>
       {/* SHOP MENU */}
-      
+
       <StyledMenu
         open={isMenuOpen && !isCartOpen}
         anchorEl={baseNavBarRef.current}
@@ -107,16 +117,10 @@ export function MobileNav(props: NavProps): JSX.Element {
         <StyledMenuItem>CONTACT</StyledMenuItem>
       </StyledMenu>
       {/* CART  */}
-      <StyledMenu
-        open={isCartOpen}
-        anchorEl={baseNavBarRef.current}
-        hideBackdrop
-        elevation={0}
-        transitionDuration={0}
-      >
+      <Drawer anchor="right" open={isCartOpen} onBackdropClick={closeCart}>
         <Cart onClose={closeCart} apolloClient={apolloClient} />
-      </StyledMenu>
-    </>
+      </Drawer>
+    </MuiThemeProvider>
   );
 }
 
@@ -131,15 +135,13 @@ const Container = styled.div<{ darkBackground?: boolean }>`
   align-items: center;
   justify-content: space-between;
 
-  color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
-  background-color: ${(props) =>
-    props.darkBackground ? "#322F46" : "#ffffff"};
+  color: "#ffffff";
 `;
 
 const StyledMenu = styled(Menu)`
   & .MuiMenu-paper {
     border-radius: 0;
-    
+
     height: 100% !important;
     margin-top: -77px;
     max-height: 100% !important;
@@ -158,6 +160,7 @@ const StyledMenu = styled(Menu)`
 const LogoHeader = styled.div`
   font-weight: 400;
   font-size 24px;
+  color: black;
   cursor: pointer;
 }
 `;
@@ -186,6 +189,16 @@ const StyledMenuItem = styled(MenuItem)`
     border-bottom: none;
   }
 `;
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiPaper: {
+      root: {
+        backgroundColor: "black",
+      },
+    },
+  },
+});
 
 const CartIconContainer = styled.div`
   position: relative;

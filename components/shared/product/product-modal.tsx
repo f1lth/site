@@ -25,6 +25,7 @@ import { StrainTypeLabel } from "./strain-type-label";
 interface ProductModalProps {
   product: MenuProductFragment;
   open: boolean;
+  onclick: () => void;
   onClose: () => void;
 }
 

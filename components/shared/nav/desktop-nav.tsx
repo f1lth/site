@@ -4,11 +4,16 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 import { Divider, Drawer } from "@material-ui/core";
+import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
+import { CloseButton } from "components/shared/svg/close-button";
+
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 import { useApollo } from "api/apollo";
 import { Category, Effects } from "api/queries/checkout.graphql";
 import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
 import { Logo } from "components/shared/svg/logo";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { CartIcon } from "components/shared/svg/cart-icon";
 import { UserIcon } from "components/shared/svg/user-icon";
@@ -16,25 +21,55 @@ import { HeartIcon } from "components/shared/svg/heart-icon";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
+import { displayNameForEffect } from "utils/enum-to-display-name/effect";
+
 import { mediaQueries } from "styles/media-queries";
 import { ellipse } from "ellipse.tsx";
 
 import { NavProps } from "./index";
 import { Cart } from "./cart/index";
-import { displayNameForEffect } from "utils/enum-to-display-name/effect";
+
+const SUBMENU_CATEGORIES = [
+  Category.Flower,
+  Category.Vaporizers,
+  Category.Concentrates,
+  Category.Edibles,
+  Category.Tinctures,
+  Category.Topicals,
+  Category.Accessories,
+  Category.PreRolls,
+];
+
+const FX_CATEGORIES = [
+  Effects.Sleepy,
+  Effects.Happy,
+  Effects.Relaxed,
+  Effects.Calm,
+];
 
 export function DesktopNav(props: NavProps): JSX.Element {
   const {
     page,
+    darkBackground,
     selectSingleCategory = () => undefined,
     selectSingleEffect = () => undefined,
   } = props;
 
   const [isSubmenuVisible, setIsSubmenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
+  const [isMenuShown, setIsMenuShown] = useState(false);
   const router = useRouter();
   const apolloClient = useApollo();
   const { checkout, loading } = useContext(CheckoutContext);
+
+  const useStyles = makeStyles((theme) => ({
+    menu: {
+      "& .MuiPaper-root": {
+        backgroundColor: "lightblue",
+      },
+    },
+  }));
+  const classes = useStyles();
 
   const checkoutItemsCount = checkout?.items.length || 0;
 
@@ -64,6 +99,16 @@ export function DesktopNav(props: NavProps): JSX.Element {
     router.push("/menu");
   }
 
+  function openShopMenu() {
+    setIsSubmenuVisible(true);
+  }
+
+  function delayCloseMenu() {
+    setTimeout(function () {
+      setIsMenuShown(false);
+    }, 10000);
+  }
+
   function closeShopMenu() {
     setIsSubmenuVisible(false);
   }
@@ -77,13 +122,17 @@ export function DesktopNav(props: NavProps): JSX.Element {
   }
 
   return (
-    <>
+    <MuiThemeProvider theme={theme}>
       {isSubmenuVisible && <Backdrop onClick={closeShopMenu} />}
       <Container>
-        <NavLink color="#000000">Shop</NavLink>
+        {isSubmenuVisible ? (
+          <MobileMenuIcon isDark={true} onClick={closeShopMenu} />
+        ) : (
+          <MobileMenuIcon isDark={false} onClick={openShopMenu} />
+        )}
         <NavLink>
           <Link href="/">
-            <Header>CannaFlower</Header>
+            <Header>Flower</Header>
           </Link>
         </NavLink>
         <NavLink>
@@ -97,12 +146,76 @@ export function DesktopNav(props: NavProps): JSX.Element {
 
         {/* CART */}
         <Drawer anchor="right" open={isCartVisible} onBackdropClick={closeCart}>
-          <Cart onClose={closeCart} apolloClient={apolloClient} />
+          <Cart
+            onClose={closeCart}
+            apolloClient={apolloClient}
+            classes={classes}
+          />
+        </Drawer>
+        <Drawer
+          anchor="left"
+          open={isSubmenuVisible}
+          onBackdropClick={closeShopMenu}
+        >
+          <StyledMenu>
+            <MobileMenuIcon isDark={true} onClick={closeShopMenu} />
+            <UtilSection>
+              <SocialItem>social 1</SocialItem>
+              <SocialItem>social 2</SocialItem>
+              <SocialItem>social 3</SocialItem>
+            </UtilSection>
+
+            <SubmenuSection>
+              <Link href="/">
+                <SubmenuItemBold>HOME</SubmenuItemBold>
+              </Link>
+              <Link href="/menu">
+                <SubmenuItemBold onMouseEnter={() => setIsMenuShown(true)}>
+                  SHOP
+                </SubmenuItemBold>
+              </Link>
+              <Link href="/about">
+                <SubmenuItemBold>ABOUT</SubmenuItemBold>
+              </Link>
+              <Link href="/contact">
+                <SubmenuItemBold>CONTACT</SubmenuItemBold>
+              </Link>
+            </SubmenuSection>
+            <Divider />
+            {isMenuShown && (
+              <>
+                <SubmenuSection>
+                  <SubmenuSection></SubmenuSection>
+                  <SubmenuItem>New</SubmenuItem>
+                  <SubmenuItem>Featured</SubmenuItem>
+                  <SubmenuItem>Sale</SubmenuItem>
+                </SubmenuSection>
+                <SubmenuSection>
+                  <SubmenuSection></SubmenuSection>
+                  {SUBMENU_CATEGORIES.map((category) => (
+                    <SubmenuItem
+                      onMouseEnter={() => setIsMenuShown(true)}
+                      key={category}
+                      onClick={() => handleCategoryClick(category)}
+                    >
+                      {displayNameForCategory(category)}
+                    </SubmenuItem>
+                  ))}
+                </SubmenuSection>
+                <SubmenuSection>
+                  <SubmenuSection></SubmenuSection>
+                  <SubmenuItem>Apparel</SubmenuItem>
+                  <SubmenuItem>Accessories</SubmenuItem>
+                  <SubmenuItem>See all</SubmenuItem>
+                </SubmenuSection>
+              </>
+            )}
+          </StyledMenu>
         </Drawer>
       </Container>
 
       <Divider></Divider>
-    </>
+    </MuiThemeProvider>
   );
 }
 
@@ -111,7 +224,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   margin-bottom: 10px;
-  padding: 30px 0 20px;
+  padding: 30px 60px 20px 60px;
   justify-content: space-between;
 `;
 
@@ -122,7 +235,7 @@ const Backdrop = styled.div`
   left: 0;
   right: 0;
   z-index: 3;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 
 const Header = styled.div`
@@ -139,29 +252,38 @@ const Header = styled.div`
   z-index: 30;
 `;
 
+const UtilSection = styled.div`
+  position: absolute;
+  bottom: 10px;
+  outline: none;
+`;
+
 const SubmenuSection = styled.div`
+  margin-top: 120px;
   outline: none;
 `;
 
 const StyledMenu = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  height: 363px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  z-index: 4000;
+  top: 0;
+  left: 0px;
+  height: 100%;
   width: 100%;
   max-width: 1440px;
-  background-color: #ffffff;
-
-  display: flex;
+  background-color: #000000;
   justify-content: space-between;
-  padding: 25px 200px;
+  gap: 120px;
+  padding: 25px 180px 25px 50px;
 `;
 
 const SubmenuItemBold = styled.div`
   font-weight: 500;
   margin-bottom: 24px;
-  font-size: 14px;
-
+  font-size: 48px;
+  color: white;
   cursor: ${(props) => (props.onClick ? "pointer" : "auto")};
   &:hover {
     text-decoration: ${(props) => (props.onClick ? "underline" : "none")};
@@ -172,8 +294,8 @@ const SubmenuItem = styled.div`
   margin-bottom: 18px;
 
   // for items that aren't actually links yet
-  font-size: 13px;
-  color: rgba(31, 43, 73, 0.7);
+  font-size: 15px;
+  color: white;
   text-decoration: none;
 
   cursor: ${(props) => (props.onClick ? "pointer" : "auto")};
@@ -183,9 +305,15 @@ const SubmenuItem = styled.div`
 
   & > a {
     font-size: 13px;
-    color: rgba(31, 43, 73, 0.7);
     text-decoration: none;
   }
+`;
+const SocialItem = styled.div`
+  margin-bottom: 75px;
+  // for items that aren't actually links yet
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
 `;
 
 const NavContainer = styled.nav<{ darkBackground?: boolean }>`
@@ -199,7 +327,7 @@ const NavContainer = styled.nav<{ darkBackground?: boolean }>`
   height: 35px;
 
   color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
-  background-color: "rgba(52, 52, 52, 0.0)";
+  background-color "#ffffff";
 `;
 
 const NavLinksContainer = styled.div`
@@ -230,11 +358,9 @@ const NavLinkListItem = styled.div`
 `;
 
 const NavLink = styled.div`
-  margin-right: 40px;
-  margin-left: 40px;
   height: 100%;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
 `;
 
 const NavIcons = styled.div`
@@ -257,7 +383,7 @@ const NavIconContainer = styled.div`
 
 const CartIconContainer = styled.div`
   position: relative;
-  display: inline;
+  display: flex;
   align-items: center;
   z-index: 3;
 `;
@@ -278,3 +404,13 @@ const CartCount = styled.div`
   right: -22px;
   color: #ffffff;
 `;
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiPaper: {
+      root: {
+        backgroundColor: "black",
+      },
+    },
+  },
+});

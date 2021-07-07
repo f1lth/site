@@ -37,8 +37,8 @@ function Product(): JSX.Element {
       category: category as Category,
     },
   });
-  let product = { image: "", description: "" };
-  let recommendation = [];
+  let product = { image: "", description: "" } as any;
+  let recommendation = [] as any;
 
   function formatProductName(name: string) {
     return name
@@ -111,13 +111,12 @@ const Image = styled.img`
   display: flex;
   @media ${mediaQueries.tablet} {
     margin-top: 10px;
-    height: auto;
+    max-height: 400px;
   }
 `;
 
 const Grid = styled.div`
   display: grid;
-  padding: 0 32px;
   overflow: hidden;
   margin-top: 40px;
   grid-template-columns: minmax(auto, 50%) minmax(auto, 50%);
@@ -125,7 +124,6 @@ const Grid = styled.div`
   @media ${mediaQueries.largeTablet} {
     grid-template-columns: 1fr;
     margin-top: 0px;
-    padding: 0 11px;
     gap: 40px;
     margin-bottom: 40px;
   }

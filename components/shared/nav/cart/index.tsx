@@ -114,7 +114,7 @@ export function Cart(props: CartProps): JSX.Element {
     return (
       <Container>
         {headerAndDeliveryInfo}
-        <EmptyCart>This cart is empty</EmptyCart>
+        <EmptyCart>This cart is empty :(</EmptyCart>
       </Container>
     );
   }
@@ -171,6 +171,9 @@ const CheckoutItems = styled.div`
 const Container = styled.div`
   width: 100vw;
   background-color: black;
+  @media ${mediaQueries.tablet} {
+    margin-top: 25px;
+  }
 `;
 
 const Tags = styled.div`
@@ -202,6 +205,8 @@ const Label = styled.div`
   font-family: "inter";
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 10px;
+  margin-top: 10px;
   display: flex;
   color: white;
   align-items: center;
@@ -220,29 +225,6 @@ const HeaderCloseButton = styled.button`
   }
 `;
 
-const DeliveryPickupSection = styled.div``;
-
-const OrderTypeSection = styled.div`
-  margin-left: 23px;
-`;
-
-const CompanyName = styled.div`
-  font-weight: 500;
-  font-size: 13px;
-`;
-
-const OrderTypeName = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-  color: rgba(31, 43, 73, 0.6);
-  display: inline;
-`;
-
-const DeliveryPickupInfo = styled.div`
-  display: flex;
-  align-items: end;
-`;
-
 const DeliveryPickupToggle = styled.button`
   color: #4a8ca0;
   background-color: transparent;
@@ -254,6 +236,7 @@ const DeliveryPickupToggle = styled.button`
 
 const EmptyCart = styled.div`
   text-align: center;
+  color: white;
   padding: 40px;
 `;
 
@@ -271,28 +254,18 @@ const StyledButton = styled(Button)`
   background-color: #fff !important;
   width: 20vw;
   height: 58px;
+  margin-top: 20px;
   box-sizing: border-box;
   display: flex;
   & .MuiButton-label {
     color: #ffffff !important;
   }
-
   &:hover {
     background-color: #246e84 !important;
   }
-`;
-
-const DesktopCartItemContainer = styled(DesktopOnly)`
-  margin-bottom: 40px;
-  &:last-child {
-    margin-bottom: 0px;
-  }
-`;
-
-const MobileCartItemContainer = styled(MobileOnly)`
-  margin-bottom: 32px;
-  &:last-child {
-    margin-bottom: 0px;
+  @media ${mediaQueries.tablet} {
+    width: 220px;
+    height: 40px;
   }
 `;
 

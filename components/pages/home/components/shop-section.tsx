@@ -48,7 +48,7 @@ export function ShopSection(): JSX.Element {
           <Header> Green Crack </Header>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           <InfoContainer>
-            <Circle>THC 21-27%</Circle>
+            <Circle>THC 24%</Circle>
             <Circle>CBD 0.7%</Circle>
             <Circle>1G</Circle>
           </InfoContainer>
@@ -144,7 +144,7 @@ const FeaturedContainer = styled.div`
   margin-bottom: 20px;
 
   @media ${mediaQueries.tablet} {
-    height: 780px;
+    height: 800px;
     margin-bottom: 80px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
@@ -162,8 +162,8 @@ const InfoContainer = styled.div`
   padding-right: 70px;
 
   @media ${mediaQueries.tablet} {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin-top: 20px;
   }
 `;
@@ -186,6 +186,7 @@ const Description = styled.div`
   width: auto;
   @media ${mediaQueries.tablet} {
     height: 400px;
+    padding-top: 40px;
   }
 `;
 
@@ -223,6 +224,9 @@ const CTAContainer = styled.div`
   display: flex;
   margin-top: 30px;
   justify-content: center;
+  @media ${mediaQueries.tablet} {
+    margin-top: -10px;
+  }
 `;
 
 const CTA = styled.a`
@@ -270,7 +274,7 @@ const Circle = styled.div`
 
   @media ${mediaQueries.tablet} {
     padding-top: 18px;
-    font-size: 17px;
+    font-size: 24px;
   }
 `;
 

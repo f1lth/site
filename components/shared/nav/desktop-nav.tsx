@@ -146,11 +146,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
 
         {/* CART */}
         <Drawer anchor="right" open={isCartVisible} onBackdropClick={closeCart}>
-          <Cart
-            onClose={closeCart}
-            apolloClient={apolloClient}
-            classes={classes}
-          />
+          <Cart onClose={closeCart} apolloClient={apolloClient} />
         </Drawer>
         <Drawer
           anchor="left"
@@ -397,12 +393,12 @@ const CartCount = styled.div`
   justify-content: center;
   text-align: center;
   border-radius: 100%;
-  background-color: #aa97f6;
+  background-color: #000000;
   font-size: 11px;
+  color: white;
   font-weight: 700;
   top: -11px;
   right: -22px;
-  color: #ffffff;
 `;
 
 const theme = createMuiTheme({

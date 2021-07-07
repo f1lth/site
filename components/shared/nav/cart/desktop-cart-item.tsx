@@ -1,13 +1,11 @@
-import styled, { withTheme } from "styled-components";
+import styled from "styled-components";
 
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
 
 import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { CloseButton } from "components/shared/svg/close-button";
 import { formatPrice } from "utils/number-format";
+import { mediaQueries } from "styles/media-queries";
 
 interface DesktopCartItemProps {
   item: CheckoutItemFragment;
@@ -44,15 +42,6 @@ export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
     }
   }
 
-  const useStyles = makeStyles((theme) => ({
-    menu: {
-      "& .MuiPaper-root": {
-        backgroundColor: "lightblue",
-      },
-    },
-  }));
-  const classes = useStyles();
-
   return (
     <MuiThemeProvider theme={theme}>
       <CheckoutItem>
@@ -66,7 +55,7 @@ export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
         </LeftSide>
         <Center>
           <Circle onClick={() => incrementProduct()}>+</Circle>
-          {item.quantity}
+          <ItemName> {item.quantity} </ItemName>
           <Circle onClick={() => decrementProduct()}>-</Circle>
         </Center>
         <RightSide>
@@ -87,30 +76,37 @@ const CheckoutItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 40px;
 `;
 
 const LeftSide = styled.div`
   display: flex;
+  width: 290px;
   color: white;
   align-items: center;
 `;
 
 const Center = styled.div`
   display: flex;
+  margin-left: -145px;
   flex-direction: row;
+  align-items: center;
+  @media ${mediaQueries.tablet} {
+    margin-left: -15px;
+  }
 `;
 
 const RightSide = styled.div`
   display: flex;
-  color: white;
+  color: white
   align-items: center;
 `;
 
 const ItemName = styled.div`
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "inter";
   color: white;
-  max-width: 190px;
 `;
 
 const Price = styled.div`
@@ -137,18 +133,6 @@ const CheckoutItemImage = styled.img`
   object-fit: contain;
 `;
 
-// TODO: make a proper shared select component. currently the dropdown does not match specs.
-const QuantitySelect = styled(Select)`
-  width: 58px;
-  height: 39px;
-  border-radius: 0px !important;
-
-  & .MuiSelect-select {
-    font-size: 13px;
-    padding: 14px 15px;
-  }
-`;
-
 const Circle = styled.div`
   border-radius: 100%;
   justify-content: center;
@@ -163,25 +147,20 @@ const Circle = styled.div`
   cursor: pointer;
   border: 1px solid #fff;
   padding-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  @media ${mediaQueries.tablet} {
+    height: 33.94px;
+    width: 33.94px;
+    font-size: 14px;
+    margin-left: 7px;
+    margin-right: 7px;
+    padding-top: 8px;
+  }
 `;
 
 const theme = createMuiTheme({
   overrides: {
-    MuiInputBase: {
-      root: {
-        color: "#ffffff",
-      },
-    },
-    MuiAccordion: {
-      root: {
-        boxShadow: "none",
-        borderTop: "none",
-        padding: "0px 0px 0px 0px",
-        "&:before": {
-          display: "none",
-        },
-      },
-    },
     MuiSelect: {
       icon: {
         82: {

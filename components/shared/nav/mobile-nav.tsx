@@ -91,31 +91,36 @@ export function MobileNav(props: NavProps): JSX.Element {
         </CartIconContainer>
       </Container>
       {/* SHOP MENU */}
-
-      <StyledMenu
+      <Drawer
+        anchor="left"
         open={isMenuOpen && !isCartOpen}
-        anchorEl={baseNavBarRef.current}
-        hideBackdrop
-        elevation={0}
-        transitionDuration={0}
-        style={{ marginTop: NAV_HEIGHT }}
+        onBackdropClick={closeMenu}
       >
-        <StyledMenuItem>
-          <CloseButton isDark={!darkBackground} onClick={closeMenu} />
-        </StyledMenuItem>
-        <StyledMenuItem>HOME</StyledMenuItem>
-        <StyledMenuItem onClick={handleShopClick}>
-          SHOP
-          <Chevron
-            direction={ChevronDirection.Down}
-            color="#ffffff"
-            height={16}
-            width={16}
-          />
-        </StyledMenuItem>
-        <StyledMenuItem>ABOUT</StyledMenuItem>
-        <StyledMenuItem>CONTACT</StyledMenuItem>
-      </StyledMenu>
+        <StyledMenu
+          open={isMenuOpen && !isCartOpen}
+          anchorEl={baseNavBarRef.current}
+          hideBackdrop
+          elevation={0}
+          transitionDuration={0}
+        >
+          <StyledMenuItem>
+            <CloseButton isDark={!darkBackground} onClick={closeMenu} />
+          </StyledMenuItem>
+          <StyledMenuItem>HOME</StyledMenuItem>
+          <StyledMenuItem onClick={handleShopClick}>
+            SHOP
+            <Chevron
+              direction={ChevronDirection.Down}
+              color="#ffffff"
+              height={16}
+              width={16}
+            />
+          </StyledMenuItem>
+          <StyledMenuItem>ABOUT</StyledMenuItem>
+          <StyledMenuItem>CONTACT</StyledMenuItem>
+        </StyledMenu>
+      </Drawer>
+
       {/* CART  */}
       <Drawer anchor="right" open={isCartOpen} onBackdropClick={closeCart}>
         <Cart onClose={closeCart} apolloClient={apolloClient} />
@@ -138,23 +143,18 @@ const Container = styled.div<{ darkBackground?: boolean }>`
   color: "#ffffff";
 `;
 
-const StyledMenu = styled(Menu)`
-  & .MuiMenu-paper {
-    border-radius: 0;
-
-    height: 100% !important;
-    margin-top: -77px;
-    max-height: 100% !important;
-    width: 100%;
-    left: 0 !important;
-    top: 0 !important;
-    max-width: 1440px;
-    background-color: #000000;
-  }
-
-  & .MuiList-root {
-    padding: 0;
-  }
+const StyledMenu = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 4000;
+  top: 0;
+  left: 0px;
+  height: 100%;
+  width: 100vw;
+  background-color: #000000;
+  justify-content: start;
+  gap: 1px;
 `;
 
 const LogoHeader = styled.div`
@@ -181,7 +181,6 @@ const StyledMenuItem = styled(MenuItem)`
   font-size: 18px;
   padding: 0 25px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   color: #ffffff;
 
@@ -214,7 +213,7 @@ const CartCount = styled.div`
   justify-content: center;
   text-align: center;
   border-radius: 100%;
-  background-color: #f4bd33;
+  background-color: #000;
   font-size: 11px;
   font-weight: 700;
   top: -11px;

@@ -17,7 +17,6 @@ import { deriveDisplayPrices } from "utils/product";
 import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout.graphql";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { CheckoutContext } from "components/shared/checkout-context";
-import { Info } from "@material-ui/icons";
 
 interface ProductInfoProps {
   product: MenuProductFragment;
@@ -149,8 +148,8 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
                   style={{
                     background: "#000",
                     color: "#fff",
-                    fontSize: "14px",
-                    paddingTop: "30px",
+                    fontSize: "10px",
+                    paddingTop: "25px",
                   }}
                   key={e}
                 >
@@ -208,13 +207,9 @@ const Name = styled.div`
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
   height: auto;
+  width: 100%;
   justify-content: space-between;
-  @media ${mediaQueries.tablet} {
-    width: 300px;
-    justify-content: space-between;
-  }
 `;
 
 const Circle = styled.div`
@@ -230,13 +225,12 @@ const Circle = styled.div`
   fill: "none";
   border: 1px solid #000000;
   padding-top: 14px;
-`;
-
-const Description = styled.div`
-  font-size: 16px;
-  line-height: 160%;
-  color: #000000;
-  margin: 0.5em auto;
+  @media ${mediaQueries.phone} {
+    height: 65px;
+    width: 65px;
+    font-size: 16px;
+    padding-top: 11px;
+  }
 `;
 
 const StyledSelect = styled(Select)`
@@ -271,9 +265,6 @@ const AddToCartButton = styled(Button)`
   border: 2px solid #000;
   margin: 0.5em auto 0.5em 0em;
   background-color: black;
-  @media ${mediaQueries.tablet} {
-    width: 91%;
-  }
 `;
 
 const BuyButton = styled(Button)`
@@ -283,9 +274,6 @@ const BuyButton = styled(Button)`
   text-transform: uppercase;
   margin: 0.5em auto 0.5em 0em;
   color: white;
-  @media ${mediaQueries.tablet} {
-    width: 91%;
-  }
 `;
 
 const theme = createMuiTheme({

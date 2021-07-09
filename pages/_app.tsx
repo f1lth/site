@@ -43,8 +43,8 @@ export const GlobalStyle = createGlobalStyle`
 
     // have this here now for convenience
     // this will likely change as we make more shared components
-    font-family: 'Poppins';
-    color: #1F2B49;
+    font-family: 'inter';
+    color: #000;
   }
 `;
 const PagesStyle = createGlobalStyle`

@@ -9,12 +9,9 @@ import styled from "styled-components";
 import { mediaQueries } from "styles/media-queries";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
-import { DesktopOnly } from "components/shared/responsive/desktop-only";
-import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 
 import ProductInfo from "./components/product-info";
-import MobileProductInfo from "./components/mobile-product-info";
 import Recommendation from "./components/recommendation";
 
 const ProductSectionCategories = [
@@ -38,7 +35,7 @@ function Product(): JSX.Element {
     },
   });
   let product = { image: "", description: "" } as any;
-  let recommendation = [] as any;
+  let recommendation = new Array();
 
   function formatProductName(name: string) {
     return name
@@ -50,7 +47,11 @@ function Product(): JSX.Element {
     if (formatProductName(p.name) === name) {
       product = p;
     } else {
-      recommendation.push(p);
+      try {
+        recommendation.push(p);
+      } catch {
+        console.log("arr full");
+      }
     }
   });
 
@@ -61,7 +62,7 @@ function Product(): JSX.Element {
       </Container>
     );
   if (error) console.log(`Error: ${error.message}`);
-  if (!data) console.log(`Product ID ${id} Not found`);
+  if (!data) console.log(`Product NAME ${name} Not found`);
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>

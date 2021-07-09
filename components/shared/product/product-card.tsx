@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { MenuProductFragment } from "api/queries/menu.graphql";
 import { deriveDisplayPrices } from "utils/product";
+import { mediaQueries } from "styles/media-queries";
 
 interface ProductCardProps {
   product: MenuProductFragment;
@@ -58,20 +59,27 @@ const ProductContainer = styled.div`
 const ProductImage = styled.img`
   width: 100%;
   height: 186px;
+  min-width: 345px;
   object-fit: contain;
+  padding-top: 10px;
   margin-bottom: 44px;
   mix-blend-mode: darken;
+  \ @media ${mediaQueries.tablet} {
+    min-width: 0;
+  }
 `;
 
 const DisplayPrice = styled.div`
   font-size: 16px;
+  font-family: "inter";
   margin-bottom: 8px;
 `;
 
 const ProductName = styled.div`
   font-size: 17px;
+  font-family: "inter";
   font-weight: 600;
-  color: #1f2b49;
+  color: #000;
   margin-top: 17px;
   margin-bottom: 13px;
   max-width: 225px;

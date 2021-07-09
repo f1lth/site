@@ -89,7 +89,7 @@ export function Footer(): JSX.Element {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
           </Subheader>
-          <Container>
+          <Container style={{ backgroundColor: "rgba(1, 1, 1, 0.0)" }}>
             <NarrowDiv>
               <Header>Links</Header>
               <SubmenuItem>Shop</SubmenuItem>
@@ -98,7 +98,7 @@ export function Footer(): JSX.Element {
               <SubmenuItem>Contact</SubmenuItem>
               <SubmenuItem>FAQ</SubmenuItem>
             </NarrowDiv>
-            <NarrowDiv>
+            <NarrowDiv style={{ paddingLeft: "75px" }}>
               <SubmenuItem> </SubmenuItem>
               <SubmenuItem>Terms of Service</SubmenuItem>
               <SubmenuItem>Privacy Policy</SubmenuItem>
@@ -117,11 +117,11 @@ const Container = styled.footer`
   display: flex;
   background-color: rgba(1, 1, 1, 0.011);
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: start;
   @media ${mediaQueries.phone} {
     justify-content: start;
     padding: 10px 0px 0px;
-    gap: 80px;
+    gap: 100px;
   }
 `;
 const MobileContainer = styled.footer`
@@ -153,7 +153,7 @@ const NarrowDiv = styled.div`
 
 const Header = styled.h2`
   font-size: 16px;
-  font-weight: 300px;
+  font-weight: 200px;
   font-family: "inter";
   text-align: left;
   margin-top: -15px;
@@ -226,22 +226,6 @@ const SubmenuItem = styled.div`
   }
 `;
 
-const SocialLinksList = styled.ul`
-  text-align: center;
-  padding: 0;
-  margin-bottom: 28px;
-`;
-
-const SocialLinksListItem = styled.li`
-  display: inline;
-
-  margin-right: 43px;
-
-  &:last-of-type {
-    margin-right: 0px;
-  }
-`;
-
 const CTA = styled.div`
   position: relative;
   background-color: #000000;
@@ -266,7 +250,7 @@ const CTA = styled.div`
   }
 
   &:hover {
-    background-color: #b55555 !important;
+    background-color: #04a09a !important;
   }
 `;
 

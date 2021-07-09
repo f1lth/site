@@ -30,7 +30,7 @@ interface EffectFilterProps {
   onEffectSelect: (effect: Effects) => void;
 }
 
-export function EffectFilter(props: EffectFilterProps): JSX.Element {
+export function EffectsFilter(props: EffectFilterProps): JSX.Element {
   const { selectedEffects, onEffectSelect } = props;
   const [isEffectExpanded, setIsEffectExpanded] = useState(true);
 

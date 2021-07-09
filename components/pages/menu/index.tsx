@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import { useQueryParam } from "use-query-params";
 
 import { initializeApollo } from "api/apollo";
@@ -15,7 +16,7 @@ import { CategoriesParam } from "utils/query-param";
 import { EffectsParam } from "utils/query-param";
 
 import { CategoryFilter } from "./components/filters/category-filter";
-import { EffectFilter } from "./components/filters/effect-filter";
+import { EffectsFilter } from "./components/filters/effect-filter";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
 
@@ -44,6 +45,9 @@ const ProductSectionEffectsNames = [
 ];
 
 function Menu(): JSX.Element {
+  const router = useRouter();
+  const { q } = router.query;
+
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
     CategoriesParam
@@ -82,6 +86,14 @@ function Menu(): JSX.Element {
     setSelectedCategories(selectedCategories);
   }
 
+  function selectSingleEffect(effect?: Effects) {
+    selectedEffects.clear();
+    if (effect) {
+      selectedEffects.add(effect);
+    }
+    setSelectedCategories(selectedCategories);
+  }
+
   const categoriesToShow =
     selectedCategories.size === 0
       ? ProductSectionCategories
@@ -103,6 +115,7 @@ function Menu(): JSX.Element {
           darkBackground
           page="menu"
           selectSingleCategory={selectSingleCategory}
+          selectSingleEffects={selectSingleEffect}
         />
         <Content>
           <DesktopOnly>
@@ -111,7 +124,7 @@ function Menu(): JSX.Element {
                 selectedCategories={selectedCategories}
                 onCategorySelect={onCategorySelect}
               />
-              <EffectFilter
+              <EffectsFilter
                 selectedEffects={selectedEffects}
                 onEffectSelect={onEffectsSelect}
               />
@@ -125,7 +138,13 @@ function Menu(): JSX.Element {
           </MobileOnly>
           <div>
             {categoriesToShow.map((category) => (
-              <ProductSection key={category} category={category} />
+              <ProductSection
+                key={category}
+                category={category}
+                effects={effectsToShow}
+                numOfSelectedEffects={effectsToShow.length}
+                query={q}
+              />
             ))}
           </div>
         </Content>

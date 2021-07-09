@@ -61,6 +61,18 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
     });
   }
 
+  async function handleBuyClick() {
+    console.log("checking out with current cart state!");
+    await addItemToCheckoutMutation({
+      variables: {
+        checkoutId: checkout?.id || "",
+        productId: product.id,
+        quantity: selectedQuantity,
+        option: selectedVariant,
+      },
+    });
+  }
+
   return (
     <Container>
       <Name>{product.name}</Name>
@@ -79,7 +91,6 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
           {product.strainType}
         </Circle>
       </InfoContainer>
-
       <QuantitySelect
         value={selectedQuantity}
         onChange={(e) => {
@@ -93,7 +104,6 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
           </MenuItem>
         ))}
       </QuantitySelect>
-
       <MuiThemeProvider theme={theme}>
         <AddToCartButton
           variant="text"
@@ -101,7 +111,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
           onClick={handleAddToCartClick}
         >
           {addingToCart ? (
-            <StyledLoadingSpinner size={20} color="#000" />
+            <StyledLoadingSpinner size={32} color="#000" />
           ) : (
             "Add to Cart"
           )}
@@ -110,13 +120,10 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
       <BuyButton
         variant="outlined"
         size="medium"
-        onClick={handleAddToCartClick}
+        //TODO handle checkout instantly
+        onClick={handleBuyClick}
       >
-        {addingToCart ? (
-          <StyledLoadingSpinner size={20} color="#000" />
-        ) : (
-          "Buy Now"
-        )}
+        Buy now
       </BuyButton>
       <MuiThemeProvider theme={theme}>
         <Accordion>
@@ -149,7 +156,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
                     background: "#000",
                     color: "#fff",
                     fontSize: "10px",
-                    paddingTop: "25px",
+                    paddingTop: "35px",
                   }}
                   key={e}
                 >
@@ -265,6 +272,10 @@ const AddToCartButton = styled(Button)`
   border: 2px solid #000;
   margin: 0.5em auto 0.5em 0em;
   background-color: black;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
 `;
 
 const BuyButton = styled(Button)`
@@ -278,11 +289,6 @@ const BuyButton = styled(Button)`
 
 const theme = createMuiTheme({
   overrides: {
-    MuiButton: {
-      label: {
-        color: "#ffffff",
-      },
-    },
     MuiAccordion: {
       root: {
         boxShadow: "none",

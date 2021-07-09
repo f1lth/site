@@ -1,7 +1,10 @@
 # import MenuProduct from '../fragments/menu-product.graphql'
 
 query Menu($category: Category) {
-  menu(filter: { category: $category }, pagination: { limit: 5, offset: 0 }) {
+  menu(
+    filter: { category: $category }
+    pagination: { limit: 1000, offset: 0 }
+  ) {
     products {
       ...MenuProduct
     }

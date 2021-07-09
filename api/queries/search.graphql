@@ -1,0 +1,9 @@
+# import MenuProduct from '../fragments/product.graphql'
+
+query Menu($filter: String!) {
+  menu(filter: { search: $filter }) {
+    products {
+      ...MenuProduct
+    }
+  }
+}

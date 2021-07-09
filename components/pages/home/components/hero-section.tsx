@@ -20,7 +20,7 @@ export function HeroSection(): JSX.Element {
               <Subheader>Shop Premium Product</Subheader>
             </MobileOnly>
             <Link href="/menu" passHref>
-              <HeroShopCTA>Shop</HeroShopCTA>
+              <ShopCTA>Shop</ShopCTA>
             </Link>
           </MainHeroContent>
         </MainHero>
@@ -28,7 +28,7 @@ export function HeroSection(): JSX.Element {
           <Holder>
             <MiniHeader>Shop / Categories / Edibles</MiniHeader>
             <Subheader color="#aa1230"> Shatter Chocolate </Subheader>
-            <Link href="/menu" passHref>
+            <Link href="menu?category=EDIBLES" passHref>
               <ShopCTA>Shop</ShopCTA>
             </Link>
           </Holder>
@@ -38,29 +38,35 @@ export function HeroSection(): JSX.Element {
             <Holder>
               <MiniHeader>Shop / Categories / Vaporizers</MiniHeader>
               <Subheader>Pax Era Pro</Subheader>
-              <Link href="/menu" passHref>
+              <Link href="menu?category=VAPORIZERS" passHref>
                 <ShopCTA>Shop</ShopCTA>
               </Link>
             </Holder>
           </TopRectangle>
           <BotRectangle>
             <Holder>
-              <MiniHeader>Shop / Categories / Oils</MiniHeader>
+              <MiniHeader>Shop / Categories / Concentrates</MiniHeader>
               <Subheader>High THC Cannabis Oil</Subheader>
-              <Link href="/menu" passHref>
+              <Link href="/menu?category=CONCENTRATES" passHref>
                 <ShopCTA>Shop</ShopCTA>
               </Link>
             </Holder>
           </BotRectangle>
         </Column>
       </Container>
-      <Header>About the Company</Header>
-
-      <BodyText>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut.
-      </BodyText>
+      <AboutContainer>
+        <Header>About the Company</Header>
+        <BodyText>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
+        </BodyText>
+        <BodyText>
+          <Link href="/menu/about" passHref>
+            <ShopCTA style={{ width: "215px" }}>Learn More</ShopCTA>
+          </Link>
+        </BodyText>
+      </AboutContainer>
     </>
   );
 }
@@ -154,8 +160,8 @@ const MainHero = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 78px;
-  padding-right: 60px;
+  padding-left: 48px;
+  padding-top: 200px;
   grid-row: 1 / 1;
   grid-column: 1 / 3;
   overflow: hidden;
@@ -174,26 +180,32 @@ const MainHeroContent = styled.div`
 
 const Subheader = styled.div`
   font-weight: 500;
+  font-family: "inter";
   font-size: 24px;
   color: #ffffff;
-  margin-bottom: 3px;
+  margin-bottom: 20px;
   margin-top: 5px;
   @media ${mediaQueries.tablet} {
-    font-size: 14px;
+    width: 110px;
+    font-size: 12px;
+    margin-bottom: 4px;
   }
 `;
 
 const BodyText = styled.div`
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 450;
+  font-size: 19px;
   color: #000000;
+  font-family: "inter";
   text-align: center;
-  width: 60%;
+  width: 50%;
   margin-right: auto;
   margin-left: auto;
+  margin-bottom: 40px;
 
   @media ${mediaQueries.tablet} {
     margin-top: 10px;
+    margin-bottom: 0px;
     font-size: 12px;
   }
 `;
@@ -201,10 +213,13 @@ const BodyText = styled.div`
 const MiniHeader = styled.div`
   font-weight: 500;
   font-size: 14px;
+  margin-bottom: 15px;
   color: #ffffff;
 
   @media ${mediaQueries.tablet} {
     font-size: 8px;
+    width: 120px;
+    margin-bottom: 5px;
     font-weight: 500;
   }
 `;
@@ -227,31 +242,18 @@ const HeroHeader = styled.div`
 const Header = styled.div`
   font-family: "inter";
   font-weight: 500;
+  width: 100%;
   font-size: 69px;
   text-align: center;
   color: #000000;
   margin-bottom: 8px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
+  margin-top: 60px;
 
   @media ${mediaQueries.tablet} {
     font-size: 30px;
-  }
-`;
-
-const HeroShopCTA = styled.a`
-  background-color: #000000;
-  color: white;
-  padding: 18px 63px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-
-  @media ${mediaQueries.largePhone} {
-    padding: 13px 8px;
+    margin-top: 10px;
   }
 `;
 
@@ -271,10 +273,24 @@ const ShopCTA = styled.a`
     padding: 5px 17px;
     width: 52px;
     height: 16px;
+
     font-size: 7px;
   }
 
   &:hover {
-    background-color: #b55555 !important;
+    background-color: #04a09a !important;
+  }
+`;
+
+const AboutContainer = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  height: 360px;
+  align-items: center;
+
+  @media ${mediaQueries.tablet} {
+    height: 200px;
   }
 `;

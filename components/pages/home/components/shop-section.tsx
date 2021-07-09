@@ -46,7 +46,7 @@ export function ShopSection(): JSX.Element {
         <Description>
           Shop / Categories / Flower
           <Header> Green Crack </Header>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Lorem ipsum dolor sit amet, conse ctetur adipiscing elit.
           <InfoContainer>
             <Circle>THC 24%</Circle>
             <Circle>CBD 0.7%</Circle>
@@ -97,6 +97,9 @@ export function ShopSection(): JSX.Element {
 
 const Section = styled.section`
   padding: 70px 27px 80px 27px;
+  @media ${mediaQueries.tablet} {
+    padding: 20px 27px 30px 27px;
+  }
 `;
 
 const Header = styled.h2`
@@ -104,7 +107,6 @@ const Header = styled.h2`
   font-weight: 500;
   text-align: center;
   color: #000;
-  font-family: "inter";
   margin-top: 18px;
   margin-bottom: 28px;
 
@@ -125,12 +127,6 @@ const Subheader = styled.h2`
   @media ${mediaQueries.tablet} {
     font-size: 34px;
   }
-`;
-
-const CategoryList = styled.ul`
-  text-align: center;
-  padding: 0;
-  margin-bottom: 70px;
 `;
 
 const FeaturedContainer = styled.div`
@@ -239,7 +235,7 @@ const CTA = styled.a`
   text-decoration: none;
 
   &:hover {
-    background-color: #246e84;
+    background-color: #04a09a;
   }
 `;
 
@@ -273,12 +269,9 @@ const Circle = styled.div`
   margin-bottom: 36px;
 
   @media ${mediaQueries.tablet} {
-    padding-top: 18px;
-    font-size: 24px;
+    padding-top: 14px;
+    height: 70px;
+    width: 70px;
+    font-size: 17px;
   }
-`;
-
-const MobileCategorySelectContainer = styled(MobileOnly)`
-  display: flex;
-  justify-content: center;
 `;

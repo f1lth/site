@@ -1,4 +1,4 @@
-import { Category } from "api/queries/menu.graphql";
+import { Category, Effects } from "api/queries/menu.graphql";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 
@@ -9,6 +9,7 @@ export interface NavProps {
   darkBackground?: boolean;
   page?: "menu" | "nav" | "product"; // as more pages are added, add | page | page2 | etc;
   selectSingleCategory?: (category?: Category) => void;
+  selectSingleEffects?: (effect?: Effects) => void;
 }
 
 export function Nav(props: NavProps): JSX.Element {

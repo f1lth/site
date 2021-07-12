@@ -59,7 +59,7 @@ const ProductContainer = styled.div`
 const ProductImage = styled.img`
   width: 100%;
   height: 186px;
-  min-width: 345px;
+  max-width: 335px;
   object-fit: contain;
   padding-top: 10px;
   margin-bottom: 44px;

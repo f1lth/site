@@ -1,33 +1,28 @@
+///////////////////////////
+/*     DESKTOP-NAV       */
+///////////////////////////
 import { useState, useContext } from "react";
-import styled from "styled-components";
 import { useRouter } from "next/router";
-import Link from "next/link";
-
-import { Drawer } from "@material-ui/core";
-import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
 import { useApollo } from "api/apollo";
-import { Category, Effects } from "api/queries/checkout.graphql";
+import { Category } from "api/queries/checkout.graphql";
+import { NavProps } from "./index";
+import { Cart } from "./cart/index";
+import { displayNameForCategory } from "utils/enum-to-display-name/category";
+import { CloseButton } from "../svg/close-button";
+import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
 import { SearchIcon } from "components/shared/svg/search-icon";
 import { CartIcon } from "components/shared/svg/cart-icon";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
-
+import { Drawer } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
+import styled from "styled-components";
+import Link from "next/link";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 
-import { displayNameForCategory } from "utils/enum-to-display-name/category";
-
-import { NavProps } from "./index";
-import { Cart } from "./cart/index";
-import { useQuery } from "@apollo/client";
-import SEARCH from "api/queries/search";
-
-import { search } from "components/shared/util.js";
-
+// CATEGORY ENUM
 const SUBMENU_CATEGORIES = [
   Category.Flower,
   Category.Vaporizers,
@@ -39,38 +34,24 @@ const SUBMENU_CATEGORIES = [
   Category.PreRolls,
 ];
 
-const SUBMENU_FX = [
-  Effects.Calm,
-  Effects.ClearMind,
-  Effects.Creative,
-  Effects.Energetic,
-  Effects.Focused,
-  Effects.Happy,
-  Effects.Inspired,
-  Effects.Relaxed,
-  Effects.Sleepy,
-  Effects.Uplifted,
-];
-
 export function DesktopNav(props: NavProps): JSX.Element {
+  // Props
   const { page, selectSingleCategory = () => undefined } = props;
-
+  // State
   const [isSubmenuVisible, setIsSubmenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
-
   const [isSearchbarVisible, setIsSearchbarVisible] = useState(false);
   const [query, setQuery] = useState("");
-
   const [isMenuShown, setIsMenuShown] = useState(false);
+  // Util
   const router = useRouter();
   const apolloClient = useApollo();
   const { checkout, loading } = useContext(CheckoutContext);
   const checkoutItemsCount = checkout?.items.length || 0;
-
+  // Handlers
   function handleLogoClick() {
     router.push("/");
   }
-
   function handleCategoryClick(category?: Category) {
     if (page === "menu") {
       selectSingleCategory(category);
@@ -113,24 +94,34 @@ export function DesktopNav(props: NavProps): JSX.Element {
     const path = "/menu?q=" + query;
     router.push(path);
   }
-
+  // UI
   return (
     <MuiThemeProvider theme={theme}>
       {isSubmenuVisible && <Backdrop onClick={closeShopMenu} />}
       <Container>
-        {isSubmenuVisible ? (
-          <MobileMenuIcon isDark={true} onClick={closeShopMenu} />
-        ) : (
-          <MobileMenuIcon isDark={false} onClick={openShopMenu} />
-        )}
-        <Header onClick={handleLogoClick}>Flower</Header>
+        <NavLink>
+          {isSubmenuVisible ? (
+            <MobileMenuIcon isDark={true} onClick={closeShopMenu} />
+          ) : (
+            <MobileMenuIcon isDark={false} onClick={openShopMenu} />
+          )}
+        </NavLink>
+        <NavLink>
+          {!isSearchbarVisible ? (
+            <Header onClick={handleLogoClick}>Flower</Header>
+          ) : (
+            <SearchHeader
+              onClick={handleLogoClick}
+              style={{ marginRight: "-320px" }}
+            >
+              search for a product :{" "}
+            </SearchHeader>
+          )}
+        </NavLink>
         <NavLink>
           {isSearchbarVisible ? (
             <NavLink>
-              <FormControl onMouseLeave={() => closeSearch()}>
-                <InputLabel htmlFor="input-with-icon-adornment">
-                  Search for a product
-                </InputLabel>
+              <FormControl>
                 <Input
                   id="input-with-icon-adornment"
                   startAdornment={
@@ -145,11 +136,16 @@ export function DesktopNav(props: NavProps): JSX.Element {
                       goSearch(query);
                     }
                   }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <CloseButton onClick={() => closeSearch()} />
+                    </InputAdornment>
+                  }
                 />
               </FormControl>
             </NavLink>
           ) : (
-            <NavLink onMouseEnter={() => openSearch()}>
+            <NavLink onClick={() => openSearch()}>
               <SearchIcon />
             </NavLink>
           )}
@@ -171,7 +167,9 @@ export function DesktopNav(props: NavProps): JSX.Element {
           onBackdropClick={closeShopMenu}
         >
           <StyledMenu>
-            <MobileMenuIcon isDark={true} onClick={closeShopMenu} />
+            <SubmenuItem>
+              <MobileMenuIcon isDark={true} onClick={closeShopMenu} />
+            </SubmenuItem>
             <UtilSection>
               <SocialItem>social 1</SocialItem>
               <SocialItem>social 2</SocialItem>
@@ -225,7 +223,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
           </StyledMenu>
         </Drawer>
       </Container>
-      <Divider1 />
+      <Divider />
     </MuiThemeProvider>
   );
 }
@@ -233,6 +231,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
 const Container = styled.div`
   justify-content: space-between;
   flex-direction: row;
+  height: 80px;
   width: 100%;
   display: flex;
   margin-bottom: 10px;
@@ -240,11 +239,12 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Divider1 = styled.div`
+const Divider = styled.div`
   background-color: rgba(1, 1, 1, 0.1);
   width: 100%;
-  height: 1px;
+  height: 1.01px; //hacky but divider.
 `;
+
 const Menu = styled.div`
   flex-direction: row;
   width: 300px;
@@ -267,15 +267,25 @@ const Backdrop = styled.div`
 `;
 
 const Header = styled.div`
-  font-family: inter;
   font-size: 31px;
-  margin-top: -20px;
   font-style: normal;
   font-weight: 400;
   line-height: 58px;
   letter-spacing: 0em;
   text-align: center;
+  color: #000000;
+  z-index: 30;
+`;
 
+const SearchHeader = styled.div`
+  font-size: 18px;
+  font-style: normal;
+  margin-right: auto;
+  margin-left: 60px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-align: center;
   color: #000000;
   z-index: 30;
 `;
@@ -287,7 +297,7 @@ const UtilSection = styled.div`
 `;
 
 const SubmenuSection = styled.div`
-  margin-top: 120px;
+  margin-top: 110px;
   outline: none;
 `;
 
@@ -350,7 +360,6 @@ const NavLink = styled.div`
   height: 100%;
   cursor: pointer;
   display: flex;
-  justify-content: center; /* aligns on vertical for column */
   align-items: center;
 `;
 

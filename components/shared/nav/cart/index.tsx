@@ -16,10 +16,9 @@ import { CheckoutContext } from "components/shared/checkout-context";
 import { mediaQueries } from "styles/media-queries";
 import { formatPrice } from "utils/number-format";
 import { displayNameForCheckoutOrderType } from "utils/enum-to-display-name/checkout-order-type";
-
-import { DesktopCartItem } from "./desktop-cart-item";
-import { MobileCartItem } from "./mobile-cart-item";
+import { CartItem } from "./cart-item";
 import { LoadingSpinner } from "components/shared/loading-spinner";
+import { CloseButton } from "components/shared/svg/close-button";
 
 interface CartProps {
   onClose: () => void;
@@ -136,36 +135,71 @@ export function Cart(props: CartProps): JSX.Element {
 
   return (
     <Container>
-      {headerAndDeliveryInfo}
-      <Tags>
-        <Label>PRODUCT</Label>
-        <Label>QUANTITY</Label>
-        <Label>TOTAL</Label>
-      </Tags>
-      <CheckoutItems>
-        {checkoutItems.map((item) => (
-          <Fragment key={item.id}>
-            <DesktopCartItem
-              item={item}
-              handleCheckoutQuantityUpdate={handleCheckoutQuantityUpdate}
-              handleRemoveItemFromCheckout={handleRemoveItemFromCheckout}
-              costOfCheckoutItem={costOfCheckoutItem}
-            />
-          </Fragment>
-        ))}
-      </CheckoutItems>
+      <DesktopOnly>
+        {headerAndDeliveryInfo}
+        <Tags>
+          <Label>PRODUCT</Label>
+          <Label>QUANTITY</Label>
+          <Label>TOTAL</Label>
+        </Tags>
 
-      <ButtonContainer>
-        <Label> Subtotal ‎‎‎‎ {totalCostDisplayValue(checkoutItems)} </Label>
-        Excluding taxes & shipping
-        <StyledButton href={checkout?.redirectUrl}>Checkout</StyledButton>
-      </ButtonContainer>
+        <CheckoutItems>
+          {checkoutItems.map((item) => (
+            <Fragment key={item.id}>
+              <CartItem
+                item={item}
+                handleCheckoutQuantityUpdate={handleCheckoutQuantityUpdate}
+                handleRemoveItemFromCheckout={handleRemoveItemFromCheckout}
+                costOfCheckoutItem={costOfCheckoutItem}
+              />
+            </Fragment>
+          ))}
+        </CheckoutItems>
+
+        <ButtonContainer>
+          <Label> Subtotal ‎‎‎‎ {totalCostDisplayValue(checkoutItems)} </Label>
+          Excluding taxes & shipping
+          <StyledButton href={checkout?.redirectUrl}>Checkout</StyledButton>
+        </ButtonContainer>
+      </DesktopOnly>
+      <MobileOnly>
+        <Tags>
+          <Label>Shopping Cart</Label>
+          <CloseButton width={45} height={45} color="#fff" onClick={onClose} />
+        </Tags>
+        <CheckoutItems>
+          {checkoutItems.map((item) => (
+            <Fragment key={item.id}>
+              <CartItem
+                item={item}
+                handleCheckoutQuantityUpdate={handleCheckoutQuantityUpdate}
+                handleRemoveItemFromCheckout={handleRemoveItemFromCheckout}
+                costOfCheckoutItem={costOfCheckoutItem}
+              />
+            </Fragment>
+          ))}
+        </CheckoutItems>
+        <Divider />
+        <ButtonContainer>
+          <Label> Subtotal ‎‎‎‎ {totalCostDisplayValue(checkoutItems)} </Label>
+          Excluding taxes & shipping
+          <StyledButton href={checkout?.redirectUrl}>Checkout</StyledButton>
+        </ButtonContainer>
+      </MobileOnly>
     </Container>
   );
 }
 
 const CheckoutItems = styled.div`
   padding: 40px 30px 40px 25px;
+`;
+
+const Divider = styled.div`
+  background-color: rgba(251, 251, 251, 0.5);
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 1.01px; //hacky but divider.
 `;
 
 const Container = styled.div`
@@ -203,8 +237,8 @@ const HeaderLabel = styled.div`
 
 const Label = styled.div`
   font-family: "inter";
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   margin-bottom: 10px;
   margin-top: 10px;
   display: flex;
@@ -243,8 +277,8 @@ const EmptyCart = styled.div`
 const ButtonContainer = styled.div`
   margin: 0 25px;
   position: relative;
+  width: 100%;
   justify-content: start;
-  float: right;
   color: white;
 `;
 

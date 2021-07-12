@@ -11,6 +11,7 @@ interface searchIconProps {
 export function SearchIcon(props: searchIconProps): JSX.Element {
   const { isDark, height = 30, width = 30, className = "", onClick } = props;
   const color = isDark ? "#1F2B49" : "#000000";
+
   return (
     <StyledSvg
       width={width}
@@ -27,5 +28,5 @@ export function SearchIcon(props: searchIconProps): JSX.Element {
 }
 
 const StyledSvg = styled.svg`
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
+  cursor: pointer;
 `;

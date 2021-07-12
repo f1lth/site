@@ -272,8 +272,9 @@ const AddToCartButton = styled(Button)`
   border: 2px solid #000;
   margin: 0.5em auto 0.5em 0em;
   background-color: black;
+  color: white;
   &:hover {
-    background-color: white;
+    background-color: black;
     color: black;
   }
 `;
@@ -302,6 +303,15 @@ const theme = createMuiTheme({
     MuiAccordionSummary: {
       root: {
         padding: "0px 0px 0px 0px",
+      },
+    },
+    MuiButton: {
+      label: {
+        color: "white",
+        "&:hover": {
+          backgroundColor: "white",
+          color: "black",
+        },
       },
     },
   },

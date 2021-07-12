@@ -1,9 +1,29 @@
-# import MenuProduct from '../fragments/product.graphql'
-
-query Menu($filter: String!) {
+query Search($filter: String!) {
   menu(filter: { search: $filter }) {
     products {
-      ...MenuProduct
+      brand {
+        name
+      }
+      category
+      effects
+      description
+      id
+      image
+      name
+      potencyCbd {
+        formatted
+      }
+      potencyThc {
+        formatted
+      }
+      strainType
+      variants {
+        option
+        priceMed
+        priceRec
+        specialPriceMed
+        specialPriceRec
+      }
     }
   }
 }

@@ -47,6 +47,7 @@ const ProductSectionEffectsNames = [
 function Menu(): JSX.Element {
   const router = useRouter();
   const { q } = router.query;
+  const query = q === undefined ? "" : q;
 
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
@@ -107,7 +108,6 @@ function Menu(): JSX.Element {
       : ProductSectionEffectsNames.filter((effects) =>
           selectedEffects.has(effects)
         );
-
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
@@ -118,6 +118,7 @@ function Menu(): JSX.Element {
           selectSingleEffects={selectSingleEffect}
         />
         <Content>
+          {/* Sidebar */}
           <DesktopOnly>
             <Sidebar>
               <CategoryFilter
@@ -136,16 +137,24 @@ function Menu(): JSX.Element {
               selectSingleCategory={selectSingleCategory}
             />
           </MobileOnly>
+          {/* Display Products */}
           <div>
-            {categoriesToShow.map((category) => (
-              <ProductSection
-                key={category}
-                category={category}
-                effects={effectsToShow}
-                numOfSelectedEffects={effectsToShow.length}
-                query={q}
-              />
-            ))}
+            {query == "" &&
+              categoriesToShow.map((category) => (
+                <ProductSection
+                  key={category}
+                  category={category}
+                  effects={effectsToShow}
+                  numOfSelectedEffects={effectsToShow.length}
+                  query={""}
+                />
+              ))}
+            <ProductSection
+              category={""}
+              effects={""}
+              numOfSelectedEffects={0}
+              query={query}
+            />
           </div>
         </Content>
         <Footer />

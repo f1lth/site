@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
+import { DesktopOnly } from "components/shared/responsive/desktop-only";
+import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { CloseButton } from "components/shared/svg/close-button";
 import { formatPrice } from "utils/number-format";
 import { mediaQueries } from "styles/media-queries";
 
-interface DesktopCartItemProps {
+interface CartItem {
   item: CheckoutItemFragment;
   handleCheckoutQuantityUpdate: (
     item: CheckoutItemFragment,
@@ -17,7 +18,7 @@ interface DesktopCartItemProps {
   costOfCheckoutItem: (item: CheckoutItemFragment) => number;
 }
 
-export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
+export function CartItem(props: CartItem): JSX.Element {
   const {
     item,
     handleCheckoutQuantityUpdate,
@@ -44,36 +45,57 @@ export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <CheckoutItem>
-        <LeftSide>
+      <DesktopOnly>
+        <CheckoutItem>
+          <LeftSide>
+            <CheckoutItemImageContainer>
+              <CheckoutItemImage src={item.product.image} />
+            </CheckoutItemImageContainer>
+            <div>
+              <ItemName>{item.product.name}</ItemName>
+            </div>
+          </LeftSide>
+          <Center>
+            <Circle onClick={() => incrementProduct()}>+</Circle>
+            <ItemName> {item.quantity} </ItemName>
+            <Circle onClick={() => decrementProduct()}>-</Circle>
+          </Center>
+          <RightSide>
+            <Price>{formatPrice(costOfCheckoutItem(item))}</Price>
+            <CloseButton
+              height={20}
+              width={20}
+              onClick={() => handleRemoveItemFromCheckout(item)}
+              color="#fff"
+            />
+          </RightSide>
+        </CheckoutItem>
+      </DesktopOnly>
+      <MobileOnly>
+        <Center>
           <CheckoutItemImageContainer>
             <CheckoutItemImage src={item.product.image} />
           </CheckoutItemImageContainer>
-          <div>
-            <ItemName>{item.product.name}</ItemName>
-          </div>
-        </LeftSide>
-        <Center>
-          <Circle onClick={() => incrementProduct()}>+</Circle>
-          <ItemName> {item.quantity} </ItemName>
-          <Circle onClick={() => decrementProduct()}>-</Circle>
+          <ItemName> {item.product.name}</ItemName>
         </Center>
-        <RightSide>
-          <Price>{formatPrice(costOfCheckoutItem(item))}</Price>
-          <CloseButton
-            height={20}
-            width={20}
-            onClick={() => handleRemoveItemFromCheckout(item)}
-            isDark
-          />
-        </RightSide>
-      </CheckoutItem>
+        <Center>
+          <CheckoutItem>
+            <Circle onClick={() => decrementProduct()}>-</Circle>
+            <ItemName> {item.quantity} </ItemName>
+            <Circle onClick={() => incrementProduct()}>+</Circle>
+          </CheckoutItem>
+          <CheckoutItem>
+            <Price>{formatPrice(costOfCheckoutItem(item))}</Price>
+          </CheckoutItem>
+        </Center>
+      </MobileOnly>
     </MuiThemeProvider>
   );
 }
 
 const CheckoutItem = styled.div`
   display: flex;
+
   align-items: center;
   justify-content: space-between;
   margin-bottom: 40px;
@@ -90,16 +112,20 @@ const Center = styled.div`
   display: flex;
   margin-left: -145px;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   @media ${mediaQueries.tablet} {
-    margin-left: -15px;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0px;
   }
 `;
 
 const RightSide = styled.div`
   display: flex;
+  float: right;
   color: white
-  align-items: center;
+  align-items: right;
 `;
 
 const ItemName = styled.div`
@@ -114,13 +140,16 @@ const Price = styled.div`
   width: 77px;
   color: white;
   text-align: center;
+  @media ${mediaQueries.tablet} {
+    margin-left 100px;
+  }
 `;
 
 const CheckoutItemImageContainer = styled.div`
   height: 70px;
   width: 70px;
   border: 1px solid rgba(160, 153, 142, 0.4);
-  background-color: rgba(248, 245, 240, 0.4);
+  background-color: rgba(255, 255, 250, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,14 +176,14 @@ const Circle = styled.div`
   cursor: pointer;
   border: 1px solid #fff;
   padding-top: 10px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-right: 4px;
+  margin-left: 4px;
   @media ${mediaQueries.tablet} {
     height: 33.94px;
     width: 33.94px;
+    margin-left: 0px;
+    margin-right: 0px;
     font-size: 14px;
-    margin-left: 7px;
-    margin-right: 7px;
     padding-top: 8px;
   }
 `;

@@ -35,3 +35,18 @@ export function search(query) {
     info,
   };
 }
+
+export function shuffle(array) {
+  //https://stackoverflow.com/questions/18806210/generating-non-repeating-random-numbers-in-js
+  var i = array.length,
+    j = 0,
+    temp;
+  while (i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    // swap randomly chosen element with current element
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}

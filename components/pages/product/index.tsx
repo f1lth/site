@@ -34,8 +34,8 @@ function Product(): JSX.Element {
       category: category as Category,
     },
   });
-  let product = { image: "", description: "" } as any;
-  let recommendation = new Array();
+  let product: unknown;
+  let rec: unknown = [];
 
   function formatProductName(name: string) {
     return name
@@ -43,15 +43,12 @@ function Product(): JSX.Element {
       .replace(/^(-)+|(-)+$/g, "");
   }
 
+  // linear search --> found at 139 / 141 for flower
   data?.menu?.products.forEach((p) => {
     if (formatProductName(p.name) === name) {
       product = p;
     } else {
-      try {
-        recommendation.push(p);
-      } catch {
-        console.log("arr full");
-      }
+      rec.push(p);
     }
   });
 
@@ -74,10 +71,11 @@ function Product(): JSX.Element {
               <Image src={product.image} />
             </GridItem>
             <GridItem>
+              {console.log(product)}
               <ProductInfo product={product} />
             </GridItem>
           </Grid>
-          <Recommendation products={recommendation} />
+          <Recommendation products={rec} />
         </Content>
         <Footer />
       </Container>

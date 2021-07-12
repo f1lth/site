@@ -9,6 +9,7 @@ import { useApollo } from "api/apollo";
 import { Logo } from "components/shared/svg/logo";
 import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
 import { CloseButton } from "components/shared/svg/close-button";
+import { SearchIcon } from "components/shared/svg/search-icon";
 import { CartIcon } from "components/shared/svg/cart-icon";
 import { Divider, Drawer } from "@material-ui/core";
 import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
@@ -16,6 +17,9 @@ import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
 
 import { NavProps } from "./index";
 import { Cart } from "./cart";
@@ -23,23 +27,20 @@ import { Cart } from "./cart";
 const NAV_HEIGHT = "71px";
 
 export function MobileNav(props: NavProps): JSX.Element {
+  // Props
   const { darkBackground, page } = props;
-
+  // State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(false);
+  const [isSearchbarVisible, setIsSearchbarVisible] = useState(false);
+  const [query, setQuery] = useState("");
+  // Util
   const baseNavBarRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const apolloClient = useApollo();
   const { checkout, loading } = useContext(CheckoutContext);
-
-  const useStyles = makeStyles((theme) => ({
-    menuPaper: {
-      backgroundColor: "black",
-    },
-  }));
-  const classes = useStyles();
   const checkoutItemsCount = checkout?.items.length || 0;
-
+  // Handlers
   function openMenu() {
     setIsMenuOpen(true);
   }
@@ -61,13 +62,26 @@ export function MobileNav(props: NavProps): JSX.Element {
   }
 
   function openCart() {
-    setIsCartOpen(true);
+    setIsCartVisible(true);
   }
 
   function closeCart() {
-    setIsCartOpen(false);
+    setIsCartVisible(false);
   }
 
+  function openSearch() {
+    setIsSearchbarVisible(true);
+  }
+
+  function closeSearch() {
+    setIsSearchbarVisible(false);
+  }
+
+  function goSearch(query: String) {
+    const path = "/menu?q=" + query;
+    router.push(path);
+  }
+  // UI
   return (
     <MuiThemeProvider theme={theme}>
       <Container darkBackground={darkBackground} ref={baseNavBarRef}>
@@ -76,35 +90,67 @@ export function MobileNav(props: NavProps): JSX.Element {
         ) : (
           <MobileMenuIcon isDark={false} onClick={openMenu} />
         )}
-        <Link href="/">
-          <LogoHeader>Flower</LogoHeader>
-        </Link>
-        <CartIconContainer>
-          <CartCount>
-            {loading ? (
-              <LoadingSpinner size={8} color="#ffffff" />
-            ) : (
-              checkoutItemsCount
-            )}
-          </CartCount>
-          <CartIcon onClick={openCart} />
-        </CartIconContainer>
+        <NavLink>
+          {!isSearchbarVisible ? (
+            <LogoHeader onClick={handleLogoClick}>Flower</LogoHeader>
+          ) : (
+            <LogoHeader></LogoHeader>
+          )}
+        </NavLink>
+        <NavLink>
+          {isSearchbarVisible ? (
+            <NavLink>
+              <FormControl>
+                <Input
+                  id="input-with-icon-adornment"
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon onClick={() => goSearch(query)} />
+                    </InputAdornment>
+                  }
+                  value={query}
+                  onChange={(q) => setQuery(q.target.value)}
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                      goSearch(query);
+                    }
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <CloseButton onClick={() => closeSearch()} />
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </NavLink>
+          ) : (
+            <NavLink onClick={() => openSearch()}>
+              <SearchIcon />
+            </NavLink>
+          )}
+          <CartIconContainer>
+            <CartCount>
+              {loading ? <LoadingSpinner size={8} /> : checkoutItemsCount}
+            </CartCount>
+            <CartIcon onClick={openCart} />
+          </CartIconContainer>
+        </NavLink>
       </Container>
       {/* SHOP MENU */}
       <Drawer
         anchor="left"
-        open={isMenuOpen && !isCartOpen}
+        open={isMenuOpen && !isCartVisible}
         onBackdropClick={closeMenu}
       >
         <StyledMenu
-          open={isMenuOpen && !isCartOpen}
+          open={isMenuOpen && !isCartVisible}
           anchorEl={baseNavBarRef.current}
           hideBackdrop
           elevation={0}
           transitionDuration={0}
         >
           <StyledMenuItem>
-            <CloseButton isDark={!darkBackground} onClick={closeMenu} />
+            <MobileMenuIcon isDark={true} onClick={closeMenu} />
           </StyledMenuItem>
           <StyledMenuItem>HOME</StyledMenuItem>
           <StyledMenuItem onClick={handleShopClick}>
@@ -122,7 +168,7 @@ export function MobileNav(props: NavProps): JSX.Element {
       </Drawer>
 
       {/* CART  */}
-      <Drawer anchor="right" open={isCartOpen} onBackdropClick={closeCart}>
+      <Drawer anchor="right" open={isCartVisible} onBackdropClick={closeCart}>
         <Cart onClose={closeCart} apolloClient={apolloClient} />
       </Drawer>
     </MuiThemeProvider>
@@ -155,6 +201,14 @@ const StyledMenu = styled.div`
   background-color: #000000;
   justify-content: start;
   gap: 1px;
+`;
+
+const NavLink = styled.div`
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: -10px;
 `;
 
 const LogoHeader = styled.div`
@@ -201,6 +255,7 @@ const theme = createMuiTheme({
 
 const CartIconContainer = styled.div`
   position: relative;
+  margin-left: 8px;
   margin-right: 8px;
 `;
 

@@ -53,7 +53,7 @@ export function ShopSection(): JSX.Element {
             <Circle>1G</Circle>
           </InfoContainer>
           <CTAContainer>
-            <CTA>Shop now</CTA>
+            <CTA href="product?&name=Green-Crack">Shop now</CTA>
           </CTAContainer>
         </Description>
       </FeaturedContainer>

@@ -12,7 +12,7 @@ export function ListCheckbox(props: ListCheckboxProps): JSX.Element {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="11" cy="11" r="11" fill="#F4BD33" />
+      <circle cx="11" cy="11" r="11" fill="#000" />
       <path
         fillRule="evenodd"
         clipRule="evenodd"

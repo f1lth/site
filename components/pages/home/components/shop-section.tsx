@@ -197,7 +197,7 @@ const CategoryListItem = styled.li<{ isSelected: boolean }>`
     margin-right: 0px;
   }
 
-  ${(props) => props.isSelected && "border-bottom: 3px solid #F4BD33;"}
+  ${(props) => props.isSelected && "border-bottom: 3px solid #000;"}
 `;
 
 const Grid = styled.div`

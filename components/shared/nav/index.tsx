@@ -7,7 +7,7 @@ import { MobileNav } from "./mobile-nav";
 
 export interface NavProps {
   darkBackground?: boolean;
-  page?: "menu" | "nav" | "product"; // as more pages are added, add | page | page2 | etc;
+  page?: "menu" | "nav" | "product" | "about"; // as more pages are added, add | page | page2 | etc;
   selectSingleCategory?: (category?: Category) => void;
   selectSingleEffects?: (effect?: Effects) => void;
 }

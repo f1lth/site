@@ -11,7 +11,7 @@ export function LoadingSpinner(props: LoadingSpinnerProps): JSX.Element {
   const {
     size = 32,
     isInline = false,
-    color = "#f4bd33",
+    color = "#000000",
     className = "",
   } = props;
   return (

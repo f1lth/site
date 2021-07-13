@@ -111,7 +111,7 @@ const Container = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px;
+  gap: 22px;
 
   @media ${mediaQueries.tablet} {
     grid-template-columns: 1fr 1fr;

@@ -44,6 +44,10 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
 
 const Container = styled.div`
   cursor: pointer;
+  width: 100%;
+  padding: 25px;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
   width: 100%
   justify-content: center;
@@ -51,20 +55,13 @@ const Container = styled.div`
 `;
 
 const ProductContainer = styled.div`
-  background-color: rgba(248, 245, 240, 0.4);
-  margin-top: 20px;
-  margin-bottom: 30px;
-  margin: 0 auto;
-  justify-content: center;
+  position: relative;
 `;
 
 const ProductImage = styled.img`
   height: 186px;
   object-fit: contain;
   width: 100%;
-  max-width: 335px;
-  min-width: 300px;
-  padding-top: 10px;
   margin-bottom: 44px;
   mix-blend-mode: darken;
   @media ${mediaQueries.tablet} {

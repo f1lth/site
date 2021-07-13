@@ -165,7 +165,7 @@ export function Cart(props: CartProps): JSX.Element {
       <MobileOnly>
         <Tags>
           <Label>Shopping Cart</Label>
-          <CloseButton width={45} height={45} color="#fff" onClick={onClose} />
+          <CloseButton width={45} height={45} color="#000" onClick={onClose} />
         </Tags>
         <CheckoutItems>
           {checkoutItems.map((item) => (

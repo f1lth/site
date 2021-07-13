@@ -121,28 +121,35 @@ export function DesktopNav(props: NavProps): JSX.Element {
         <NavLink>
           {isSearchbarVisible ? (
             <NavLink>
-              <FormControl>
-                <Input
-                  id="input-with-icon-adornment"
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon onClick={() => goSearch(query)} />
-                    </InputAdornment>
-                  }
-                  value={query}
-                  onChange={(q) => setQuery(q.target.value)}
-                  onKeyPress={(event) => {
-                    if (event.key === "Enter") {
-                      goSearch(query);
+              <MuiThemeProvider theme={theme}>
+                <FormControl>
+                  <Input
+                    id="input-with-icon-adornment"
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <SearchIcon onClick={() => goSearch(query)} />
+                      </InputAdornment>
                     }
-                  }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <CloseButton onClick={() => closeSearch()} />
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
+                    value={query}
+                    onChange={(q) => setQuery(q.target.value)}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        goSearch(query);
+                      }
+                    }}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <CloseButton
+                          color={"#000"}
+                          width={36}
+                          height={36}
+                          onClick={() => closeSearch()}
+                        />
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+              </MuiThemeProvider>
             </NavLink>
           ) : (
             <NavLink onClick={() => openSearch()}>

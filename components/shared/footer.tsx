@@ -117,7 +117,7 @@ const Container = styled.footer`
   display: flex;
   background-color: rgba(1, 1, 1, 0.011);
   flex-direction: row;
-  justify-content: start;
+  justify-content: space-between;
   @media ${mediaQueries.phone} {
     justify-content: start;
     padding: 10px 0px 0px;

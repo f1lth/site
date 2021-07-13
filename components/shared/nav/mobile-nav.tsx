@@ -117,7 +117,10 @@ export function MobileNav(props: NavProps): JSX.Element {
                   }}
                   endAdornment={
                     <InputAdornment position="end">
-                      <CloseButton onClick={() => closeSearch()} />
+                      <CloseButton
+                        color={"#fff"}
+                        onClick={() => closeSearch()}
+                      />
                     </InputAdornment>
                   }
                 />

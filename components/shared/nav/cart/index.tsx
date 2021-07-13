@@ -165,7 +165,7 @@ export function Cart(props: CartProps): JSX.Element {
       <MobileOnly>
         <Tags>
           <Label>Shopping Cart</Label>
-          <CloseButton width={45} height={45} color="#000" onClick={onClose} />
+          <CloseButton width={70} height={70} color="#fff" onClick={onClose} />
         </Tags>
         <CheckoutItems>
           {checkoutItems.map((item) => (
@@ -191,13 +191,14 @@ export function Cart(props: CartProps): JSX.Element {
 }
 
 const CheckoutItems = styled.div`
-  padding: 40px 30px 40px 25px;
+  padding: 40px 30px 10px 25px;
 `;
 
 const Divider = styled.div`
   background-color: rgba(251, 251, 251, 0.5);
   width: 90%;
   margin-left: 5%;
+  margin-bottom: 10px;
   margin-right: 5%;
   height: 1.01px; //hacky but divider.
 `;
@@ -205,17 +206,18 @@ const Divider = styled.div`
 const Container = styled.div`
   width: 100vw;
   background-color: black;
-  @media ${mediaQueries.tablet} {
-    margin-top: 25px;
-  }
 `;
 
 const Tags = styled.div`
-  margin-right: 40px;
-  margin-left: 40px;
   display: flex;
+  padding-left: 30px;
+  padding-right: 40px;
   flex-direction: row;
   justify-content: space-between;
+  @media ${mediaQueries.tablet} {
+    padding-left: 30px;
+    padding-right: 8px;
+  }
 `;
 
 const Header = styled.div`
@@ -239,8 +241,6 @@ const Label = styled.div`
   font-family: "inter";
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 10px;
-  margin-top: 10px;
   display: flex;
   color: white;
   align-items: center;

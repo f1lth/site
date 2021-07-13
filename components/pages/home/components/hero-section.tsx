@@ -186,8 +186,8 @@ const Subheader = styled.div`
   margin-bottom: 20px;
   margin-top: 5px;
   @media ${mediaQueries.tablet} {
-    width: 110px;
-    font-size: 12px;
+    width: 120px;
+    font-size: 13px;
     margin-bottom: 4px;
   }
 `;
@@ -263,18 +263,19 @@ const ShopCTA = styled.a`
   padding: 13px 52px;
   cursor: pointer;
   text-decoration: none;
+  text-align: center;
   display: inline-block;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   width: 148px;
   height: 44px;
 
   @media ${mediaQueries.tablet} {
-    padding: 5px 17px;
-    width: 52px;
-    height: 16px;
-
-    font-size: 7px;
+    padding: 8px 17px;
+    width: 82px;
+    margin-top: 3px;
+    height: 26px;
+    font-size: 9px;
   }
 
   &:hover {

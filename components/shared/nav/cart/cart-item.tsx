@@ -129,10 +129,12 @@ const RightSide = styled.div`
 `;
 
 const ItemName = styled.div`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   font-family: "inter";
   color: white;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const Price = styled.div`
@@ -164,10 +166,10 @@ const CheckoutItemImage = styled.img`
 
 const Circle = styled.div`
   border-radius: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  display: "flex";
   height: 43.94px;
   width: 43.94px;
   font-size: 21px;
@@ -175,16 +177,14 @@ const Circle = styled.div`
   fill: "none";
   cursor: pointer;
   border: 1px solid #fff;
-  padding-top: 10px;
   margin-right: 4px;
   margin-left: 4px;
   @media ${mediaQueries.tablet} {
-    height: 33.94px;
-    width: 33.94px;
+    height: 20px;
+    width: 20px;
     margin-left: 0px;
     margin-right: 0px;
     font-size: 14px;
-    padding-top: 8px;
   }
 `;
 

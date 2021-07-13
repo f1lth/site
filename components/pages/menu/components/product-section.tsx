@@ -46,7 +46,9 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
     }
     return (
       <Section>
-        <SectionHeader>{displayNameForCategory(category)}</SectionHeader>
+        <SectionHeader>
+          {displayNameForCategory(category as Category)}
+        </SectionHeader>
         <Grid>{productCard}</Grid>
       </Section>
     );
@@ -79,30 +81,29 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
     });
 
     return (
-      <>
+      <Section>
         <SectionHeader> Search results: ({productCard.length}) </SectionHeader>
-        <Section>
-          <Grid>{productCard}</Grid>
-        </Section>
-      </>
+        <Grid>{productCard}</Grid>
+      </Section>
     );
   }
 }
 
 const Section = styled.section`
   margin-bottom: 64px;
+  max-width: 100%;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueries.tablet} {
     margin-bottom: 50px;
   }
 `;
 
 const Container = styled.div`
-  max-width: 1440px;
   margin: 0 auto;
+  width: 6.5vw;
   background-color: #ffffff;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueries.tablet} {
     width: 100%;
   }
 `;
@@ -110,11 +111,11 @@ const Container = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 22px;
+  gap: 30px;
 
   @media ${mediaQueries.tablet} {
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 9px;
   }
   @media ${mediaQueries.phone} {
     grid-template-columns: 1fr 1fr;

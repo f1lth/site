@@ -71,7 +71,6 @@ function Product(): JSX.Element {
               <Image src={product.image} />
             </GridItem>
             <GridItem>
-              {console.log(product)}
               <ProductInfo product={product} />
             </GridItem>
           </Grid>
@@ -88,7 +87,7 @@ const Container = styled.div`
   margin: 0 auto;
   background-color: #ffffff;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueries.tablet} {
     width: 100%;
   }
 `;

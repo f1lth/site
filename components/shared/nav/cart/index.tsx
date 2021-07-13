@@ -9,13 +9,12 @@ import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { useRemoveItemFromCheckoutMutation } from "api/mutations/remove-item-from-checkout.graphql";
 import { useUpdateCheckoutItemQuantityMutation } from "api/mutations/update-checkout-item-quantity.graphql";
 import { useUpdateCheckoutMutation } from "api/mutations/update-checkout.graphql";
-import { Logo } from "components/shared/svg/logo";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { mediaQueries } from "styles/media-queries";
 import { formatPrice } from "utils/number-format";
-import { displayNameForCheckoutOrderType } from "utils/enum-to-display-name/checkout-order-type";
+
 import { CartItem } from "./cart-item";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { CloseButton } from "components/shared/svg/close-button";
@@ -89,12 +88,6 @@ export function Cart(props: CartProps): JSX.Element {
     isUpdateQuantityLoading ||
     isUpdateCheckoutLoading;
 
-  const deliveryPickupToggle = (
-    <DeliveryPickupToggle onClick={handleCheckoutOrderTypeToggle}>
-      {`Switch to ${displayNameForCheckoutOrderType(otherOrderType)}`}
-    </DeliveryPickupToggle>
-  );
-
   const headerAndDeliveryInfo = (
     <>
       <Header>
@@ -121,8 +114,9 @@ export function Cart(props: CartProps): JSX.Element {
   // These calculations will eventually come from the API
   function costOfCheckoutItem(item: CheckoutItemFragment): number {
     const itemPrice =
-      item.product.variants.find((variant) => variant.option === item.option)
-        ?.priceRec || 0;
+      item.product.variants.find(
+        (variant: any) => variant.option === item.option
+      )?.priceRec || 0;
     return itemPrice * item.quantity;
   }
 
@@ -144,7 +138,7 @@ export function Cart(props: CartProps): JSX.Element {
         </Tags>
 
         <CheckoutItems>
-          {checkoutItems.map((item) => (
+          {checkoutItems.map((item: any) => (
             <Fragment key={item.id}>
               <CartItem
                 item={item}
@@ -168,7 +162,7 @@ export function Cart(props: CartProps): JSX.Element {
           <CloseButton width={70} height={70} color="#fff" onClick={onClose} />
         </Tags>
         <CheckoutItems>
-          {checkoutItems.map((item) => (
+          {checkoutItems.map((item: any) => (
             <Fragment key={item.id}>
               <CartItem
                 item={item}
@@ -257,15 +251,6 @@ const HeaderCloseButton = styled.button`
   &:hover {
     background-color: rgba(0, 0, 0, 0.1) !important;
   }
-`;
-
-const DeliveryPickupToggle = styled.button`
-  color: #4a8ca0;
-  background-color: transparent;
-  text-decoration: underline;
-  font-size: 12px;
-  cursor: pointer;
-  border: none;
 `;
 
 const EmptyCart = styled.div`

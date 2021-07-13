@@ -141,6 +141,7 @@ const FeaturedContainer = styled.div`
 
   @media ${mediaQueries.tablet} {
     height: 800px;
+    margin-top: 10px;
     margin-bottom: 80px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
@@ -221,7 +222,7 @@ const CTAContainer = styled.div`
   margin-top: 30px;
   justify-content: center;
   @media ${mediaQueries.tablet} {
-    margin-top: -10px;
+    margin-top: 10px;
   }
 `;
 

@@ -11,7 +11,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import styled from "styled-components";
 import Select from "@material-ui/core/Select";
 import { mediaQueries } from "styles/media-queries";
-
+import { DesktopOnly } from "components/shared/responsive/desktop-only";
+import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { MenuProductFragment } from "api/fragments/menu-product.graphql";
 import { deriveDisplayPrices } from "utils/product";
 import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout.graphql";
@@ -80,6 +81,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
       <InfoContainer>
         <Circle>
           THC {"\n"}
+          <span></span>
           {product.potencyThc?.formatted}
         </Circle>
         <Circle>
@@ -87,8 +89,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
           {product.potencyCbd?.formatted}
         </Circle>
         <Circle>
-          TYPE {"\n"}
-          {product.strainType}
+          {product.strainType == "NOT_APPLICABLE" ? "NA" : product.strainType}
         </Circle>
       </InfoContainer>
       <QuantitySelect
@@ -149,21 +150,38 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
             <Typography className={classes.heading}>Effects</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <InfoContainer>
-              {(product?.effects || []).map((e) => (
-                <Circle
-                  style={{
-                    background: "#000",
-                    color: "#fff",
-                    fontSize: "10px",
-                    paddingTop: "35px",
-                  }}
-                  key={e}
-                >
-                  {e}
-                </Circle>
-              ))}
-            </InfoContainer>
+            <DesktopOnly>
+              <InfoContainer>
+                {(product?.effects || []).map((e) => (
+                  <Circle
+                    style={{
+                      background: "#000",
+                      color: "#fff",
+                      fontSize: "75%",
+                    }}
+                    key={e}
+                  >
+                    {e}
+                  </Circle>
+                ))}
+              </InfoContainer>
+            </DesktopOnly>
+            <MobileOnly>
+              <InfoContainer>
+                {(product?.effects || []).map((e) => (
+                  <Circle
+                    style={{
+                      background: "#000",
+                      color: "#fff",
+                      fontSize: "55%",
+                    }}
+                    key={e}
+                  >
+                    {e}
+                  </Circle>
+                ))}
+              </InfoContainer>
+            </MobileOnly>
           </AccordionDetails>
         </Accordion>
         <Accordion>
@@ -189,6 +207,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
 `;
 
@@ -213,10 +232,16 @@ const Name = styled.div`
 
 const InfoContainer = styled.div`
   display: flex;
+  min-width: 600px;
   flex-direction: row;
   height: auto;
   width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
   justify-content: space-between;
+  @media ${mediaQueries.tablet} {
+    min-width: 300px;
+  }
 `;
 
 const Circle = styled.div`
@@ -224,19 +249,18 @@ const Circle = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  display: "flex";
+  display: flex;
+  flex-direction: column;
   height: 85px;
   width: 85px;
-  font-size: 21px;
+  font-size: 135%;
   color: #000;
   fill: "none";
   border: 1px solid #000000;
-  padding-top: 14px;
-  @media ${mediaQueries.phone} {
-    height: 65px;
-    width: 65px;
-    font-size: 16px;
-    padding-top: 11px;
+  @media ${mediaQueries.tablet} {
+    height: 55px;
+    width: 55px;
+    font-size: 85%;
   }
 `;
 

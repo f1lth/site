@@ -1,10 +1,7 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { mediaQueries } from "styles/media-queries";
-
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
-
+import { mediaQueries } from "styles/media-queries";
+import { useState } from "react";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 

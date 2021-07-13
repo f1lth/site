@@ -153,7 +153,7 @@ function Menu(): JSX.Element {
               category={""}
               effects={""}
               numOfSelectedEffects={0}
-              query={query}
+              query={query as string}
             />
           </div>
         </Content>

@@ -44,11 +44,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100;300;400;700&family=Poppins:wght@100;300;400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
             async

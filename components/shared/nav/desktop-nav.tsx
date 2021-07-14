@@ -40,6 +40,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
   // State
   const [isSubmenuVisible, setIsSubmenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
+  const [isContactVisible, setIsContactVisible] = useState(false);
   const [isSearchbarVisible, setIsSearchbarVisible] = useState(false);
   const [query, setQuery] = useState("");
   const [isMenuShown, setIsMenuShown] = useState(false);
@@ -82,6 +83,24 @@ export function DesktopNav(props: NavProps): JSX.Element {
     setIsCartVisible(false);
   }
 
+  function openShop() {
+    setIsContactVisible(false);
+    setIsMenuShown(true);
+  }
+
+  function closeShop() {
+    setIsMenuShown(false);
+  }
+
+  function openContact() {
+    setIsMenuShown(false);
+    setIsContactVisible(true);
+  }
+
+  function closeContact() {
+    setIsContactVisible(false);
+  }
+
   function openSearch() {
     setIsSearchbarVisible(true);
   }
@@ -108,7 +127,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
         </NavLink>
         <NavLink>
           {!isSearchbarVisible ? (
-            <Header onClick={handleLogoClick}>Flower</Header>
+            <Header onClick={handleLogoClick}>Marriage Iguana</Header>
           ) : (
             <SearchHeader
               onClick={handleLogoClick}
@@ -187,7 +206,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
                 HOME
               </SubmenuItemBold>
               <Link href="/menu">
-                <SubmenuItemBold onMouseEnter={() => setIsMenuShown(true)}>
+                <SubmenuItemBold onMouseEnter={() => openShop()}>
                   SHOP
                 </SubmenuItemBold>
               </Link>
@@ -195,7 +214,9 @@ export function DesktopNav(props: NavProps): JSX.Element {
                 <SubmenuItemBold>ABOUT</SubmenuItemBold>
               </Link>
               <Link href="/contact">
-                <SubmenuItemBold>CONTACT</SubmenuItemBold>
+                <SubmenuItemBold onMouseEnter={() => openContact()}>
+                  CONTACT
+                </SubmenuItemBold>
               </Link>
             </SubmenuSection>
 
@@ -211,7 +232,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
                   <SubmenuSection></SubmenuSection>
                   {SUBMENU_CATEGORIES.map((category) => (
                     <SubmenuItem
-                      onMouseEnter={() => setIsMenuShown(true)}
+                      onMouseEnter={() => openShop()}
                       key={category}
                       onClick={() => handleCategoryClick(category)}
                     >
@@ -224,6 +245,26 @@ export function DesktopNav(props: NavProps): JSX.Element {
                   <SubmenuItem>Apparel</SubmenuItem>
                   <SubmenuItem>Accessories</SubmenuItem>
                   <SubmenuItem>See all</SubmenuItem>
+                </SubmenuSection>
+              </Menu>
+            )}
+            {isContactVisible && (
+              <Menu>
+                <SubmenuSection>
+                  <SubmenuSection></SubmenuSection>
+                  <SubmenuItem></SubmenuItem>
+                  <SubmenuSection></SubmenuSection>
+                  <SubmenuItem>Telephone</SubmenuItem>
+                  <SubmenuItem>Contact us!</SubmenuItem>
+                  <SubmenuItem>Address</SubmenuItem>
+                </SubmenuSection>
+                <SubmenuSection>
+                  <SubmenuSection></SubmenuSection>
+                  <SubmenuItem></SubmenuItem>
+                  <SubmenuSection></SubmenuSection>
+                  <SubmenuItem>416-123-9876</SubmenuItem>
+                  <SubmenuItem>store@flower.com</SubmenuItem>
+                  <SubmenuItem>1 Bloor St. </SubmenuItem>
                 </SubmenuSection>
               </Menu>
             )}
@@ -305,7 +346,9 @@ const UtilSection = styled.div`
 
 const SubmenuSection = styled.div`
   margin-top: 110px;
+  display: inline-block;
   outline: none;
+  min-width: 110px;
 `;
 
 const StyledMenu = styled.div`
@@ -338,6 +381,7 @@ const SubmenuItemBold = styled.div`
 const SubmenuItem = styled.div`
   margin-bottom: 18px;
   margin-top: 10px;
+
   // for items that aren't actually links yet
   font-size: 15px;
   color: white;

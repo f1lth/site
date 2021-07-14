@@ -44,25 +44,27 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
 
 const Container = styled.div`
   cursor: pointer;
+  padding: 0px 10px px 5px;
+  display: flex;
   width: 100%;
-  padding: 25px;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  width: 100%
-  justify-content: center;
   margin: 0 auto;
+  flex-direction: column;
 `;
 
 const ProductContainer = styled.div`
-  position: relative;
+  background-color: #f2f2f2;
+  padding: 2em 1em;
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: inherit;
 `;
 
 const ProductImage = styled.img`
-  height: 186px;
-  object-fit: contain;
   width: 100%;
-  margin-bottom: 44px;
+  height: 186px;
+  display: flex;
+  object-fit: contain;
   mix-blend-mode: darken;
   @media ${mediaQueries.tablet} {
     min-width: 0;

@@ -41,7 +41,7 @@ const Title = styled.div`
 const Grid = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 22px;
   margin-top: 1em;
   @media ${mediaQueries.phone} {

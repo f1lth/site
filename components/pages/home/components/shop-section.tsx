@@ -64,7 +64,7 @@ export function ShopSection(): JSX.Element {
           isSelected={selectedCategory === SHOP_SECTION_CATEGORIES[0]}
           onClick={() => setSelectedCategory(SHOP_SECTION_CATEGORIES[0])}
         >
-          <Subheader>Shop Premium Flower</Subheader>
+          <Subheader>Shop Best Sellers</Subheader>
         </CategoryListItem>
       </DesktopOnly>
       <MobileOnly>
@@ -202,9 +202,9 @@ const CategoryListItem = styled.li<{ isSelected: boolean }>`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 340px 340px 340px;
-  grid-template-rows: 1fr;
-  gap: 22px;
+  grid-template-columns: minmax(auto, 40%) minmax(auto, 40%) minmax(auto, 40%);
+  grid-template-rows: 310px;
+  gap: 20px;
   justify-content: center;
 
   @media ${mediaQueries.largeTablet} {

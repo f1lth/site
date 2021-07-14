@@ -74,6 +74,18 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
     });
   }
 
+  function incrementProduct() {
+    if (selectedQuantity < 9) {
+      setSelectedQuantity((selectedQuantity + 1) as number);
+    }
+  }
+
+  function decrementProduct() {
+    if (selectedQuantity > 1) {
+      setSelectedQuantity((selectedQuantity - 1) as number);
+    }
+  }
+
   return (
     <Container>
       <Name>{product.name}</Name>
@@ -81,7 +93,6 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
       <InfoContainer>
         <Circle>
           THC {"\n"}
-          <span></span>
           {product.potencyThc?.formatted}
         </Circle>
         <Circle>
@@ -92,18 +103,21 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
           {product.strainType == "NOT_APPLICABLE" ? "NA" : product.strainType}
         </Circle>
       </InfoContainer>
-      <QuantitySelect
-        value={selectedQuantity}
-        onChange={(e) => {
-          setSelectedQuantity(e.target.value as number);
-        }}
-        variant="outlined"
-      >
-        {QUANTITIES.map((quantity) => (
-          <MenuItem key={quantity} value={quantity}>
-            {quantity}
-          </MenuItem>
-        ))}
+      <QuantitySelect>
+        <QuantityText>QTY:</QuantityText>
+        <Circle
+          style={{ height: "47px", width: "47px", cursor: "pointer" }}
+          onClick={() => incrementProduct()}
+        >
+          +
+        </Circle>
+        <QuantityText>{selectedQuantity}</QuantityText>
+        <Circle
+          style={{ height: "47px", width: "47px", cursor: "pointer" }}
+          onClick={() => decrementProduct()}
+        >
+          -
+        </Circle>
       </QuantitySelect>
       <MuiThemeProvider theme={theme}>
         <AddToCartButton
@@ -264,28 +278,18 @@ const Circle = styled.div`
   }
 `;
 
-const StyledSelect = styled(Select)`
-  border-radius: 0px !important;
-  margin-right: 12px;
-  height: 58px;
-
-  & .MuiSelect-select {
-    font-size: 13px;
-    padding: 14px 18px;
-  }
-
-  @media ${mediaQueries.phone} {
-    margin-bottom: 13px;
-  }
-`;
-
-const QuantitySelect = styled(StyledSelect)`
-  width: 106px;
+const QuantitySelect = styled.div`
+  width: 230px;
+  display: flex;
+  user-select: none;
   margin-top: 35px;
+  align-items: center;
   margin-bottom: 35px;
+  flex-direction: row;
+  justify-content: space-between;
 
-  @media ${mediaQueries.phone} {
-    margin-right: 0;
+  @media ${mediaQueries.tablet} {
+    width: 206px;
   }
 `;
 
@@ -340,6 +344,10 @@ const theme = createMuiTheme({
     },
   },
 });
+
+const QuantityText = styled.div`
+  font-size: 20px;
+`;
 
 const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-right: 34px;

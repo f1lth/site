@@ -27,7 +27,6 @@ export function CartItem(props: CartItem): JSX.Element {
   } = props;
 
   function incrementProduct() {
-    console.log("icr");
     if (item.quantity >= 9) {
       console.log("nothing");
     } else {

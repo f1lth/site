@@ -91,7 +91,6 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
 
 const Section = styled.section`
   margin-bottom: 64px;
-  max-width: 100%;
 
   @media ${mediaQueries.tablet} {
     margin-bottom: 50px;
@@ -100,7 +99,6 @@ const Section = styled.section`
 
 const Container = styled.div`
   margin: 0 auto;
-  width: 6.5vw;
   background-color: #ffffff;
 
   @media ${mediaQueries.tablet} {
@@ -111,7 +109,7 @@ const Container = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 22px;
+  gap: 30px;
 
   @media ${mediaQueries.tablet} {
     grid-template-columns: 1fr 1fr;

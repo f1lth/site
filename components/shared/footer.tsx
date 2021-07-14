@@ -112,7 +112,7 @@ const Container = styled.footer`
   width: 100%;
   padding: 60px 47px 45px;
   display: flex;
-  background-color: rgba(1, 1, 1, 0.011);
+  background-color: #f2f2f2;
   flex-direction: row;
   justify-content: space-between;
   @media ${mediaQueries.phone} {
@@ -122,7 +122,7 @@ const Container = styled.footer`
   }
 `;
 const MobileContainer = styled.footer`
-  background-color: rgba(242, 242, 242, 0.56);
+  background-color: #f2f2f2;
   padding: 62px 27px 45px;
   width: 100%;
   display: flex;

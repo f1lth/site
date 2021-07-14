@@ -89,6 +89,7 @@ const Container = styled.div`
 const Column = styled.div`
   display: grid;
   grid-template-rows: minmax(auto, 50%) minmax(auto, 50%);
+  gap: 22px;
   grid-template-columns: 1fr;
   padding: 0 0 0 10px;
 `;
@@ -201,7 +202,7 @@ const BodyText = styled.div`
   width: 50%;
   margin-right: auto;
   margin-left: auto;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 
   @media ${mediaQueries.tablet} {
     margin-top: 10px;
@@ -243,10 +244,10 @@ const Header = styled.div`
   font-family: "inter";
   font-weight: 500;
   width: 100%;
-  font-size: 69px;
+  font-size: 54px;
   text-align: center;
   color: #000000;
-  margin-bottom: 8px;
+  margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 60px;
@@ -286,8 +287,6 @@ const ShopCTA = styled.a`
 const AboutContainer = styled.div`
   display: grid;
   width: 100%;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: 1fr;
   height: 360px;
   align-items: center;
 

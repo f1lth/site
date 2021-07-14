@@ -139,7 +139,7 @@ function Menu(): JSX.Element {
           </MobileOnly>
           {/* Display Products */}
           <div>
-            {query == "" &&
+            {query == "" ? (
               categoriesToShow.map((category) => (
                 <ProductSection
                   key={category}
@@ -148,13 +148,15 @@ function Menu(): JSX.Element {
                   numOfSelectedEffects={effectsToShow.length}
                   query={""}
                 />
-              ))}
-            <ProductSection
-              category={""}
-              effects={""}
-              numOfSelectedEffects={0}
-              query={query as string}
-            />
+              ))
+            ) : (
+              <ProductSection
+                category={""}
+                effects={""}
+                numOfSelectedEffects={0}
+                query={query as string}
+              />
+            )}
           </div>
         </Content>
         <Footer />

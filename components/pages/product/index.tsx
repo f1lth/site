@@ -4,13 +4,12 @@ import { initializeApollo } from "api/apollo";
 import { MenuDocument, Category, useMenuQuery } from "api/queries/menu.graphql";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
-
-import styled from "styled-components";
 import { mediaQueries } from "styles/media-queries";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
 import { LoadingSpinner } from "components/shared/loading-spinner";
-
+import { shuffle } from "components/shared/util";
+import styled from "styled-components";
 import ProductInfo from "./components/product-info";
 import Recommendation from "./components/recommendation";
 
@@ -60,6 +59,7 @@ function Product(): JSX.Element {
     );
   if (error) console.log(`Error: ${error.message}`);
   if (!data) console.log(`Product NAME ${name} Not found`);
+  rec = shuffle(rec).slice(0, 4);
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -74,7 +74,7 @@ function Product(): JSX.Element {
               <ProductInfo product={product} />
             </GridItem>
           </Grid>
-          <Recommendation products={rec} />
+          <Recommendation onClick={window.scrollTo(0, 0)} products={rec} />
         </Content>
         <Footer />
       </Container>

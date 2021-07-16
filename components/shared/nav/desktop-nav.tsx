@@ -265,7 +265,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
                   <SubmenuItem></SubmenuItem>
                   <SubmenuSection></SubmenuSection>
                   <SubmenuItem>Telephone</SubmenuItem>
-                  <SubmenuItem>Contact us!</SubmenuItem>
+                  <SubmenuItem>Email</SubmenuItem>
                   <SubmenuItem>Address</SubmenuItem>
                 </SubmenuSection>
                 <SubmenuSection>

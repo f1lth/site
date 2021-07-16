@@ -1,15 +1,8 @@
+///////////////////////////
+/*      PRODUCT-INFO     */
+///////////////////////////
 import { useState, useContext } from "react";
 import { Button } from "@material-ui/core";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import styled from "styled-components";
-import Select from "@material-ui/core/Select";
 import { mediaQueries } from "styles/media-queries";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
@@ -18,12 +11,18 @@ import { deriveDisplayPrices } from "utils/product";
 import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout.graphql";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { CheckoutContext } from "components/shared/checkout-context";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import styled from "styled-components";
 
 interface ProductInfoProps {
   product: MenuProductFragment;
 }
-
-const QUANTITIES = [1, 2, 3, 4, 5, 6, 7, 8];
 
 function ProductInfo(props: ProductInfoProps): JSX.Element {
   const { product } = props;
@@ -63,7 +62,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
   }
 
   async function handleBuyClick() {
-    console.log("checking out with current cart state!");
+    window.alert("DEMO SITE -> NO CHECKOUT YET");
     await addItemToCheckoutMutation({
       variables: {
         checkoutId: checkout?.id || "",
@@ -90,7 +89,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
     <Container>
       <Name>{product.name}</Name>
       <Price>{deriveDisplayPrices(product).rec}</Price>
-      <InfoContainer>
+      <CircleContainer>
         <Circle>
           THC {"\n"}
           {product.potencyThc?.formatted}
@@ -102,18 +101,18 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
         <Circle>
           {product.strainType == "NOT_APPLICABLE" ? "NA" : product.strainType}
         </Circle>
-      </InfoContainer>
+      </CircleContainer>
       <QuantitySelect>
         <QuantityText>QTY:</QuantityText>
         <Circle
-          style={{ height: "47px", width: "47px", cursor: "pointer" }}
+          style={{ height: "35px", width: "35px", cursor: "pointer" }}
           onClick={() => incrementProduct()}
         >
           +
         </Circle>
         <QuantityText>{selectedQuantity}</QuantityText>
         <Circle
-          style={{ height: "47px", width: "47px", cursor: "pointer" }}
+          style={{ height: "35px", width: "35px", cursor: "pointer" }}
           onClick={() => decrementProduct()}
         >
           -
@@ -164,38 +163,11 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
             <Typography className={classes.heading}>Effects</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <DesktopOnly>
-              <InfoContainer>
-                {(product?.effects || []).map((e) => (
-                  <Circle
-                    style={{
-                      background: "#000",
-                      color: "#fff",
-                      fontSize: "75%",
-                    }}
-                    key={e}
-                  >
-                    {e}
-                  </Circle>
-                ))}
-              </InfoContainer>
-            </DesktopOnly>
-            <MobileOnly>
-              <InfoContainer>
-                {(product?.effects || []).map((e) => (
-                  <Circle
-                    style={{
-                      background: "#000",
-                      color: "#fff",
-                      fontSize: "55%",
-                    }}
-                    key={e}
-                  >
-                    {e}
-                  </Circle>
-                ))}
-              </InfoContainer>
-            </MobileOnly>
+            <InfoContainer>
+              {(product?.effects || []).map((e) => (
+                <FXCircle key={e}>{e}</FXCircle>
+              ))}
+            </InfoContainer>
           </AccordionDetails>
         </Accordion>
         <Accordion>
@@ -236,6 +208,7 @@ const Price = styled.div`
 const Name = styled.div`
   font-family: "inter";
   font-size: 33px;
+  font-weight: 600;
   color: #000000;
   line-height: 32px;
   letter-spacing: 0.05em;
@@ -246,15 +219,23 @@ const Name = styled.div`
 
 const InfoContainer = styled.div`
   display: flex;
-  min-width: 600px;
+  user-select: none;
   flex-direction: row;
   height: auto;
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
   justify-content: space-between;
+`;
+
+const CircleContainer = styled.div`
+  display: flex;
+  user-select: none;
+  flex-direction: row;
+  height: auto;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0px 45px 0px 45px;
   @media ${mediaQueries.tablet} {
-    min-width: 300px;
+    padding: 0px 20px 0px 20px;
   }
 `;
 
@@ -278,8 +259,30 @@ const Circle = styled.div`
   }
 `;
 
+const FXCircle = styled.div`
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 85px;
+  width: 85px;
+  background-color: #000;
+  color: #fff;
+  font-size: 85%;
+  color: #fff;
+  fill: "none";
+  border: 1px solid #000000;
+  @media ${mediaQueries.tablet} {
+    height: 55px;
+    width: 55px;
+    font-size: 55%;
+  }
+`;
+
 const QuantitySelect = styled.div`
-  width: 230px;
+  width: 180px;
   display: flex;
   user-select: none;
   margin-top: 35px;
@@ -346,7 +349,7 @@ const theme = createMuiTheme({
 });
 
 const QuantityText = styled.div`
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const StyledLoadingSpinner = styled(LoadingSpinner)`

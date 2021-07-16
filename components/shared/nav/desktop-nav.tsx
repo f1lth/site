@@ -18,7 +18,6 @@ import { Drawer } from "@material-ui/core";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import styled from "styled-components";
-import Link from "next/link";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 
@@ -62,7 +61,16 @@ export function DesktopNav(props: NavProps): JSX.Element {
     }
   }
 
+  function handleMenuClick() {
+    router.push("/menu");
+  }
+
+  function handleAboutClick() {
+    router.push("/about");
+  }
+
   function handleHomeClick() {
+    setIsContactVisible(false);
     setIsMenuShown(false);
     router.push("/");
   }
@@ -88,17 +96,14 @@ export function DesktopNav(props: NavProps): JSX.Element {
     setIsMenuShown(true);
   }
 
-  function closeShop() {
-    setIsMenuShown(false);
-  }
-
   function openContact() {
     setIsMenuShown(false);
     setIsContactVisible(true);
   }
 
-  function closeContact() {
+  function closeActive() {
     setIsContactVisible(false);
+    setIsMenuShown(false);
   }
 
   function openSearch() {
@@ -127,7 +132,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
         </NavLink>
         <NavLink>
           {!isSearchbarVisible ? (
-            <Header onClick={handleLogoClick}>Marriage Iguana</Header>
+            <Header onClick={handleLogoClick}>[ LOGO || NAME ]</Header>
           ) : (
             <SearchHeader
               onClick={handleLogoClick}
@@ -138,6 +143,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
           )}
         </NavLink>
         <NavLink>
+          {/* Searchbar Logic */}
           {isSearchbarVisible ? (
             <NavLink>
               <MuiThemeProvider theme={theme}>
@@ -182,7 +188,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
             <CartIcon onClick={openCart} />
           </CartIconContainer>
         </NavLink>
-
         {/* CART */}
         <Drawer anchor="right" open={isCartVisible} onBackdropClick={closeCart}>
           <Cart onClose={closeCart} apolloClient={apolloClient} />
@@ -202,24 +207,29 @@ export function DesktopNav(props: NavProps): JSX.Element {
               <SocialItem>social 3</SocialItem>
             </UtilSection>
             <SubmenuSection>
-              <SubmenuItemBold onClick={() => handleHomeClick()}>
+              <SubmenuItemBold
+                onMouseEnter={() => closeActive()}
+                onClick={() => handleHomeClick()}
+              >
                 HOME
               </SubmenuItemBold>
-              <Link href="/menu">
-                <SubmenuItemBold onMouseEnter={() => openShop()}>
-                  SHOP
-                </SubmenuItemBold>
-              </Link>
-              <Link href="/about">
-                <SubmenuItemBold>ABOUT</SubmenuItemBold>
-              </Link>
-              <Link href="/contact">
-                <SubmenuItemBold onMouseEnter={() => openContact()}>
-                  CONTACT
-                </SubmenuItemBold>
-              </Link>
+              <SubmenuItemBold
+                onMouseEnter={() => openShop()}
+                onClick={() => handleMenuClick()}
+              >
+                SHOP
+              </SubmenuItemBold>
+              <SubmenuItemBold
+                onMouseEnter={() => closeActive()}
+                onClick={() => handleAboutClick()}
+              >
+                ABOUT
+              </SubmenuItemBold>
+              <SubmenuItemBold onMouseEnter={() => openContact()}>
+                CONTACT
+              </SubmenuItemBold>
             </SubmenuSection>
-
+            {/* MENU */}
             {isMenuShown && (
               <Menu>
                 <SubmenuSection>
@@ -359,10 +369,10 @@ const StyledMenu = styled.div`
   top: 0;
   left: 0px;
   height: 100%;
-  width: 100%;
+  width: 100vw;
   max-width: 1440px;
   background-color: #000000;
-  justify-content: space-between;
+  justify-content: start;
   gap: 120px;
   padding: 25px 180px 25px 50px;
 `;

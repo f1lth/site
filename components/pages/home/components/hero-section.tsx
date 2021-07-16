@@ -92,6 +92,9 @@ const Column = styled.div`
   gap: 22px;
   grid-template-columns: 1fr;
   padding: 0 0 0 10px;
+  @media ${mediaQueries.tablet} {
+    gap: 6px;
+  }
 `;
 
 const Holder = styled.div`

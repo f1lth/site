@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Category, Effects } from "api/queries/menu.graphql";
 import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueries } from "styles/media-queries";
@@ -6,6 +5,7 @@ import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { useSearchQuery } from "api/queries/search.graphql";
 import { useMenuQuery } from "api/queries/menu.graphql";
+import styled from "styled-components";
 
 interface ProductSectionProps {
   category: Category | "";
@@ -23,7 +23,6 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
         category: category as Category,
       },
     });
-
     const products = data?.menu?.products;
     let productCard;
 
@@ -66,11 +65,9 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
         </Container>
       );
     if (error) console.log(`Error: ${error.message}`);
-
     const products = data?.menu?.products;
     let productCard;
     const productAdded: string[] = [];
-
     productCard = (products || []).map((product) => {
       if (!productAdded.includes(product?.name)) {
         // Check if a product have been pushed to array already or not
@@ -79,7 +76,6 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
       }
       return null;
     });
-
     return (
       <Section>
         <SectionHeader> Search results: ({productCard.length}) </SectionHeader>

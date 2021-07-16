@@ -167,6 +167,7 @@ const Subheader = styled.p`
   display: inline-block;
   font-size: 12px;
   margin: 0 auto;
+  color: #000;
 
   line-height: 30px;
   font-weight: 300;
@@ -208,7 +209,7 @@ const SubmenuItem = styled.div`
 
   // for items that aren't actually links yet
   font-size: 12px;
-  color: rgba(31, 43, 73, 0.7);
+  color: color: #000;
   text-decoration: none;
 
   cursor: ${(props) => (props.onClick ? "pointer" : "auto")};
@@ -226,7 +227,7 @@ const SubmenuItem = styled.div`
 const CTA = styled.div`
   position: relative;
   background-color: #000000;
-  color: white;
+  color: rgba(255, 255, 255, 0.55);
   text-align: center;
   padding: 13px 40px;
   float: right;
@@ -265,7 +266,7 @@ const EmailInput = styled(OutlinedInput)`
     border: none;
   }
   & .MuiOutlinedInput-input {
-    color: white;
+    color: #fff;
   }
 
   @media ${mediaQueries.tablet} {

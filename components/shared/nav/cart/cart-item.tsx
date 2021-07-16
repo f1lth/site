@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
@@ -7,6 +5,7 @@ import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { CloseButton } from "components/shared/svg/close-button";
 import { formatPrice } from "utils/number-format";
 import { mediaQueries } from "styles/media-queries";
+import styled from "styled-components";
 
 interface CartItem {
   item: CheckoutItemFragment;
@@ -94,7 +93,7 @@ export function CartItem(props: CartItem): JSX.Element {
 
 const CheckoutItem = styled.div`
   display: flex;
-
+  user-select: none;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 40px;
@@ -132,8 +131,8 @@ const ItemName = styled.div`
   font-weight: 400;
   font-family: "inter";
   color: white;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 12px;
+  margin-right: 12px;
 `;
 
 const Price = styled.div`

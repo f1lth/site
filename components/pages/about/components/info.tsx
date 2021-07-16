@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { mediaQueries } from "styles/media-queries";
+import styled from "styled-components";
 
 export function Info(): JSX.Element {
   return (
@@ -15,30 +15,6 @@ const Section = styled.section`
 
   @media ${mediaQueries.tablet} {
     margin-bottom: 50px;
-  }
-`;
-
-const Container = styled.div`
-  margin: 0 auto;
-  background-color: #ffffff;
-
-  @media ${mediaQueries.tablet} {
-    width: 100%;
-  }
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px;
-
-  @media ${mediaQueries.tablet} {
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-  }
-  @media ${mediaQueries.phone} {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
   }
 `;
 

@@ -1,1 +1,1 @@
-export { default, getStaticProps } from "components/pages/about";
+export { default } from "components/pages/about";

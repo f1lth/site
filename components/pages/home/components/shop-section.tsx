@@ -1,9 +1,4 @@
 import { useState } from "react";
-import styled from "styled-components";
-
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-
 import {
   useHomePageMenuQuery,
   Category,
@@ -13,6 +8,9 @@ import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueries } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
+import styled from "styled-components";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 export const SHOP_SECTION_CATEGORIES = [
   Category.Flower,
@@ -57,7 +55,6 @@ export function ShopSection(): JSX.Element {
           </CTAContainer>
         </Description>
       </FeaturedContainer>
-
       <DesktopOnly>
         <CategoryListItem
           key={SHOP_SECTION_CATEGORIES[0]}
@@ -85,7 +82,6 @@ export function ShopSection(): JSX.Element {
           ))}
         </MobileCategorySelect>
       </MobileOnly>
-
       <Grid>
         {data?.menu?.products.map((product) => (
           <ProductCard key={product.id} product={product} />
@@ -132,11 +128,9 @@ const Subheader = styled.h2`
 const FeaturedContainer = styled.div`
   display: grid;
   width: 100%;
-
   height: 700px;
   grid-template-rows: 600px;
   grid-template-columns: 1fr 1fr;
-
   margin-bottom: 20px;
 
   @media ${mediaQueries.tablet} {
@@ -192,7 +186,6 @@ const CategoryListItem = styled.li<{ isSelected: boolean }>`
   display: inline;
   margin-right: 55px;
   padding-bottom: 3px;
-
   &:last-of-type {
     margin-right: 0px;
   }

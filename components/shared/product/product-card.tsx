@@ -61,6 +61,7 @@ const ProductContainer = styled.div`
 `;
 
 const ProductImage = styled.img`
+  max-width: 340px;
   width: 100%;
   height: 186px;
   display: flex;

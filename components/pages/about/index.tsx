@@ -1,42 +1,8 @@
-import { GetStaticProps } from "next";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import { useQueryParam } from "use-query-params";
-
-import { initializeApollo } from "api/apollo";
-import { MenuDocument, Category, Effects } from "api/queries/menu.graphql";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
-import { useCheckout } from "hooks/use-checkout";
 import { mediaQueries } from "styles/media-queries";
-import { CategoriesParam } from "utils/query-param";
-import { EffectsParam } from "utils/query-param";
-
 import { Info } from "./components/info";
-
-const ProductSectionCategories = [
-  Category.Flower,
-  Category.Vaporizers,
-  Category.Concentrates,
-  Category.Edibles,
-  Category.Tinctures,
-  Category.Topicals,
-  Category.Accessories,
-  Category.PreRolls,
-];
-
-const ProductSectionEffectsNames = [
-  Effects.Calm,
-  Effects.ClearMind,
-  Effects.Creative,
-  Effects.Energetic,
-  Effects.Focused,
-  Effects.Happy,
-  Effects.Inspired,
-  Effects.Relaxed,
-  Effects.Sleepy,
-  Effects.Uplifted,
-];
+import styled from "styled-components";
 
 function About(): JSX.Element {
   return (

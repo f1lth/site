@@ -1,28 +1,25 @@
+///////////////////////////
+/*      MOBILE-NAV       */
+///////////////////////////
 import { useState, useRef, useContext } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import styled from "styled-components";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-
 import { useApollo } from "api/apollo";
-import { Logo } from "components/shared/svg/logo";
+import { NavProps } from "./index";
+import { Cart } from "./cart";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { Drawer } from "@material-ui/core";
 import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
+import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
+import { CheckoutContext } from "components/shared/checkout-context";
 import { CloseButton } from "components/shared/svg/close-button";
 import { SearchIcon } from "components/shared/svg/search-icon";
 import { CartIcon } from "components/shared/svg/cart-icon";
-import { Divider, Drawer } from "@material-ui/core";
-import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
-import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
+import styled from "styled-components";
+import MenuItem from "@material-ui/core/MenuItem";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
-
-import { NavProps } from "./index";
-import { Cart } from "./cart";
 
 const NAV_HEIGHT = "71px";
 
@@ -65,6 +62,10 @@ export function MobileNav(props: NavProps): JSX.Element {
     setIsCartVisible(true);
   }
 
+  function handleAboutClick() {
+    router.push("/about");
+  }
+
   function closeCart() {
     setIsCartVisible(false);
   }
@@ -77,7 +78,7 @@ export function MobileNav(props: NavProps): JSX.Element {
     setIsSearchbarVisible(false);
   }
 
-  function goSearch(query: String) {
+  function goSearch(query: string) {
     const path = "/menu?q=" + query;
     router.push(path);
   }
@@ -92,9 +93,9 @@ export function MobileNav(props: NavProps): JSX.Element {
         )}
         <NavLink>
           {!isSearchbarVisible ? (
-            <LogoHeader onClick={handleLogoClick}>Flower</LogoHeader>
+            <LogoHeader onClick={handleLogoClick}>[ Logo || Name ]</LogoHeader>
           ) : (
-            <LogoHeader></LogoHeader>
+            <LogoHeader />
           )}
         </NavLink>
         <NavLink>
@@ -118,7 +119,9 @@ export function MobileNav(props: NavProps): JSX.Element {
                   endAdornment={
                     <InputAdornment position="end">
                       <CloseButton
-                        color={"#fff"}
+                        color={"#000"}
+                        width={34}
+                        height={34}
                         onClick={() => closeSearch()}
                       />
                     </InputAdornment>
@@ -165,11 +168,13 @@ export function MobileNav(props: NavProps): JSX.Element {
               width={16}
             />
           </StyledMenuItem>
-          <StyledMenuItem>ABOUT</StyledMenuItem>
+          <StyledMenuItem onClick={() => handleAboutClick()}>
+            {" "}
+            ABOUT
+          </StyledMenuItem>
           <StyledMenuItem>CONTACT</StyledMenuItem>
         </StyledMenu>
       </Drawer>
-
       {/* CART  */}
       <Drawer anchor="right" open={isCartVisible} onBackdropClick={closeCart}>
         <Cart onClose={closeCart} apolloClient={apolloClient} />
@@ -220,17 +225,6 @@ const LogoHeader = styled.div`
   color: black;
   cursor: pointer;
 }
-`;
-
-const LoginAndCartSection = styled.div`
-  color: #ffffff;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  font-size: 13px;
-  padding: 0 25px;
 `;
 
 const StyledMenuItem = styled(MenuItem)`

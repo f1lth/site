@@ -1,10 +1,6 @@
 import { Fragment, useContext } from "react";
-import styled from "styled-components";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
-
-import Button from "@material-ui/core/Button";
-
-import { OrderType, PricingType } from "api/queries/checkout.graphql";
+import { OrderType } from "api/queries/checkout.graphql";
 import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { useRemoveItemFromCheckoutMutation } from "api/mutations/remove-item-from-checkout.graphql";
 import { useUpdateCheckoutItemQuantityMutation } from "api/mutations/update-checkout-item-quantity.graphql";
@@ -14,20 +10,21 @@ import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { mediaQueries } from "styles/media-queries";
 import { formatPrice } from "utils/number-format";
-
 import { CartItem } from "./cart-item";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { CloseButton } from "components/shared/svg/close-button";
+import styled from "styled-components";
+import Button from "@material-ui/core/Button";
 
 interface CartProps {
   onClose: () => void;
+  item: CheckoutItemFragment;
   apolloClient: ApolloClient<NormalizedCacheObject>;
 }
 
 export function Cart(props: CartProps): JSX.Element {
   const { onClose } = props;
   const { checkout, loading: isCheckoutLoading } = useContext(CheckoutContext);
-
   const checkoutId = checkout?.id || "";
   const checkoutItems = checkout?.items;
   const checkoutOrderType = checkout?.orderType || OrderType.Delivery;
@@ -72,15 +69,6 @@ export function Cart(props: CartProps): JSX.Element {
     updateCheckout,
     { loading: isUpdateCheckoutLoading },
   ] = useUpdateCheckoutMutation();
-  async function handleCheckoutOrderTypeToggle() {
-    await updateCheckout({
-      variables: {
-        checkoutId,
-        pricingType: checkoutPricingType || PricingType.Recreational,
-        orderType: otherOrderType,
-      },
-    });
-  }
 
   const isCheckoutOperationLoading =
     isCheckoutLoading ||
@@ -136,7 +124,6 @@ export function Cart(props: CartProps): JSX.Element {
           <Label>QUANTITY</Label>
           <Label>TOTAL</Label>
         </Tags>
-
         <CheckoutItems>
           {checkoutItems.map((item: any) => (
             <Fragment key={item.id}>
@@ -149,7 +136,6 @@ export function Cart(props: CartProps): JSX.Element {
             </Fragment>
           ))}
         </CheckoutItems>
-
         <ButtonContainer>
           <Label> Subtotal ‎‎‎‎ {totalCostDisplayValue(checkoutItems)} </Label>
           Excluding taxes & shipping

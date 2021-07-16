@@ -111,7 +111,7 @@ const Holder = styled.div`
 `;
 
 const Shatter = styled.div`
-  background: url("images/Shatter.png") no-repeat center top;
+  background: url("images/shatter.png") no-repeat center top;
   background-size: cover;
   background-position: center;
   display: inline-block;

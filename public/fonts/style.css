@@ -1,14 +1,4 @@
 @font-face {
-  font-family: "visuelt";
-  src: url("/fonts/VisueltPro-Regular.ttf");
-}
-
-@font-face {
-  font-family: "visuelt-bold";
-  src: url("/fonts/VisueltPro-Bold.ttf");
-}
-
-@font-face {
-  font-family: "visuelt-med";
-  src: url("/fonts/VisueltPro-Medium.ttf");
+  font-family: "inter";
+  src: url("/fonts/Inter.ttf");
 }

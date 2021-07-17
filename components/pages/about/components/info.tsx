@@ -19,5 +19,5 @@ const Section = styled.section`
 `;
 
 const SectionHeader = styled.h2`
-  font-family: "visuelt";
+  font-family: "inter";
 `;

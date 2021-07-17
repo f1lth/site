@@ -1,6 +1,4 @@
 import { GetStaticProps } from "next";
-import styled from "styled-components";
-
 import { initializeApollo } from "api/apollo";
 import { HomePageMenuDocument } from "api/queries/home-page-menu.graphql";
 import { Nav } from "components/shared/nav";
@@ -8,19 +6,21 @@ import { Footer } from "components/shared/footer";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
 import { mediaQueries } from "styles/media-queries";
-
 import {
   ShopSection,
   SHOP_SECTION_CATEGORIES,
 } from "./components/shop-section";
 import { HeroSection } from "./components/hero-section";
-import { CartSection } from "components/pages/cart/components/cart-section";
+import styled from "styled-components";
 
 const Container = styled.div`
   max-width: 1440px;
   margin: 0 auto;
-  margin-top: -40px;
   background-color: #ffffff;
+
+  @media ${mediaQueries.phone} {
+    width: 100%;
+  }
 `;
 
 function Home(): React.ReactNode {
@@ -31,6 +31,7 @@ function Home(): React.ReactNode {
       <Container>
         <Nav />
         <HeroSection />
+        <ShopSection />
         <Footer />
       </Container>
     </CheckoutContext.Provider>

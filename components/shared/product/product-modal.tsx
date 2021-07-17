@@ -295,7 +295,7 @@ const Brand = styled.div`
 `;
 
 const Name = styled.div`
-  font-family: "visuelt";
+  font-family: "inter";
   font-weight: 700;
   font-size: 30px;
   margin-bottom: 20px;

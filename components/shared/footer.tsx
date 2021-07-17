@@ -151,7 +151,7 @@ const NarrowDiv = styled.div`
 const Header = styled.h2`
   font-size: 16px;
   font-weight: 200px;
-  font-family: "visuelt";
+  font-family: "inter";
   text-align: left;
   margin-top: -15px;
 

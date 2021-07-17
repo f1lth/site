@@ -7,356 +7,293 @@ import { mediaQueries } from "styles/media-queries";
 
 export function HeroSection(): JSX.Element {
   return (
-    <Content>
-      <MainHero>
-        <MainHeroContent>
-          <DesktopOnly>
-            <Link href="/menu">
-              <HeroHeader>shop cannabis</HeroHeader>
+    <>
+      <Container>
+        <MainHero>
+          <MainHeroContent>
+            <DesktopOnly>
+              <HeroHeader>Quality Cannabis</HeroHeader>
+              <Subheader>Shop Premium Product</Subheader>
+            </DesktopOnly>
+            <MobileOnly>
+              <HeroHeader> Quality Cannabis </HeroHeader>
+              <Subheader>Shop Premium Product</Subheader>
+            </MobileOnly>
+            <Link href="/menu" passHref>
+              <ShopCTA>Shop</ShopCTA>
             </Link>
-            <Link href="/new">
-              <HeroHeader>new products</HeroHeader>
+          </MainHeroContent>
+        </MainHero>
+        <Shatter>
+          <Holder>
+            <MiniHeader>Shop / Categories / Edibles</MiniHeader>
+            <Subheader color="#aa1230"> Shatter Chocolate </Subheader>
+            <Link href="menu?category=EDIBLES" passHref>
+              <ShopCTA>Shop</ShopCTA>
             </Link>
-          </DesktopOnly>
-          <MobileOnly>
-            <Link href="/menu">
-              <HeroHeader>shop canna bis</HeroHeader>
-            </Link>
-          </MobileOnly>
-        </MainHeroContent>
-      </MainHero>
-      <DesktopOnly>
-        <Container>
-          <Header>
-            {" "}
-            THE WORLD IS READY FOR SOMETHING DIFFERENT - A NEW TYPE OF CANNABIS
-            FOR OPEN MINDED PEOPLE.
-          </Header>
-          <Card>
-            <LeftHeader>
-              OUR COMPANY GOAL IS TO CREATE FUN, HIGH QUALITY CANNABIS PRODUCTS
-              FOR EVERYONE.
-              <Link href="/about" passHref>
-                <MiniHeader>OUR STORY</MiniHeader>
+          </Holder>
+        </Shatter>
+        <Column>
+          <TopRectangle>
+            <Holder>
+              <MiniHeader>Shop / Categories / Vaporizers</MiniHeader>
+              <Subheader>Pax Era Pro</Subheader>
+              <Link href="menu?category=VAPORIZERS" passHref>
+                <ShopCTA>Shop</ShopCTA>
               </Link>
-            </LeftHeader>
-            <Image src="images/bud.png" />
-          </Card>
-          <Card>
-            <Image src="images/pipe.png"></Image>
-            <RightHeader>
-              CRYSTAL PIPE
-              <Subheader>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
-                <Link href="/menu">
-                  <TopButton>Order now</TopButton>
-                </Link>
-              </Subheader>
-            </RightHeader>
-          </Card>
-          <Card>
-            <LeftHeader>
-              RAINBOW FISH GUMMIES
-              <Subheader>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
-                <Link href="/menu">
-                  <BottomButton>Order now</BottomButton>
-                </Link>
-              </Subheader>
-            </LeftHeader>
-            <Image src="images/fish.png" />
-          </Card>
-        </Container>
-      </DesktopOnly>
-      <MobileOnly>
-        <Content>
-          <Header>
-            THE WORLD IS READY FOR SOMETHING DIFFERENT - A NEW TYPE OF CANNABIS
-            FOR OPEN MINDED PEOPLE.
-          </Header>
-          <Image src="images/bud.png" />
-          <LeftHeader>
-            OUR COMPANY GOAL IS TO CREATE FUN, HIGH QUALITY CANNABIS PRODUCTS
-            FOR EVERYONE.
-            <Link href="/about" passHref>
-              <MiniHeader>OUR STORY</MiniHeader>
-            </Link>
-          </LeftHeader>
-          <Divider />
-          <MobilePipe src="images/pipe.png"></MobilePipe>
-          <Header> CRYSTAL PIPE </Header>
-          <MobileFish src="images/fish.png"></MobileFish>
-          <Header> CRYSTAL PIPE </Header>
-        </Content>
-      </MobileOnly>
-    </Content>
+            </Holder>
+          </TopRectangle>
+          <BotRectangle>
+            <Holder>
+              <MiniHeader>Shop / Categories / Concentrates</MiniHeader>
+              <Subheader>High THC Cannabis Oil</Subheader>
+              <Link href="/menu?category=CONCENTRATES" passHref>
+                <ShopCTA>Shop</ShopCTA>
+              </Link>
+            </Holder>
+          </BotRectangle>
+        </Column>
+      </Container>
+      <AboutContainer>
+        <Header>About the Company</Header>
+        <BodyText>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
+        </BodyText>
+        <BodyText>
+          <Link href="/menu/about" passHref>
+            <ShopCTA style={{ width: "215px" }}>Learn More</ShopCTA>
+          </Link>
+        </BodyText>
+      </AboutContainer>
+    </>
   );
 }
 
-const Content = styled.div`
-  margin-bottom: 50px;
-  margin-top: -240px;
-  width: 100%;
-  padding: 23px 23px 23px 23px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  @media ${mediaQueries.tablet} {
-    margin-top: 40px;
-    padding: 0 10px 10px 10px;
-  }
-  @media ${mediaQueries.desktop} {
-    margin-top: 40px;
-  }
-`;
-
 const Container = styled.div`
-  width: inherit;
-  padding: 23px 23px 23px 23px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  display: grid;
+  gap: 30px;
+  margin-top: 35px;
+  grid-template-rows: 560px 1024px;
+  grid-template-columns: minmax(auto, 50%) minmax(auto, 50%);
+  padding: 0 29px;
+
+  @media ${mediaQueries.tablet} {
+    grid-template-rows: 505px 314px;
+    gap: 5px;
+    padding: 0 25px 25px 25px;
+  }
 `;
 
-const Card = styled.div`
+const Column = styled.div`
+  display: grid;
+  grid-template-rows: minmax(auto, 50%) minmax(auto, 50%);
+  gap: 22px;
+  grid-template-columns: 1fr;
+  padding: 0 0 0 10px;
+  @media ${mediaQueries.tablet} {
+    gap: 6px;
+  }
+`;
+
+const Holder = styled.div`
+  position: relative;
+  height: 100%;
   width: 100%;
-  overflow: hidden;
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 40px;
-`;
-
-const Image = styled.img`
-  display: flex;
-  width: 400px;
+  left: 50px;
+  margin-top: 70px;
 
   @media ${mediaQueries.tablet} {
-    display: flex;
-    margin-top: 50px;
-    width: 336.77px;
-    height: 440.87px;
+    left: 20px;
+    margin-top: 25px;
   }
 `;
 
-const Divider = styled.div`
-  background-color: rgba(0, 0, 0, 0.25);
-  height: 1px;
-  width: 88%;
-  padding: 0 20px 0px 20px;
-`;
-
-const MobilePipe = styled.img`
-  width: 356.21px;
-  height: 356.21px;
-`;
-
-const MobileFish = styled.img`
-  width: 312.42px;
-  height: 234.04px;
-`;
-
-const Header = styled.div`
-  font-family: visuelt-med;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 58px;
-  letter-spacing: 0em;
-  text-align: center;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  color: #000000;
-  z-index: 100;
-  width: 600px;
-
-  @media ${mediaQueries.tablet} {
-    font-size: 24px;
-    margin-top: 40px;
-    width: 325px;
-  }
-`;
-
-const MiniHeader = styled.div`
-  width: 97px;
-  height: 32px;
-  left: 131.5px;
-  top: 1422.43px;
-  margin-bottom: 40px;
-  cursor: pointer;
-
-  font-family: visuelt;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 180%;
-  text-decoration-line: underline;
-  
-  color: #000000;
-  }
-`;
-
-const LeftHeader = styled.div`
-  font-family: visuelt-med;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 58px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #000000;
-  width: 500px;
+const Shatter = styled.div`
+  background: url("images/shatter.png") no-repeat center top;
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
   display: flex;
-  align-items: left;
   flex-direction: column;
+  justify-content: flex-end;
+  object-fit: cover;
+  height: auto;
+  width: auto;
 
   @media ${mediaQueries.tablet} {
-    font-size: 24px;
-    margin-top: 60px;
-    margin-bottom: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
-    width: 330px;
+    gap: 5px;
+    padding: 0 0px 25px 0px;
   }
 `;
 
-const RightHeader = styled.div`
-  font-family: visuelt-med;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 58px;
-  letter-spacing: 0em;
-  text-align: right;
-  color: #000000;
-  width: 400px;
-  display: flex;
-  align-items: right;
-  flex-direction: column;
-
-  @media ${mediaQueries.tablet} {
-    font-size: 25px;
-  }
-`;
-
-const MainHero = styled.div`
-  width: inherit;
-  background: url("images/image 18.png") no-repeat center top;
-  background-repeat: no-repeat;
+const TopRectangle = styled.div`
+  background: url("images/cart.png") no-repeat center top;
   background-size: cover;
   background-position: center;
   display: flex;
+  align-items: center;
   flex-direction: column;
   overflow: hidden;
-  justify-content: center;
+  margin-bottom: 20px;
 
   @media ${mediaQueries.tablet} {
-    background-size: cover;
-    height: 643px;
-    z-index: 3;
-    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+`;
+
+const BotRectangle = styled.div`
+  background: url("images/cart_oil.png") no-repeat center top;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  object-fit: contain;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 167.5px;
+  max-height: auto;
+  min-height: auto;
+  min-width: auto;
+`;
+
+const MainHero = styled.div`
+  background: url("images/background.png") no-repeat center top;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 48px;
+  padding-top: 200px;
+  grid-row: 1 / 1;
+  grid-column: 1 / 3;
+  overflow: hidden;
+  position: relative;
+  object-fit: cover;
+
+  @media ${mediaQueries.tablet} {
+    padding: 12px 22px 52px;
+    margin-bottom: 11px;
   }
 `;
 
 const MainHeroContent = styled.div`
   z-index: 2;
-  padding-top: 80px;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  @media ${mediaQueries.tablet} {
-    padding-top: 10px;
-  }
 `;
 
 const Subheader = styled.div`
-  font-weight: 700;
-  font-size: 17px;
-  color: #000000;
-  line-height: 29px;
-  height: 174px;
-  font-weight: 400;
-
-  margin-bottom: 100px;
-`;
-
-const HeroHeader = styled.div`
-  font-family: visuelt;
-  font-size: 160px;
-  line-height: 188px;
-  align-items: center;
-
-  color: transparent;
-  font-weight: 700;
-  -webkit-text-stroke-width: 2.5px;
-  -webkit-text-stroke-color: white;
-  margin-bottom: 50px;
-
+  font-weight: 500;
+  font-family: "inter";
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  margin-top: 5px;
   @media ${mediaQueries.tablet} {
-    margin-top: 10px;
-    font-size: 115px;
-    line-height: 140px;
+    width: 120px;
+    font-size: 13px;
+    margin-bottom: 4px;
   }
 `;
 
-const TopButton = styled.div`
-  background-color: #AA97F6;
-  border-radius: 50%;
+const BodyText = styled.div`
+  font-weight: 450;
+  font-size: 19px;
+  color: #000000;
+  font-family: "inter";
   text-align: center;
-  text-decoration: none;
-  display: flex;
-  color: white;
-  font-size: 24px;
-  line-height: 40px;
-  font-weight: 400;
-  padding: 25px 10px;
-  z-index: 100;
-  width: 128px;
-  height: 128px;
-  cursor: pointer;
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 30px;
 
-  position: relative;
-  left: -182px;
-  top: -80px;
-
-}
+  @media ${mediaQueries.tablet} {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 12px;
+  }
 `;
 
-const BottomButton = styled.div`
-  background-color: #AA97F6;
-  border-radius: 50%;
+const MiniHeader = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #ffffff;
+
+  @media ${mediaQueries.tablet} {
+    font-size: 8px;
+    width: 120px;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+`;
+
+const HeroHeader = styled.div`
+  font-family: "inter";
+  font-weight: 700;
+  font-size: 69px;
+  color: #ffffff;
+  width: 575px;
+  margin-bottom: 8px;
+
+  @media ${mediaQueries.tablet} {
+    margin-top: 280px;
+    font-size: 32px;
+    width: 275px;
+  }
+`;
+
+const Header = styled.div`
+  font-family: "inter";
+  font-weight: 500;
+  width: 100%;
+  font-size: 54px;
   text-align: center;
-  text-decoration: none;
-  display: flex;
+  color: #000000;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+
+  @media ${mediaQueries.tablet} {
+    font-size: 30px;
+    margin-top: 10px;
+  }
+`;
+
+const ShopCTA = styled.a`
+  background-color: #000000;
   color: white;
-  font-size: 24px;
-  line-height: 40px;
-  font-weight: 400;
-  padding: 25px 10px;
-  z-index: 100;
-  width: 128px;
-  height: 128px;
+  padding: 13px 52px;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 500;
+  width: 148px;
+  height: 44px;
 
-  position: relative;
-  left: 737.75px;
-  top: -180.5px;
+  @media ${mediaQueries.tablet} {
+    padding: 8px 17px;
+    width: 82px;
+    margin-top: 3px;
+    height: 26px;
+    font-size: 9px;
+  }
 
-}
+  &:hover {
+    background-color: #04a09a !important;
+  }
+`;
+
+const AboutContainer = styled.div`
+  display: grid;
+  width: 100%;
+  height: 360px;
+  align-items: center;
+
+  @media ${mediaQueries.tablet} {
+    height: 200px;
+  }
 `;

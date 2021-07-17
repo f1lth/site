@@ -177,11 +177,10 @@ const Container = styled.div`
 const Content = styled.div`
   padding: 45px;
   display: flex;
-  margin-top: -85px;
+
   @media ${mediaQueries.largeTablet} {
     flex-direction: column;
     padding: 18px 25px;
-    margin-top: 15px;
   }
 `;
 

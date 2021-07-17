@@ -137,7 +137,7 @@ const RightSide = styled.div`
 const ItemName = styled.div`
   font-size: 18px;
   font-weight: 400;
-  font-family: "visuelt";
+  font-family: "inter";
   color: white;
   margin-left: 12px;
   margin-right: 12px;

@@ -118,12 +118,47 @@ export function MobileNav(props: NavProps): JSX.Element {
         )}
         <NavLink>
           {!isSearchbarVisible ? (
-            <LogoHeader onClick={handleLogoClick}>CannaFlower</LogoHeader>
+            <LogoHeader onClick={handleLogoClick}>Brand | Logo</LogoHeader>
           ) : (
             <LogoHeader />
           )}
         </NavLink>
         <NavLink>
+          {isSearchbarVisible ? (
+            <NavLink>
+              <FormControl>
+                <Input
+                  id="input-with-icon-adornment"
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon onClick={() => goSearch(query)} />
+                    </InputAdornment>
+                  }
+                  value={query}
+                  onChange={(q) => setQuery(q.target.value)}
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                      goSearch(query);
+                    }
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <CloseButton
+                        color={"#000"}
+                        width={34}
+                        height={34}
+                        onClick={() => closeSearch()}
+                      />
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </NavLink>
+          ) : (
+            <NavLink onClick={() => openSearch()}>
+              <SearchIcon />
+            </NavLink>
+          )}
           <CartIconContainer>
             <CartCount>
               {loading ? <LoadingSpinner size={8} /> : checkoutItemsCount}
@@ -196,9 +231,9 @@ const Container = styled.div<{ darkBackground?: boolean }>`
   z-index: 3;
   height: ${NAV_HEIGHT};
   width: 100%;
-
   padding: 0 25px;
   position: relative;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -283,7 +318,7 @@ const CartCount = styled.div`
   justify-content: center;
   text-align: center;
   border-radius: 100%;
-  background-color: #aa97f6;
+  background-color: #000;
   font-size: 11px;
   font-weight: 700;
   top: -11px;

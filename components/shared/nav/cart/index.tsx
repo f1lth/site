@@ -239,7 +239,7 @@ const CheckoutContainer = styled.div`
 `;
 
 const HeaderLabel = styled.div`
-  font-family: "visuelt";
+  font-family: "inter";
   font-size: 40px;
   font-weight: 700;
   display: flex;
@@ -248,7 +248,7 @@ const HeaderLabel = styled.div`
 `;
 
 const Label = styled.div`
-  font-family: "visuelt";
+  font-family: "inter";
   font-size: 21px;
   font-weight: 700;
   display: flex;
@@ -257,7 +257,7 @@ const Label = styled.div`
 `;
 
 const SmallLabel = styled.div`
-  font-family: "visuelt";
+  font-family: "inter";
   font-size: 20px;
   font-weight: 400;
   display: flex;

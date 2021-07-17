@@ -43,7 +43,7 @@ export const GlobalStyle = createGlobalStyle`
 
     // have this here now for convenience
     // this will likely change as we make more shared components
-    font-family: 'visuelt';
+    font-family: 'inter';
     color: #000;
   }
 `;

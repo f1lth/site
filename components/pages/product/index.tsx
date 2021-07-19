@@ -50,7 +50,6 @@ function Product(): JSX.Element {
       rec.push(p);
     }
   });
-  console.log(rec);
   if (loading)
     return (
       <Container>
@@ -60,7 +59,6 @@ function Product(): JSX.Element {
   if (error) console.log(`Error: ${error.message}`);
   if (!data) console.log(`Product NAME ${name} Not found`);
   rec = shuffle(rec).slice(0, 4);
-  console.log(rec);
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>

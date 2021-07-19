@@ -3,7 +3,7 @@ import { Effects } from "api/fragments/menu-product.graphql";
 
 const EFFECT_DISPLAY_NAME_MAP = new Map<Effects, string>([
   [Effects.Calm, "Calm"],
-  [Effects.ClearMind, "ClearMind"],
+  [Effects.ClearMind, "Clear Mind"],
   [Effects.Creative, "Creative"],
   [Effects.Energetic, "Energetic"],
   [Effects.Focused, "Focused"],

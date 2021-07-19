@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
 
 interface MenuFilterHeaderProps {
   name: string;
@@ -11,7 +12,12 @@ export function MenuFilterHeader(props: MenuFilterHeaderProps): JSX.Element {
   return (
     <Header onClick={onClick}>
       <span>{name}</span>
-      <img src={isExpanded ? "icons/minus.svg" : "icons/plus.svg"} />
+      <Chevron
+        direction={isExpanded ? ChevronDirection.Down : ChevronDirection.Right}
+        color="#000"
+        height={12}
+        width={12}
+      />
     </Header>
   );
 }

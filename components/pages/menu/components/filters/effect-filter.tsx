@@ -1,16 +1,13 @@
 import { useState } from "react";
+import { Effects } from "api/queries/menu.graphql";
+import { ListCheckbox } from "components/shared/svg/list-checkbox";
+import { MenuFilterHeader } from "./menu-filter-header";
+import { displayNameForEffect } from "utils/enum-to-display-name/effect";
 import styled from "styled-components";
-
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
-import { Effects } from "api/queries/menu.graphql";
-import { ListCheckbox } from "components/shared/svg/list-checkbox";
-
-import { MenuFilterHeader } from "./menu-filter-header";
-import { displayNameForEffect } from "utils/enum-to-display-name/effect";
 
 const EFFECTS = [
   Effects.Calm,

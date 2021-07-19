@@ -1,8 +1,6 @@
 import { GetStaticProps } from "next";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useQueryParam } from "use-query-params";
-
 import { initializeApollo } from "api/apollo";
 import { MenuDocument, Category, Effects } from "api/queries/menu.graphql";
 import { Nav } from "components/shared/nav";
@@ -14,11 +12,11 @@ import { useCheckout } from "hooks/use-checkout";
 import { mediaQueries } from "styles/media-queries";
 import { CategoriesParam } from "utils/query-param";
 import { EffectsParam } from "utils/query-param";
-
 import { CategoryFilter } from "./components/filters/category-filter";
 import { EffectsFilter } from "./components/filters/effect-filter";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
+import styled from "styled-components";
 
 const ProductSectionCategories = [
   Category.Flower,

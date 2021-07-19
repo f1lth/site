@@ -1,10 +1,8 @@
-import styled from "styled-components";
-
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-
 import { Category } from "api/queries/menu.graphql";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
+import styled from "styled-components";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 interface MobileFiltersProps {
   selectedCategories: Set<Category>;

@@ -93,7 +93,7 @@ export function MobileNav(props: NavProps): JSX.Element {
         )}
         <NavLink>
           {!isSearchbarVisible ? (
-            <LogoHeader onClick={handleLogoClick}>[ Logo || Name ]</LogoHeader>
+            <LogoHeader onClick={handleLogoClick}>Brand | Logo</LogoHeader>
           ) : (
             <LogoHeader />
           )}

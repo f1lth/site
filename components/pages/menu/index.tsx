@@ -108,6 +108,7 @@ function Menu(): JSX.Element {
       : ProductSectionEffectsNames.filter((effects) =>
           selectedEffects.has(effects)
         );
+
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>

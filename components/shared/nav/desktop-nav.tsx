@@ -111,6 +111,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
   }
 
   function closeSearch() {
+    router.push("/menu?");
     setIsSearchbarVisible(false);
   }
 
@@ -132,7 +133,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
         </NavLink>
         <NavLink>
           {!isSearchbarVisible ? (
-            <Header onClick={handleLogoClick}>[ LOGO || NAME ]</Header>
+            <Header onClick={handleLogoClick}> Brand | Logo </Header>
           ) : (
             <SearchHeader
               onClick={handleLogoClick}

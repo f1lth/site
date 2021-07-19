@@ -32,16 +32,17 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
       ));
     } else {
       const productAdded: string[] = [];
-      productCard = (products || []).map((product) =>
-        product.effects.map((e) => {
-          if (effects.includes(e) && !productAdded.includes(product?.name)) {
-            // Check if a product have been pushed to array already or not
-            productAdded.push(product?.name);
-            return <ProductCard key={product.id} product={product} />;
-          }
-          return null;
-        })
-      );
+      productCard = (products || []).map((product) => {
+        // Need ops on this one ngl...
+        const found =
+          product.effects.some((r) => effects.indexOf(r) >= 0) ||
+          product.effects.length == 0;
+        if (found) {
+          // Check if a product have been pushed to array already or not
+          productAdded.push(product.name);
+          return <ProductCard key={product.id} product={product} />;
+        }
+      });
     }
     return (
       <Section>
@@ -57,7 +58,6 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
         filter: query,
       },
     });
-
     if (loading)
       return (
         <Container>
@@ -65,6 +65,7 @@ export function ProductSection(props: ProductSectionProps): JSX.Element {
         </Container>
       );
     if (error) console.log(`Error: ${error.message}`);
+
     const products = data?.menu?.products;
     let productCard;
     const productAdded: string[] = [];
@@ -95,6 +96,11 @@ const Section = styled.section`
 
 const Container = styled.div`
   margin: 0 auto;
+  width: 100%;
+  height: 300px;
+  display: flex;
+
+  justify-content: space-between;
   background-color: #ffffff;
 
   @media ${mediaQueries.tablet} {

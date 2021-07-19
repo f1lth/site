@@ -54,9 +54,9 @@ export function CartItem(props: CartItem): JSX.Element {
             </div>
           </LeftSide>
           <Center>
-            <Circle onClick={() => incrementProduct()}>+</Circle>
-            <ItemName> {item.quantity} </ItemName>
             <Circle onClick={() => decrementProduct()}>-</Circle>
+            <ItemName> {item.quantity} </ItemName>
+            <Circle onClick={() => incrementProduct()}>+</Circle>
           </Center>
           <RightSide>
             <Price>{formatPrice(costOfCheckoutItem(item))}</Price>

@@ -88,7 +88,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
   return (
     <Container>
       <Name>{product.name}</Name>
-      <Price>{deriveDisplayPrices(product).rec}</Price>
+      <Price>{deriveDisplayPrices(product).rec} </Price>
       <CircleContainer>
         <Circle>
           THC {"\n"}
@@ -106,16 +106,16 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
         <QuantityText>QTY:</QuantityText>
         <Circle
           style={{ height: "35px", width: "35px", cursor: "pointer" }}
-          onClick={() => incrementProduct()}
+          onClick={() => decrementProduct()}
         >
-          +
+          -
         </Circle>
         <QuantityText>{selectedQuantity}</QuantityText>
         <Circle
           style={{ height: "35px", width: "35px", cursor: "pointer" }}
-          onClick={() => decrementProduct()}
+          onClick={() => incrementProduct()}
         >
-          -
+          +
         </Circle>
       </QuantitySelect>
       <MuiThemeProvider theme={theme}>

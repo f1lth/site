@@ -8,7 +8,7 @@ function Recommendation(props): JSX.Element {
     <Container>
       <Title>you may also like</Title>
       <Grid>
-        {(products || []).slice(0, 4).map((p) => (
+        {(products || []).map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
       </Grid>

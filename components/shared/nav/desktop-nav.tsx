@@ -235,9 +235,15 @@ export function DesktopNav(props: NavProps): JSX.Element {
               <Menu>
                 <SubmenuSection>
                   <SubmenuSection></SubmenuSection>
-                  <SubmenuItem>New</SubmenuItem>
-                  <SubmenuItem>Featured</SubmenuItem>
-                  <SubmenuItem>Sale</SubmenuItem>
+                  <SubmenuItem onClick={() => handleMenuClick()}>
+                    New
+                  </SubmenuItem>
+                  <SubmenuItem onClick={() => handleMenuClick()}>
+                    Featured
+                  </SubmenuItem>
+                  <SubmenuItem onClick={() => handleMenuClick()}>
+                    Sale
+                  </SubmenuItem>
                 </SubmenuSection>
                 <SubmenuSection>
                   <SubmenuSection></SubmenuSection>
@@ -253,9 +259,15 @@ export function DesktopNav(props: NavProps): JSX.Element {
                 </SubmenuSection>
                 <SubmenuSection>
                   <SubmenuSection></SubmenuSection>
-                  <SubmenuItem>Apparel</SubmenuItem>
-                  <SubmenuItem>Accessories</SubmenuItem>
-                  <SubmenuItem>See all</SubmenuItem>
+                  <SubmenuItem onClick={() => handleMenuClick()}>
+                    Apparel
+                  </SubmenuItem>
+                  <SubmenuItem onClick={() => handleMenuClick()}>
+                    Accessories
+                  </SubmenuItem>
+                  <SubmenuItem onClick={() => handleMenuClick()}>
+                    See all
+                  </SubmenuItem>
                 </SubmenuSection>
               </Menu>
             )}
@@ -275,7 +287,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
                   <SubmenuSection></SubmenuSection>
                   <SubmenuItem>416-123-9876</SubmenuItem>
                   <SubmenuItem>store@flower.com</SubmenuItem>
-                  <SubmenuItem>1 Bloor St. </SubmenuItem>
+                  <SubmenuItem>1 Bloor Street </SubmenuItem>
                 </SubmenuSection>
               </Menu>
             )}

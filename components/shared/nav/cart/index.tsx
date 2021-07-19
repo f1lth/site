@@ -15,6 +15,8 @@ import { LoadingSpinner } from "components/shared/loading-spinner";
 import { CloseButton } from "components/shared/svg/close-button";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
+import menu from "pages/menu";
+import router from "next/router";
 
 interface CartProps {
   onClose: () => void;
@@ -85,7 +87,7 @@ export function Cart(props: CartProps): JSX.Element {
             <CheckoutLoadingSpinner isInline size={18} />
           )}
         </HeaderLabel>
-        <HeaderCloseButton onClick={onClose}>Close</HeaderCloseButton>
+        <CloseButton width={80} height={80} color="#fff" onClick={onClose} />
       </Header>
     </>
   );
@@ -115,6 +117,10 @@ export function Cart(props: CartProps): JSX.Element {
     return formatPrice(totalPrice);
   }
 
+  function handleContinueClick() {
+    router.push("/menu");
+  }
+
   return (
     <Container>
       <DesktopOnly>
@@ -137,15 +143,25 @@ export function Cart(props: CartProps): JSX.Element {
           ))}
         </CheckoutItems>
         <ButtonContainer>
-          <Label> Subtotal ‎‎‎‎ {totalCostDisplayValue(checkoutItems)} </Label>
-          Excluding taxes & shipping
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              gap: "15px",
+            }}
+          >
+            <Label> Subtotal ‎‎‎‎</Label>
+            <SmallLabel>{totalCostDisplayValue(checkoutItems)} </SmallLabel>
+          </div>
+          <SmallLabel>Excluding taxes & shipping</SmallLabel>
           <StyledButton href={checkout?.redirectUrl}>Checkout</StyledButton>
         </ButtonContainer>
       </DesktopOnly>
       <MobileOnly>
         <Tags>
           <Label>Shopping Cart</Label>
-          <CloseButton width={70} height={70} color="#fff" onClick={onClose} />
+          <CloseButton width={80} height={80} color="#fff" onClick={onClose} />
         </Tags>
         <CheckoutItems>
           {checkoutItems.map((item: any) => (
@@ -161,9 +177,14 @@ export function Cart(props: CartProps): JSX.Element {
         </CheckoutItems>
         <Divider />
         <ButtonContainer>
-          <Label> Subtotal ‎‎‎‎ {totalCostDisplayValue(checkoutItems)} </Label>
-          Excluding taxes & shipping
+          <CheckoutContainer>
+            <Label> Subtotal ‎‎‎‎</Label>
+            <SmallLabel>{totalCostDisplayValue(checkoutItems)} </SmallLabel>
+          </CheckoutContainer>
           <StyledButton href={checkout?.redirectUrl}>Checkout</StyledButton>
+          <StyledButton onClick={handleContinueClick}>
+            Continue Shopping
+          </StyledButton>
         </ButtonContainer>
       </MobileOnly>
     </Container>
@@ -208,6 +229,15 @@ const Header = styled.div`
   padding: 24px 25px 25px 29px;
 `;
 
+const CheckoutContainer = styled.div`
+  padding: 10px 60px 0px 60px;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+`;
+
 const HeaderLabel = styled.div`
   font-family: "inter";
   font-size: 40px;
@@ -219,11 +249,19 @@ const HeaderLabel = styled.div`
 
 const Label = styled.div`
   font-family: "inter";
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 21px;
+  font-weight: 700;
   display: flex;
   color: white;
   align-items: center;
+`;
+
+const SmallLabel = styled.div`
+  font-family: "inter";
+  font-size: 20px;
+  font-weight: 400;
+  display: flex;
+  color: white;
 `;
 
 const HeaderCloseButton = styled.button`
@@ -247,10 +285,13 @@ const EmptyCart = styled.div`
 
 const ButtonContainer = styled.div`
   margin: 0 25px;
-  position: relative;
-  width: 100%;
-  justify-content: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: white;
+  @media ${mediaQueries.tablet} {
+    padding: 0px 12px 0px 12px;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -269,7 +310,8 @@ const StyledButton = styled(Button)`
     background-color: #246e84 !important;
   }
   @media ${mediaQueries.tablet} {
-    width: 220px;
+    width: 100%;
+    padding: 0px 20px 0px 20px;
     height: 40px;
   }
 `;

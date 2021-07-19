@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useApollo } from "api/apollo";
 import { NavProps } from "./index";
 import { Cart } from "./cart";
+import { Category } from "api/queries/checkout.graphql";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { Drawer } from "@material-ui/core";
 import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
@@ -15,6 +16,7 @@ import { CloseButton } from "components/shared/svg/close-button";
 import { SearchIcon } from "components/shared/svg/search-icon";
 import { CartIcon } from "components/shared/svg/cart-icon";
 import { LoadingSpinner } from "components/shared/loading-spinner";
+import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import styled from "styled-components";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -22,6 +24,16 @@ import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 
 const NAV_HEIGHT = "71px";
+const SUBMENU_CATEGORIES = [
+  Category.Flower,
+  Category.Vaporizers,
+  Category.Concentrates,
+  Category.Edibles,
+  Category.Tinctures,
+  Category.Topicals,
+  Category.Accessories,
+  Category.PreRolls,
+];
 
 export function MobileNav(props: NavProps): JSX.Element {
   // Props
@@ -30,6 +42,7 @@ export function MobileNav(props: NavProps): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isSearchbarVisible, setIsSearchbarVisible] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [query, setQuery] = useState("");
   // Util
   const baseNavBarRef = useRef<HTMLDivElement>(null);
@@ -46,16 +59,28 @@ export function MobileNav(props: NavProps): JSX.Element {
     setIsMenuOpen(false);
   }
 
+  function handleCategoryClick(category?: Category) {
+    if (page === "menu") {
+      closeShopMenu();
+    } else {
+      router.push(`/menu?category=${category}`);
+    }
+  }
+
   function handleLogoClick() {
     router.push("/");
   }
 
-  function handleShopClick() {
-    if (page === "menu") {
-      setIsMenuOpen(false);
-    } else {
-      router.push("/menu");
-    }
+  function openShopMenu() {
+    setIsMenuOpen(true);
+  }
+
+  function closeShopMenu() {
+    setIsMenuOpen(false);
+  }
+
+  function toggleCategory() {
+    setIsCategoryOpen(!isCategoryOpen);
   }
 
   function openCart() {
@@ -159,15 +184,34 @@ export function MobileNav(props: NavProps): JSX.Element {
             <MobileMenuIcon isDark={true} onClick={closeMenu} />
           </StyledMenuItem>
           <StyledMenuItem>HOME</StyledMenuItem>
-          <StyledMenuItem onClick={handleShopClick}>
+          <StyledMenuItem
+            style={{ marginRight: "6px" }}
+            onClick={toggleCategory}
+          >
             SHOP
             <Chevron
-              direction={ChevronDirection.Down}
+              direction={
+                isCategoryOpen ? ChevronDirection.Up : ChevronDirection.Down
+              }
               color="#ffffff"
-              height={16}
-              width={16}
+              height={12}
+              width={12}
             />
           </StyledMenuItem>
+          {isCategoryOpen && (
+            <Menu>
+              {SUBMENU_CATEGORIES.map((category) => (
+                <StyledMenuItem
+                  onMouseEnter={() => openShopMenu()}
+                  key={category}
+                  onClick={() => handleCategoryClick(category)}
+                  style={{ fontSize: "16px" }}
+                >
+                  {displayNameForCategory(category)}
+                </StyledMenuItem>
+              ))}
+            </Menu>
+          )}
           <StyledMenuItem onClick={() => handleAboutClick()}>
             {" "}
             ABOUT
@@ -209,6 +253,15 @@ const StyledMenu = styled.div`
   background-color: #000000;
   justify-content: start;
   gap: 1px;
+`;
+
+const Menu = styled.div`
+  flex-direction: column;
+  width: 300px;
+  height: 400px;
+  display: flex;
+  justify-content: start;
+  padding: 0px 30px 0 30px;
 `;
 
 const NavLink = styled.div`

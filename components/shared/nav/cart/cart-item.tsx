@@ -61,8 +61,8 @@ export function CartItem(props: CartItem): JSX.Element {
           <RightSide>
             <Price>{formatPrice(costOfCheckoutItem(item))}</Price>
             <CloseButton
-              height={20}
-              width={20}
+              height={30}
+              width={30}
               onClick={() => handleRemoveItemFromCheckout(item)}
               color="#fff"
             />
@@ -84,6 +84,12 @@ export function CartItem(props: CartItem): JSX.Element {
           </CheckoutItem>
           <CheckoutItem>
             <Price>{formatPrice(costOfCheckoutItem(item))}</Price>
+            <CloseButton
+              height={30}
+              width={30}
+              onClick={() => handleRemoveItemFromCheckout(item)}
+              color="#fff"
+            />
           </CheckoutItem>
         </Center>
       </MobileOnly>
@@ -123,7 +129,9 @@ const RightSide = styled.div`
   display: flex;
   float: right;
   color: white
-  align-items: right;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
 
 const ItemName = styled.div`
@@ -140,9 +148,8 @@ const Price = styled.div`
   width: 77px;
   color: white;
   text-align: center;
-  @media ${mediaQueries.tablet} {
-    margin-left 100px;
-  }
+  justify-content: center;
+  align-items: center;
 `;
 
 const CheckoutItemImageContainer = styled.div`

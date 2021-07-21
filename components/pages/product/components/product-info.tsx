@@ -206,7 +206,7 @@ const Price = styled.div`
 `;
 
 const Name = styled.div`
-  font-family: "inter";
+  font-family: "visuelt";
   font-size: 33px;
   font-weight: 600;
   color: #000000;
@@ -299,7 +299,7 @@ const QuantitySelect = styled.div`
 const AddToCartButton = styled(Button)`
   width: 100%;
   font-size: 18px;
-  font-family: "inter";
+  font-family: "visuelt";
   border: 2px solid #000;
   margin: 0.5em auto 0.5em 0em;
   background-color: black;

@@ -74,13 +74,13 @@ const ProductImage = styled.img`
 
 const DisplayPrice = styled.div`
   font-size: 16px;
-  font-family: "inter";
+  font-family: "visuelt";
   margin-bottom: 8px;
 `;
 
 const ProductName = styled.div`
   font-size: 17px;
-  font-family: "inter";
+  font-family: "visuelt";
   font-weight: 600;
   color: #000;
   margin-top: 17px;

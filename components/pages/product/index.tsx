@@ -15,10 +15,8 @@ import Recommendation from "./components/recommendation";
 
 const ProductSectionCategories = [
   Category.Flower,
-  Category.Vaporizers,
   Category.Concentrates,
   Category.Edibles,
-  Category.Tinctures,
   Category.Topicals,
   Category.Accessories,
   Category.PreRolls,

@@ -26,10 +26,8 @@ import Input from "@material-ui/core/Input";
 const NAV_HEIGHT = "71px";
 const SUBMENU_CATEGORIES = [
   Category.Flower,
-  Category.Vaporizers,
   Category.Concentrates,
   Category.Edibles,
-  Category.Tinctures,
   Category.Topicals,
   Category.Accessories,
   Category.PreRolls,

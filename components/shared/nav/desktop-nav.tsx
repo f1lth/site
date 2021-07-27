@@ -8,7 +8,10 @@ import { Category } from "api/queries/checkout.graphql";
 import { NavProps } from "./index";
 import { Cart } from "./cart/index";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
-import { CloseButton } from "../svg/close-button";
+import { CloseButton} from "../svg/close-button";
+import { Facebook} from "../svg/facebook";
+import { Twitter} from "../svg/twitter";
+import { Ig, Instagram} from "../svg/instagram";
 import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
 import { SearchIcon } from "components/shared/svg/search-icon";
 import { CartIcon } from "components/shared/svg/cart-icon";
@@ -21,13 +24,13 @@ import styled from "styled-components";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 
+
+
 // CATEGORY ENUM
 const SUBMENU_CATEGORIES = [
   Category.Flower,
-  Category.Vaporizers,
   Category.Concentrates,
   Category.Edibles,
-  Category.Tinctures,
   Category.Topicals,
   Category.Accessories,
   Category.PreRolls,
@@ -199,13 +202,19 @@ export function DesktopNav(props: NavProps): JSX.Element {
           onBackdropClick={closeShopMenu}
         >
           <StyledMenu>
-            <SubmenuItem>
-              <MobileMenuIcon isDark={true} onClick={closeShopMenu} />
+            <SubmenuItem style={{marginLeft: '-15px'}}>
+              <CloseButton color={'#fff'} height={84} width={84} onClick={closeShopMenu} />
             </SubmenuItem>
             <UtilSection>
-              <SocialItem>social 1</SocialItem>
-              <SocialItem>social 2</SocialItem>
-              <SocialItem>social 3</SocialItem>
+              <SocialItem>
+                <Twitter color={'#fff'} />
+              </SocialItem>
+              <SocialItem>
+                <Instagram color={'#fff'} />
+              </SocialItem>
+              <SocialItem>
+                <Facebook color={'#fff'} />
+              </SocialItem>
             </UtilSection>
             <SubmenuSection>
               <SubmenuItemBold
@@ -363,8 +372,13 @@ const SearchHeader = styled.div`
 
 const UtilSection = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   bottom: 10px;
   outline: none;
+  height: 179px;
+  justify-content: space-between;
 `;
 
 const SubmenuSection = styled.div`
@@ -423,11 +437,9 @@ const SubmenuItem = styled.div`
   }
 `;
 const SocialItem = styled.div`
-  margin-bottom: 75px;
-  // for items that aren't actually links yet
-  font-size: 15px;
+  margin-bottom: 20px;
+  display: flex;
   color: white;
-  text-decoration: none;
 `;
 
 const NavLink = styled.div`

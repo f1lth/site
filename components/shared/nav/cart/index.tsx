@@ -146,15 +146,17 @@ export function Cart(props: CartProps): JSX.Element {
           <div
             style={{
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "start",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              textAlign: "right",
+              alignItems: "right",
               gap: "15px",
             }}
           >
-            <Label> Subtotal ‎‎‎‎</Label>
-            <SmallLabel>{totalCostDisplayValue(checkoutItems)} </SmallLabel>
+            <Label> Subtotal ‎‎‎‎<Price>{totalCostDisplayValue(checkoutItems)} </Price> </Label>
+            <SmallLabel>Excluding taxes & shipping</SmallLabel>
           </div>
-          <SmallLabel>Excluding taxes & shipping</SmallLabel>
+         
           <StyledButton href={checkout?.redirectUrl}>Checkout</StyledButton>
         </ButtonContainer>
       </DesktopOnly>
@@ -206,6 +208,9 @@ const Divider = styled.div`
 
 const Container = styled.div`
   width: 100vw;
+  padding-right: 100px;
+  padding-left: 100px;
+  padding-top: 50px;
   background-color: black;
 `;
 
@@ -258,7 +263,16 @@ const Label = styled.div`
 
 const SmallLabel = styled.div`
   font-family: "inter";
-  font-size: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  display: flex;
+  justify-content: flex-end;
+  color: white;
+`;
+
+const Price = styled.div`
+  font-family: "inter";
+  font-size: 21px;
   font-weight: 400;
   display: flex;
   color: white;
@@ -284,10 +298,12 @@ const EmptyCart = styled.div`
 `;
 
 const ButtonContainer = styled.div`
+  float: right;
   margin: 0 25px;
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   color: white;
   @media ${mediaQueries.tablet} {
     padding: 0px 12px 0px 12px;
@@ -295,19 +311,19 @@ const ButtonContainer = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  border-radius: 2px !important;
-  text-transform: none !important;
-  background-color: #fff !important;
+  text-transform: none;
+  background-color: #fff;
   width: 20vw;
+  border-radius: 0px;
   height: 58px;
   margin-top: 20px;
-  box-sizing: border-box;
   display: flex;
-  & .MuiButton-label {
-    color: #ffffff !important;
-  }
+
   &:hover {
-    background-color: #246e84 !important;
+    color: red;
+    background-color: rgba(255,255,255,0.5);
+    color: #ffffff;
+
   }
   @media ${mediaQueries.tablet} {
     width: 100%;

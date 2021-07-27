@@ -14,10 +14,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 export const SHOP_SECTION_CATEGORIES = [
   Category.Flower,
-  Category.Vaporizers,
   Category.Concentrates,
   Category.Edibles,
-  Category.Tinctures,
   Category.Topicals,
 ];
 
@@ -65,22 +63,7 @@ export function ShopSection(): JSX.Element {
         </CategoryListItem>
       </DesktopOnly>
       <MobileOnly>
-        <MobileCategorySelect
-          value={selectedCategory}
-          onChange={(e) => {
-            setSelectedCategory(e.target.value as CategorySelectOption);
-          }}
-          variant="outlined"
-        >
-          <MenuItem key="all-top-products" value={ALL_TOP_PRODUCTS}>
-            All top products
-          </MenuItem>
-          {SHOP_SECTION_CATEGORIES.map((category) => (
-            <MenuItem key={category} value={category}>
-              {displayNameForCategory(category)}
-            </MenuItem>
-          ))}
-        </MobileCategorySelect>
+        <Subheader> Shop Best Sellers </Subheader>
       </MobileOnly>
       <Grid>
         {data?.menu?.products.map((product) => (
@@ -136,7 +119,7 @@ const FeaturedContainer = styled.div`
   @media ${mediaQueries.tablet} {
     height: 800px;
     margin-top: 10px;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
   }
@@ -251,6 +234,8 @@ const Circle = styled.div`
   border-radius: 100%;
   justify-content: center;
   align-items: center;
+  display: flex;
+  justify-content: center;
   text-align: center;
   display: "flex";
   height: 90px;
@@ -259,11 +244,9 @@ const Circle = styled.div`
   color: #000;
   fill: "none";
   border: 1px solid #000000;
-  padding-top: 19px;
   margin-bottom: 36px;
 
   @media ${mediaQueries.tablet} {
-    padding-top: 14px;
     height: 70px;
     width: 70px;
     font-size: 17px;

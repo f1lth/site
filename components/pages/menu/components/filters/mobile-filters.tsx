@@ -12,10 +12,8 @@ interface MobileFiltersProps {
 const ALL_PRODUCTS = "All products";
 const CATEGORIES = [
   Category.Flower,
-  Category.Vaporizers,
   Category.Concentrates,
   Category.Edibles,
-  Category.Tinctures,
   Category.Topicals,
   Category.Accessories,
   Category.PreRolls,

@@ -20,10 +20,8 @@ import styled from "styled-components";
 
 const ProductSectionCategories = [
   Category.Flower,
-  Category.Vaporizers,
   Category.Concentrates,
   Category.Edibles,
-  Category.Tinctures,
   Category.Topicals,
   Category.Accessories,
   Category.PreRolls,
@@ -31,7 +29,6 @@ const ProductSectionCategories = [
 
 const ProductSectionEffectsNames = [
   Effects.Calm,
-  Effects.ClearMind,
   Effects.Creative,
   Effects.Energetic,
   Effects.Focused,

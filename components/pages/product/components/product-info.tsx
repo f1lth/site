@@ -131,15 +131,16 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
           )}
         </AddToCartButton>
       </MuiThemeProvider>
-      <BuyButton
-        variant="outlined"
-        size="medium"
-        //TODO handle checkout instantly
-        onClick={handleBuyClick}
-      >
-        Buy now
-      </BuyButton>
+        <BuyButton
+          variant="outlined"
+          size="medium"
+          //TODO handle checkout instantly
+          onClick={handleBuyClick}
+        >
+          Buy now
+        </BuyButton>
       <MuiThemeProvider theme={theme}>
+      <Container>
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -186,6 +187,7 @@ function ProductInfo(props: ProductInfoProps): JSX.Element {
             </Typography>
           </AccordionDetails>
         </Accordion>
+      </Container>
       </MuiThemeProvider>
     </Container>
   );
@@ -195,6 +197,7 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  padding-right: 5px;
 `;
 
 const Price = styled.div`
@@ -232,10 +235,10 @@ const CircleContainer = styled.div`
   flex-direction: row;
   height: auto;
   width: 100%;
-  justify-content: space-between;
-  padding: 0px 45px 0px 45px;
+  justify-content: start;
+  gap: 60px;
   @media ${mediaQueries.tablet} {
-    padding: 0px 20px 0px 20px;
+    gap: 30px;
   }
 `;
 
@@ -306,7 +309,7 @@ const AddToCartButton = styled(Button)`
   color: white;
   &:hover {
     background-color: black;
-    color: black;
+    color: white;
   }
 `;
 
@@ -340,8 +343,8 @@ const theme = createMuiTheme({
       label: {
         color: "white",
         "&:hover": {
-          backgroundColor: "white",
-          color: "black",
+          backgroundColor: "rgba(0,0,0,0.196)",
+          color: "white",
         },
       },
     },
